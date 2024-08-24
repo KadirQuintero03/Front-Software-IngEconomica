@@ -1,0 +1,10 @@
+La carpeta Hooks contiene custom hooks que nos permiten separar la lógica de los
+componentes de React.
+**Por Feature o Utilidad**
+Ejemplo: useProducts.tsx
+Un custom hook para manejar la lógica relacionada con productos.
+
+
+**Generales**
+Custom hooks que no dependen de un contexto específico y pueden ser
+reutilizados en diferentes partes de la aplicación.

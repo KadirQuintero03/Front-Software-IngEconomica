@@ -1,0 +1,13 @@
+La carpeta Stores contiene los estados globales de la aplicación utilizando Zustand.
+
+**Estados Globales**
+Los archivos aquí siguen el prefijo use y describen el estado que
+manejan.
+
+Ejemplo: useClients.ts
+Maneja los estados globales relacionados con los clientes.
+
+
+**Interfaces**
+Esta subcarpeta contiene las interfaces para cada estado global,
+asegurando una tipificación clara y consistente.
