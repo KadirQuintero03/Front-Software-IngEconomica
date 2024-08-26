@@ -21,3 +21,6 @@ plugins: ["prettier"],
 rules: {"prettier/prettier": ["error",{endOfLine: "auto",},],},};
 
 por ultimo, instale las extensiones ESLint y Prettier - Code formatter ✅
+
+** Dependencias para el enrutado **
+-> npx expo install expo-router react-native-safe-area-context react-native-screen expo-linking expo-constants expo-status-bar
