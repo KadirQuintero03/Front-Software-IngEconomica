@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
+import { Link } from "expo-router";
 
 import bg1 from "../../assets/bg1.png";
 import bg2 from "../../assets/bg2.png";
@@ -22,9 +23,11 @@ export default function HomePage() {
           <Text style={styles.txtCrearCuenta}>Crear cuenta</Text>
         </Pressable>
 
-        <Pressable style={styles.btnIniciarSesion}>
-          <Text style={styles.txtIniciarSesion}>Iniciar sesion</Text>
-        </Pressable>
+        <Link asChild href="/LoginPage">
+          <Pressable style={styles.btnIniciarSesion}>
+            <Text style={styles.txtIniciarSesion}>Iniciar sesion</Text>
+          </Pressable>
+        </Link>
       </View>
     </View>
   );
