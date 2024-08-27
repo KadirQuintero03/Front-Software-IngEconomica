@@ -1,4 +1,4 @@
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import { View } from "react-native";
 
 export default function Layout() {
@@ -11,7 +11,13 @@ export default function Layout() {
         paddingHorizontal: 12,
       }}
     >
-      <Slot />
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen name="about"></Stack.Screen>
+      </Stack>
     </View>
   );
 }

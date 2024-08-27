@@ -1,12 +1,20 @@
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 import bg1 from "../../assets/bg1.png";
 import bg2 from "../../assets/bg2.png";
 
 export default function HomePage() {
+  const router = useRouter();
   return (
-    <View>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 12,
+      }}
+    >
       <Image style={styles.bg1} source={bg1}></Image>
       <Image style={styles.bg2} source={bg2}></Image>
 
@@ -19,7 +27,10 @@ export default function HomePage() {
           </Text>
         </Text>
 
-        <Pressable style={styles.btnCrearCuenta}>
+        <Pressable
+          onPress={() => router.navigate("./about")}
+          style={styles.btnCrearCuenta}
+        >
           <Text style={styles.txtCrearCuenta}>Crear cuenta</Text>
         </Pressable>
 
