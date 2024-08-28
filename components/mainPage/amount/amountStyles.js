@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { pixels } from "../../../stores/usePhoneProperties";
 
 export const styles = StyleSheet.create({
   svg: {
@@ -7,17 +8,17 @@ export const styles = StyleSheet.create({
   container: {
     position: "relative",
     width: "100%",
-    height: 250,
+    height: pixels(245),
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
   },
   title: {
-    fontSize: 23,
+    fontSize: pixels(23),
     color: "white",
   },
   amount: {
-    fontSize: 34,
+    fontSize: pixels(34),
     color: "white",
     fontWeight: "800",
   },
@@ -32,7 +33,7 @@ export const styles = StyleSheet.create({
   accountTitle: {
     textAlign: "center",
     color: "white",
-    fontSize: 12,
+    fontSize: pixels(12),
   },
   accountIcon: {
     marginTop: 4,
