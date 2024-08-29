@@ -7,10 +7,17 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "movil": "expo start --tunnel",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-native-fontawesome": "^0.3.2",
     "@expo/vector-icons": "^14.0.2",
+    "@react-navigation/stack": "^6.4.1",
     "expo": "~51.0.28",
     "expo-constants": "~16.0.2",
     "expo-linking": "~6.3.1",
@@ -19,7 +26,8 @@
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-safe-area-context": "4.10.5",
-    "react-native-screen": "^1.0.1"
+    "react-native-screen": "^1.0.1",
+    "react-native-svg": "^15.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
