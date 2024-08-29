@@ -7,8 +7,6 @@ import {
   Pressable,
 } from "react-native";
 
-import { PhoneIcon } from "../../components/icons/Icons";
-
 import logocarter from "../../assets/logocarter.png";
 
 export default function LoginPage() {
