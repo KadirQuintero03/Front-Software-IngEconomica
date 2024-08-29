@@ -1,29 +1,11 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TextInput,
-  Pressable,
-} from "react-native";
+import { View, Text, Image, TextInput, Pressable } from "react-native";
+import { styles } from "../public/loginPageStyle";
 
 import logocarter from "../../assets/logocarter.png";
 
 export default function LoginPage() {
   return (
-    <View style={styles.contain}>
-      {/* <Text
-        style={{
-          color: "#022a9b",
-          fontWeight: "900",
-          fontSize: 40,
-          marginBottom: 60,
-          marginTop: -20,
-        }}
-      >
-        Inicio de Sesion
-      </Text> */}
-
+    <View style={styles.container}>
       <Image style={styles.logo} source={logocarter}></Image>
 
       <TextInput
@@ -34,8 +16,8 @@ export default function LoginPage() {
 
       <TextInput placeholder="Contraseña" style={styles.input}></TextInput>
 
-      <Pressable style={styles.btnIniciarSesion}>
-        <Text style={styles.txtIniciarSesion}>Iniciar sesion</Text>
+      <Pressable style={styles.btnLogin}>
+        <Text style={styles.txtLogin}>Iniciar sesion</Text>
       </Pressable>
 
       <Text style={styles.txtMsg}>¿Olvidaste tu contraseña?</Text>
@@ -46,49 +28,3 @@ export default function LoginPage() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  contain: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  logo: {
-    width: 250,
-    height: 250,
-    marginBottom: 70,
-  },
-
-  txtMsg: {
-    fontSize: 20,
-    textAlign: "center",
-  },
-
-  input: {
-    height: 40,
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    width: 350,
-    color: "#000",
-    fontSize: 20,
-  },
-
-  txtIniciarSesion: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  btnIniciarSesion: {
-    marginTop: 65,
-    marginBottom: 65,
-    backgroundColor: "blue",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 100,
-    padding: 12,
-    width: 350,
-  },
-});
