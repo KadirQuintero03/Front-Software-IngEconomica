@@ -1,17 +1,11 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TextInput,
-  Pressable,
-} from "react-native";
+import { View, Text, Image, TextInput, Pressable } from "react-native";
 
 import logocarter from "../../assets/logocarter.png";
+import { styles } from "../public/createAccountStyle";
 
 export default function LoginPage() {
   return (
-    <View style={styles.contain}>
+    <View style={styles.container}>
       <Image style={styles.logo} source={logocarter}></Image>
 
       <TextInput
@@ -37,8 +31,8 @@ export default function LoginPage() {
 
       <TextInput placeholder="Contraseña" style={styles.input}></TextInput>
 
-      <Pressable style={styles.btnCrearCuenta}>
-        <Text style={styles.txtCrearCuenta}>Crear Cuenta</Text>
+      <Pressable style={styles.btnCreateAccount}>
+        <Text style={styles.txtCreateAccount}>Crear Cuenta</Text>
       </Pressable>
 
       <Text style={styles.txtMsg}>¿Ya tienes una cuenta?</Text>
@@ -49,49 +43,3 @@ export default function LoginPage() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  contain: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  logo: {
-    width: 250,
-    height: 250,
-    marginBottom: 50,
-  },
-
-  txtMsg: {
-    fontSize: 20,
-    textAlign: "center",
-  },
-
-  input: {
-    height: 40,
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    width: 350,
-    color: "#000",
-    fontSize: 20,
-  },
-
-  txtCrearCuenta: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  btnCrearCuenta: {
-    marginTop: 50,
-    marginBottom: 50,
-    backgroundColor: "blue",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 100,
-    padding: 12,
-    width: 350,
-  },
-});
