@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { pixels } from "../../stores/usePhoneProperties";
 
 export const styles = StyleSheet.create({
   container: {
@@ -14,7 +15,7 @@ export const styles = StyleSheet.create({
   },
 
   txtMsg: {
-    fontSize: 20,
+    fontSize: pixels(20),
     textAlign: "center",
   },
 
