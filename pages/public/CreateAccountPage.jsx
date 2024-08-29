@@ -1,5 +1,5 @@
 import { View, Text, Image, TextInput, Pressable } from "react-native";
-
+import { PhoneIcon, LockIcon, UserIcon } from "../../components/icons/Icons";
 import logocarter from "../../assets/logocarter.png";
 import { styles } from "../public/createAccountStyle";
 
@@ -8,28 +8,46 @@ export default function LoginPage() {
     <View style={styles.container}>
       <Image style={styles.logo} source={logocarter}></Image>
 
-      <TextInput
-        placeholder="Número de Identificación"
-        style={styles.input}
-      ></TextInput>
+      <View style={styles.inputContainer}>
+        <UserIcon style={styles.icon} />
+        <TextInput
+          placeholder="Número de Identificación"
+          style={styles.input}
+        ></TextInput>
+      </View>
 
-      <TextInput placeholder="Nombre" style={styles.input}></TextInput>
+      <View style={styles.inputContainer}>
+        <UserIcon style={styles.icon} />
+        <TextInput placeholder="Nombre" style={styles.input}></TextInput>
+      </View>
 
-      <TextInput placeholder="Apellido" style={styles.input}></TextInput>
+      <View style={styles.inputContainer}>
+        <UserIcon style={styles.icon} />
+        <TextInput placeholder="Apellido" style={styles.input}></TextInput>
+      </View>
 
-      <TextInput
-        placeholder="Correo Electrónico"
-        keyboardType="email-address"
-        style={styles.input}
-      ></TextInput>
+      <View style={styles.inputContainer}>
+        <UserIcon style={styles.icon} />
+        <TextInput
+          placeholder="Correo Electrónico"
+          keyboardType="email-address"
+          style={styles.input}
+        ></TextInput>
+      </View>
 
-      <TextInput
-        placeholder="Número de Teléfono"
-        keyboardType="numeric"
-        style={styles.input}
-      />
+      <View style={styles.inputContainer}>
+        <PhoneIcon style={styles.icon} />
+        <TextInput
+          placeholder="Número de Teléfono"
+          keyboardType="numeric"
+          style={styles.input}
+        />
+      </View>
 
-      <TextInput placeholder="Contraseña" style={styles.input}></TextInput>
+      <View style={styles.inputContainer}>
+        <LockIcon style={styles.icon} />
+        <TextInput placeholder="Contraseña" style={styles.input}></TextInput>
+      </View>
 
       <Pressable style={styles.btnCreateAccount}>
         <Text style={styles.txtCreateAccount}>Crear Cuenta</Text>
