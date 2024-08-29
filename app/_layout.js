@@ -13,8 +13,14 @@ export default function Layout() {
           name="index"
           options={{ headerShown: false }}
         ></Stack.Screen>
-        <Stack.Screen name="_createaccount"></Stack.Screen>
-        <Stack.Screen name="_loginpage"></Stack.Screen>
+        <Stack.Screen
+          name="_createaccount"
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="_loginpage"
+          options={{ headerShown: false }}
+        ></Stack.Screen>
       </Stack>
     </View>
   );
