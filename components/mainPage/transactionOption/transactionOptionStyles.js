@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 25,
     paddingLeft: 20,
+    zIndex: -1,
   },
   title: {
     fontSize: pixels(18),
