@@ -12,10 +12,19 @@ export default function InteresSimple() {
   let [tiempoDia, setTiempoDia] = useState(0);
   let [tiempoMes, setTiempoMes] = useState(0);
   let [tiempoAño, setTiempoAño] = useState(0);
-  let [Tiempo, setTiempo] = useState("1");
+  let [Tiempo, setTiempo] = useState("0");
   const [UnidadDeTiempo, setUnidadDeTiempo] = useState("1");
-  
 
+  let UnidadesDeTiempo = {
+    dias: 365,
+    meses: 12,
+    semestral: 2,
+    trimestral: 4,
+    cuatrimestral: 3,
+    bimestral: 6,
+    anual: 1,
+  };
+  
   const dataTiempo = [
     { key: "1", value: "anual", time: 1 },
     { key: "2", value: "semestral", time: 2 },
@@ -27,127 +36,75 @@ export default function InteresSimple() {
   ];
 
   const Calcular = () => {
-    console.log(Tiempo, UnidadDeTiempo);
     let TiempoMod = conversionTiempo(Tiempo, UnidadDeTiempo);
-    // CalcularInteres(CapitalInicial, TasaDeInteres, Tiempo, MontoFuturo);
-    // CalcularTiempo(MontoFuturo, CapitalInicial, TasaDeInteres, UnidadDeTiempo);
-    // CalcularCapitalInicial(TasaDeInteres, TiempoMod, Interes, MontoFuturo);
-    // CalcularTasaDeInteres(MontoFuturo, CapitalInicial, TiempoMod, Interes);
-  };
 
-  //Check✅
-  function CalcularInteres(CapitalInicial, TasaDeInteres, Tiempo, MontoFuturo) {
-    if (CapitalInicial !== 0 && MontoFuturo !== 0) {
+    //Calcular Interes✅
+    if (CapitalInicial !== 0 && MontoFuturo !== 0 && TiempoMod === 0 && TasaDeInteres === 0) {
       Interes = MontoFuturo - CapitalInicial;
       return console.log("El interes simple es de: ", Interes);
     }
 
-    if (TasaDeInteres !== 0 && CapitalInicial !== 0 && Tiempo !== 0) {
-      Interes = CapitalInicial * TasaDeInteres * Tiempo;
+    if (TasaDeInteres !== 0 && CapitalInicial !== 0 && TiempoMod !== 0 && Interes === 0) {
+      Interes = CapitalInicial * TasaDeInteres * TiempoMod;
       MontoFuturo = parseInt(CapitalInicial) + parseInt(Interes);
       return console.log(
-        "El interes simple es de: ",
+        "El interes simple es dee: ",
         Interes,
         " Y el valor futuro es de: ",
         MontoFuturo
       );
     }
-  }
 
-  //Verificados pero con falta de revision✅
-  function CalcularCapitalInicial(TasaDeInteres, TiempoMod, Interes) {
-    //Probar con unidad de tiempo funcionando.
-    if (
-      Interes !== 0 &&
-      TiempoMod !== 0 &&
-      TasaDeInteres !== 0 &&
-      MontoFuturo === 0
-    ) {
+    //Calcular capital inicial✅
+    if (Interes !== 0 && TiempoMod !== 0 && TasaDeInteres !== 0 && MontoFuturo === 0) {
       CapitalInicial = Interes / (TasaDeInteres * TiempoMod);
       return console.log("El capital inicial es de: ", CapitalInicial);
     }
 
-    //Probar con unidad de tiempo funcionando.
-    if (
-      MontoFuturo !== 0 &&
-      TiempoMod !== 0 &&
-      TasaDeInteres !== 0 &&
-      Interes === 0
-    ) {
+    if (MontoFuturo !== 0 && TiempoMod !== 0 && TasaDeInteres !== 0 && Interes === 0) {
       CapitalInicial = MontoFuturo / (1 + TiempoMod * TasaDeInteres);
       return console.log("El capital inicial es dee: ", CapitalInicial);
     }
 
-    if (Interes !== 0 && MontoFuturo !== 0 && TasaDeInteres === 0) {
+    if (Interes !== 0 && MontoFuturo !== 0 && TasaDeInteres === 0 && CapitalInicial === 0) {
       CapitalInicial = MontoFuturo - Interes;
       return console.log("El capital inicial es deee: ", CapitalInicial);
     }
-  }
 
-  function CalcularTasaDeInteres(
-    MontoFuturo,
-    CapitalInicial,
-    TiempoMod,
-    Interes
-  ) {
-    //Probar con unidad de tiempo funcionando.
-    if (
-      CapitalInicial !== 0 &&
-      MontoFuturo !== 0 &&
-      TiempoMod !== 0 &&
-      Interes === 0
-    ) {
+    //Calcular tasa de interes
+    if (CapitalInicial !== 0 && MontoFuturo !== 0 && TiempoMod !== 0 && Interes === 0) {
       Interes = MontoFuturo - CapitalInicial;
-      console.log(Interes, CapitalInicial, TiempoMod);
       TasaDeInteres = (Interes / (CapitalInicial * TiempoMod)) * 100;
       return console.log("La tasa de interes es de: ", TasaDeInteres, "%");
     }
 
-    //Probar con unidad de tiempo funcionando.
-    if (
-      Interes !== 0 &&
-      TiempoMod !== 0 &&
-      CapitalInicial !== 0 &&
-      MontoFuturo === 0
-    ) {
+    if (Interes !== 0 && TiempoMod !== 0 && CapitalInicial !== 0 && MontoFuturo === 0) {
       MontoFuturo = parseInt(CapitalInicial) + parseInt(Interes);
       TasaDeInteres = ((MontoFuturo / CapitalInicial - 1) / TiempoMod) * 100;
       return console.log("La tasa de interes es dee: ", TasaDeInteres, "%");
     }
-  }
 
-  function CalcularTiempo(
-    MontoFuturo,
-    CapitalInicial,
-    TasaDeInteres,
-    UnidadDeTiempo
-  ) {
+    //Calcular tiempo
     if (MontoFuturo !== 0 && CapitalInicial !== 0 && TasaDeInteres !== 0) {
       Interes = MontoFuturo - CapitalInicial;
       Tiempo = Interes / (CapitalInicial * TasaDeInteres);
       return console.log("El tiempo es de: ", Tiempo);
     }
 
-    //Por probar❌
-    if (
-      CapitalInicial !== 0 &&
-      TasaDeInteres !== 0 &&
-      Interes !== 0 &&
-      UnidadDeTiempo !== "" &&
-      MontoFuturo === 0
-    ) {
+    //Revisar
+    if (CapitalInicial !== 0 && Interes !== 0 && TasaDeInteres !== 0 && UnidadDeTiempo === "" && MontoFuturo === 0) {
+      MontoFuturo = parseInt(CapitalInicial) + parseInt(Interes);
+      Tiempo = (MontoFuturo / CapitalInicial - 1) / TasaDeInteres;
+      return console.log("El tiempo es deee: ", Tiempo);
+    }
+
+    if (CapitalInicial !== 0 && TasaDeInteres !== 0 && Interes !== 0 && UnidadDeTiempo !== "" && MontoFuturo === 0) {
       Tiempo =
         (UnidadesDeTiempo[UnidadDeTiempo] * Interes) /
         (CapitalInicial * TasaDeInteres);
       return console.log("El tiempo es dee: ", Tiempo);
     }
-
-    if (CapitalInicial !== 0 && Interes !== 0 && TasaDeInteres !== 0) {
-      MontoFuturo = parseInt(CapitalInicial) + parseInt(Interes);
-      Tiempo = (MontoFuturo / CapitalInicial - 1) / TasaDeInteres;
-      return console.log("El tiempo es deee: ", Tiempo);
-    }
-  }
+  };
 
   function conversionTiempo(Tiempo, UnidadDeTiempo) {
     if (UnidadDeTiempo === "dias") {
@@ -214,7 +171,7 @@ export default function InteresSimple() {
           />
           <Input2
             name="Unidad de tiempo"
-            placeHolder="Enter value"
+            placeHolder="Escoja un valor"
             value={UnidadDeTiempo}
             data={dataTiempo}
             onChangeSelected={getTime}

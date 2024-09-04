@@ -1,12 +1,11 @@
 import { View } from "react-native";
-//import MainPage from "../pages/private/MainPage";
-import HomePage from "../pages/public/HomePage";
-
+// import HomePage from "../pages/public/HomePage";
+import InteresSimple from "../components/calculationsPage/InteresSimple/interesSimple";
 
 export default function Index() {
   return (
     <View>
-      <HomePage />
+      <InteresSimple />
     </View>
   );
 }
