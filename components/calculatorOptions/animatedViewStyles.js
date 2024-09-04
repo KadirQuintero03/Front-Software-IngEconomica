@@ -3,7 +3,7 @@ import { pixels, windowHeight } from "../../stores/usePhoneProperties";
 
 export const styles = StyleSheet.create({
   menu: {
-    paddingVertical: pixels(25),
+    paddingBottom: pixels(25),
     position: "absolute",
     height: windowHeight,
     bottom: 0,

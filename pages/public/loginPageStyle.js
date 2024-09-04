@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
+    margin: pixels(15),
   },
 
   logo: {
@@ -15,17 +16,16 @@ export const styles = StyleSheet.create({
   },
 
   txtMsg: {
-    fontSize: pixels(18),
+    fontSize: pixels(17),
     textAlign: "center",
   },
 
   input: {
-    height: pixels(32),
+    flex: 1,
     borderBottomColor: "gray",
-    borderBottomWidth: pixels(1),
-    marginBottom: pixels(12),
-    paddingLeft: pixels(27),
-    width: pixels(270),
+    borderBottomWidth: pixels(2),
+    paddingHorizontal: pixels(8),
+    paddingVertical: pixels(7),
     color: "#000",
     fontSize: pixels(18),
   },
@@ -44,18 +44,19 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: pixels(100),
     padding: pixels(10),
-    width: pixels(290),
+    width: "100%",
   },
 
   inputContainer: {
+    gap: pixels(12),
+    marginHorizontal: pixels(15),
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: pixels(14),
   },
 
   icon: {
-    position: "absolute",
-    left: 0,
-    bottom: pixels(19),
+    color: "#000000CF",
   },
 });
