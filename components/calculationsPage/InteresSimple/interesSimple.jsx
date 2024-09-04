@@ -5,6 +5,17 @@ import { Input1, Input2 } from "../components/Inputs";
 import React, { useState } from "react";
 
 export default function InteresSimple() {
+  const [CapitalInicial, setCapitalInicial] = useState("");
+  const [TasaDeInteres, setTasaDeInteres] = useState("");
+  const [MontoFuturo, setMontoFuturo] = useState("");
+  const [Interes, setInteres] = useState("");
+  const [TiempoDia, setTiempoDia] = useState("");
+  const [TiempoMes, setTiempoMes] = useState("");
+  const [TiempoAño, setTiempoAño] = useState("");
+  const [Tiempo, setTiempo] = useState("");
+  const [UnidadDeTiempo, setUnidadDeTiempo] = useState("");
+  const [UnidadesDeTiempo, setUnidadesDeTiempo] = useState("");
+
   return (
     <View style={styles.page}>
       <ScrollView style={styles.scrollView}>
