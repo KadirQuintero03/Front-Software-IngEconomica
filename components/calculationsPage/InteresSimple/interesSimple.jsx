@@ -22,7 +22,7 @@ export default function InteresSimple() {
     CapitalInicial,
     TasaDeInteres,
     TiempoMod,
-    MontoFuturo
+    MontoFuturo,
   ) {
     //Calcular interes dado el capital inicial y monto futuro.
     if (CapitalInicial !== 0 && MontoFuturo !== 0) {
