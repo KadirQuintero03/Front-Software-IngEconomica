@@ -38,7 +38,7 @@ export default function InteresSimple() {
         "El interes simple es de: ",
         Interes,
         " Y el valor futuro es de: ",
-        MontoFuturo
+        MontoFuturo,
       );
     }
   }
@@ -104,7 +104,7 @@ export default function InteresSimple() {
     MontoFuturo,
     CapitalInicial,
     TasaDeInteres,
-    UnidadDeTiempo
+    UnidadDeTiempo,
   ) {
     //Calculamos el tiempo dado el capital inicial, monto futuro y tasa de interes.
     if (

@@ -4,7 +4,7 @@ import { pixels } from "../stores/usePhoneProperties";
 
 export default function Index() {
   return (
-    <View style={{ marginTop: pixels(25) }}>
+    <View>
       <HomePage />
     </View>
   );
