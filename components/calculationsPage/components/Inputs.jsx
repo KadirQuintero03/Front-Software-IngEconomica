@@ -29,6 +29,7 @@ export function Input2({
   placeHolder = "",
   selected,
   onChangeSelected,
+  data = [],
 }) {
   // data = [{key: '1', value: 'item1'}]
 
@@ -36,7 +37,7 @@ export function Input2({
     <View style={styles2.container}>
       <Text style={styles2.text}>{name}</Text>
       <SelectList
-        data={[]}
+        data={data}
         setSelected={onChangeSelected}
         placeholder={placeHolder}
         defaultOption={selected}

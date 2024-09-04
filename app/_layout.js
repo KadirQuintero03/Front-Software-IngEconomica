@@ -11,11 +11,7 @@ export default function Layout() {
   const headerColor = useColorPalette(3, 1);
 
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
+    <View style={{ paddingTop: pixels(26), flex: 1 }}>
       <Stack>
         <Stack.Screen
           name="index"
@@ -27,6 +23,10 @@ export default function Layout() {
         ></Stack.Screen>
         <Stack.Screen
           name="_loginpage"
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="_mainPage"
           options={{ headerShown: false }}
         ></Stack.Screen>
         <Stack.Screen
