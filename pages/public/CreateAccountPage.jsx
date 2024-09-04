@@ -104,10 +104,11 @@ export default function LoginPage() {
           ></TextInput>
         </View>
 
-        <Pressable style={styles.btnCreateAccount}>
-          <Text style={styles.txtCreateAccount} onPress={handleCreateAccount}>
-            Crear Cuenta
-          </Text>
+        <Pressable
+          style={styles.btnCreateAccount}
+          onPress={handleCreateAccount}
+        >
+          <Text style={styles.txtCreateAccount}>Crear Cuenta</Text>
         </Pressable>
 
         <Text style={styles.txtMsg}>¿Ya tienes una cuenta?</Text>
