@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
+import { pixels } from "../../../stores/usePhoneProperties";
 
 export const styles = StyleSheet.create({
   box: {
     position: "absolute",
-    bottom: 26,
-    right: 22,
-    padding: 14,
-    borderRadius: 6,
-    backgroundColor: "#FC5975",
+    bottom: pixels(26),
+    right: pixels(22),
+    padding: pixels(14),
+    borderRadius: pixels(6),
   },
   icon: {
     color: "white",

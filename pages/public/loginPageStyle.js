@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { pixels } from "../../stores/usePhoneProperties";
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,41 +9,53 @@ export const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 250,
-    height: 250,
-    marginBottom: 70,
+    width: pixels(200),
+    height: pixels(200),
+    marginBottom: pixels(60),
   },
 
   txtMsg: {
-    fontSize: 20,
+    fontSize: pixels(18),
     textAlign: "center",
   },
 
   input: {
-    height: 40,
+    height: pixels(32),
     borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    width: 350,
+    borderBottomWidth: pixels(1),
+    marginBottom: pixels(12),
+    paddingLeft: pixels(27),
+    width: pixels(270),
     color: "#000",
-    fontSize: 20,
+    fontSize: pixels(18),
   },
 
   txtLogin: {
-    fontSize: 20,
+    fontSize: pixels(16),
     color: "#fff",
     fontWeight: "bold",
   },
 
   btnLogin: {
-    marginTop: 65,
-    marginBottom: 65,
+    marginTop: pixels(58),
+    marginBottom: pixels(60),
     backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 100,
-    padding: 12,
-    width: 350,
+    borderRadius: pixels(100),
+    padding: pixels(10),
+    width: pixels(290),
+  },
+
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: pixels(14),
+  },
+
+  icon: {
+    position: "absolute",
+    left: 0,
+    bottom: pixels(19),
   },
 });

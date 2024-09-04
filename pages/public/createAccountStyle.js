@@ -9,41 +9,53 @@ export const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 250,
-    height: 250,
-    marginBottom: 50,
+    width: pixels(180),
+    height: pixels(180),
+    marginBottom: pixels(40),
   },
 
   txtMsg: {
-    fontSize: pixels(20),
+    fontSize: pixels(18),
     textAlign: "center",
   },
 
   input: {
-    height: 40,
+    height: pixels(32),
     borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    width: 350,
+    borderBottomWidth: pixels(1),
+    marginBottom: pixels(12),
+    paddingLeft: pixels(27),
+    width: pixels(270),
     color: "#000",
-    fontSize: 20,
+    fontSize: pixels(16),
   },
 
   txtCreateAccount: {
-    fontSize: 20,
+    fontSize: pixels(16),
     color: "#fff",
     fontWeight: "bold",
   },
 
   btnCreateAccount: {
-    marginTop: 50,
-    marginBottom: 50,
+    marginTop: pixels(32),
+    marginBottom: pixels(32),
     backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 100,
-    padding: 12,
-    width: 350,
+    borderRadius: pixels(100),
+    padding: pixels(12),
+    width: pixels(290),
+  },
+
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: pixels(6),
+  },
+
+  icon: {
+    position: "absolute",
+    left: 0,
+    bottom: pixels(19),
   },
 });

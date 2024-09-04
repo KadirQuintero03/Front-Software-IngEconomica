@@ -1,20 +1,30 @@
 import { View, Text, Image, TextInput, Pressable } from "react-native";
 import { styles } from "../public/loginPageStyle";
-
 import logocarter from "../../assets/logocarter.png";
+import { PhoneIcon, LockIcon } from "../../components/icons/Icons";
 
 export default function LoginPage() {
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={logocarter}></Image>
 
-      <TextInput
-        placeholder="Número de Teléfono"
-        keyboardType="numeric"
-        style={styles.input}
-      ></TextInput>
+      <View style={styles.inputContainer}>
+        <PhoneIcon style={styles.icon} />
+        <TextInput
+          placeholder="Número de Teléfono"
+          keyboardType="numeric"
+          style={styles.input}
+        />
+      </View>
 
-      <TextInput placeholder="Contraseña" style={styles.input}></TextInput>
+      <View style={styles.inputContainer}>
+        <LockIcon style={styles.icon} />
+        <TextInput
+          placeholder="Contraseña"
+          secureTextEntry
+          style={styles.input}
+        />
+      </View>
 
       <Pressable style={styles.btnLogin}>
         <Text style={styles.txtLogin}>Iniciar sesion</Text>

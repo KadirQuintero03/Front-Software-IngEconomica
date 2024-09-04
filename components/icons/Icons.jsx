@@ -9,17 +9,17 @@ import { faGripVertical } from "@fortawesome/free-solid-svg-icons/faGripVertical
 import { pixels } from "../../stores/usePhoneProperties";
 
 //Icono de telefono
-export const PhoneIcon = ({ size = pixels(24), style = {} }) => (
+export const PhoneIcon = ({ size = pixels(18), style = {} }) => (
   <FontAwesomeIcon icon={faPhone} size={size} style={style} />
 );
 
 //Icono de usuario
-export const UserIcon = ({ size = pixels(24), style = {} }) => (
+export const UserIcon = ({ size = pixels(18), style = {} }) => (
   <FontAwesomeIcon icon={faUser} size={size} style={style} />
 );
 
 //Icono de candado
-export const LockIcon = ({ size = pixels(24), style = {} }) => (
+export const LockIcon = ({ size = pixels(18), style = {} }) => (
   <FontAwesomeIcon icon={faLock} size={size} style={style} />
 );
 

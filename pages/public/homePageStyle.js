@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
+import { pixels } from "../../stores/usePhoneProperties";
 
 export const styles = StyleSheet.create({
   container: {
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: pixels(18),
   },
 
   containerimg: {
@@ -15,52 +16,52 @@ export const styles = StyleSheet.create({
   },
 
   txtSlogan: {
-    fontSize: 24,
+    fontSize: pixels(18),
     textAlign: "center",
   },
 
   txtCreateAccount: {
-    fontSize: 20,
+    fontSize: pixels(16),
     color: "#fff",
     fontWeight: "bold",
   },
 
   btnCreateAccount: {
-    marginTop: 55,
+    marginTop: pixels(50),
     backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 100,
-    padding: 12,
+    borderRadius: pixels(100),
+    padding: pixels(12),
   },
 
   txtLogin: {
-    fontSize: 20,
+    fontSize: pixels(16),
     color: "#022a9b",
     fontWeight: "bold",
   },
 
   btnLogin: {
     backgroundColor: "#fff",
-    borderWidth: 3,
+    borderWidth: pixels(2),
     borderStyle: "solid",
     borderColor: "#022a9b",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 100,
-    padding: 12,
-    marginTop: 16,
+    borderRadius: pixels(100),
+    padding: pixels(10),
+    marginTop: pixels(16),
   },
 
   bg1: {
-    width: 360,
-    height: 360,
+    width: pixels(300),
+    height: pixels(300),
     zIndex: 10,
   },
 
   bg2: {
     width: "96%",
-    height: 360,
+    height: pixels(320),
     resizeMode: "contain",
     position: "absolute",
     top: 0,
