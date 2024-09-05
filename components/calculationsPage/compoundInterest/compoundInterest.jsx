@@ -158,13 +158,18 @@ export default function CompoundInterest() {
       TasaDeInteres === 0 &&
       TiempoMod !== 0
     ) {
+      console.log(MontoFuturo);
+      console.log(CapitalInicial);
+      console.log(TiempoMod);
       TasaDeInteres = Math.pow(MontoFuturo / CapitalInicial, 1 / TiempoMod) - 1;
+      let result = conversionTasa(TasaDeInteres, UnidadDeTiempoCapitalizable);
+      console.log(result);
       alert("La Tasa de Interes es de: " + TasaDeInteres);
       resetFields();
       return "";
     }
 
-    //Calcular el Tiempo ??
+    //Calcular el Tiempo ✅
     if (
       MontoFuturo !== 0 &&
       CapitalInicial !== 0 &&
@@ -175,8 +180,8 @@ export default function CompoundInterest() {
       console.log(CapitalInicial);
       console.log(TasaDeInteres);
       Tiempo =
-        Math.log(MontoFuturo) -
-        Math.log(CapitalInicial) / Math.log(1 + TasaDeInteres / 100);
+        Math.log(MontoFuturo / CapitalInicial) /
+        Math.log(1 + TasaDeInteres / 100);
       alert("El tiempo es de: " + Tiempo);
       resetFields();
       return "";
