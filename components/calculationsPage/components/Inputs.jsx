@@ -46,22 +46,10 @@ export function Input2({
           borderColor: useColorPalette(1, 1),
           backgroundColor: useColorPalette(3, 0.2),
         }}
-        maxHeight={150}
+        dropdownStyles={styles2.dropdown}
+        maxHeight={100}
         inputStyles={styles2.input}
       />
     </View>
   );
 }
-
-/*
-const [value, setValue] = useState('$ ');
-
-  const handleChange = (text) => {
-    // Asegúrate de que el valor siempre comience con '$ '
-    if (!text.startsWith('$')) {
-      setValue('$ ' + text.trim().replace('$ ', ''));
-    } else {
-      setValue(text);
-    }
-  };
-*/
