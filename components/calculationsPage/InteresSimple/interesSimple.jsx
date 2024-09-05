@@ -46,11 +46,11 @@ export default function InteresSimple() {
     }
 
     if (UnidadDeTiempo === "trimestral") {
-      return Tiempo / 4;
+      return Tiempo / 3;
     }
 
     if (UnidadDeTiempo === "cuatrimestral") {
-      return Tiempo / 3;
+      return Tiempo / 4;
     }
 
     if (UnidadDeTiempo === "bimestral") {
