@@ -4,7 +4,10 @@ import { pixels } from "../../../stores/usePhoneProperties";
 export const styles1 = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: pixels(10),
+    height: pixels(78),
+    justifyContent: "space-between",
+    marginBottom: pixels(13),
+    paddingBottom: pixels(2),
   },
   input: {
     width: "100%",
@@ -22,6 +25,8 @@ export const styles1 = StyleSheet.create({
 export const styles2 = StyleSheet.create({
   container: {
     flex: 1,
+    height: pixels(80),
+    marginBottom: pixels(13),
   },
   box: {
     width: "100%",
@@ -34,5 +39,9 @@ export const styles2 = StyleSheet.create({
   text: {
     fontSize: pixels(17),
     fontWeight: "500",
+  },
+  dropdown: {
+    zIndex: 2,
+    backgroundColor: "#fff",
   },
 });
