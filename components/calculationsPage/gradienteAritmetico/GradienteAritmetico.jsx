@@ -3,16 +3,29 @@ import { Button1 } from "../components/Buttons";
 import { styles } from "../template/templateStyles";
 import { Input1, Input2 } from "../components/Inputs";
 import { useState } from "react";
+import { CustomSwitch } from "./switchBottom.jsx";
 
 export default function GradienteAritmetico() {
   const [interes, setInteres] = useState(0);
   const [CuotaInicial, setCuotaIncial] = useState(0);
-  const [unidadTiempoInteres, setTiempoInteres] = useState("1");
-  const [unidadTiempoCuotas, setTiempoCuotas] = useState("1");
-  const [tipoCalculo, setTipoCalulo] = useState("1");
+  const [unidadTiempoInteres, setTiempoInteres] = useState();
+  const [unidadTiempoCuotas, setTiempoCuotas] = useState();
+  const [tipoCalculo, setTipoCalulo] = useState(1);
   const [gradiente, setGradiente] = useState(0);
   const [valorCuota, serValorCuota] = useState(0);
   const [valorOptions, SetOptions] = useState("VP");
+  const [state, setState] = useState(false);
+
+  function setStateChild(state) {
+    setState(state);
+  }
+  const resetFields = () => {
+    setInteres(0);
+    setCuotaIncial(0);
+    setGradiente(0);
+    serValorCuota(0);
+    setState(false);
+  };
 
   const dataTiempo = [
     { key: "1", value: "anual", time: 1 },
@@ -55,27 +68,46 @@ export default function GradienteAritmetico() {
     valueInit,
     gradiente,
   ) => {
-    let A = valueInit;
-    let G = gradiente;
-    let n = numberQuotas;
-    let i = interestNomalizad(typeTaseInterest, typeQuotas, taseInterest);
+    let A = parseFloat(valueInit);
+    let G = parseFloat(gradiente);
+    let n = parseFloat(numberQuotas);
+    let i = interestNomalizad(typeTaseInterest, typeQuotas, taseInterest / 100);
     i = parseFloat(i);
-    console.log(i);
     if (option === "VP") {
+      if (!A || !G || !n || !i) {
+        alert("Faltan datos para calcular gradiente");
+        return;
+      }
       let vp =
         A * ((1 - Math.pow(1 + i, -n)) / i) +
         (G / i) * ((1 - Math.pow(1 + i, -n)) / i - n / Math.pow(1 + i, n));
+      alert("El valor presente es " + vp);
       return vp;
     } else if (option === "cuotaN") {
+      if (!A || !G || !n) {
+        alert("Faltan datos para calcular el valor de la cuota");
+        return;
+      }
       let cuota = A + (n - 1) * G;
+      alert("El valor de la cuota: " + n + " Es " + cuota);
       return cuota;
     } else if (option === "VF") {
+      if (!A || !G || !n || !i) {
+        alert("Faltan datos para calcular gradiente");
+        return;
+      }
       let vf =
         A * ((Math.pow(1 + i, n) - 1) / i) +
         (G / i) * ((Math.pow(1 + i, n) - 1) / i - n);
+      alert("El valor furuto es " + vf);
       return vf;
     } else if (option === "VI") {
+      if (!A || !G || !i) {
+        alert("Faltan datos para calcular gradiente");
+        return;
+      }
       let vi = A / i + G * Math.pow(i, 2);
+      alert("El valor de la primera cuota es " + vi);
       return vi;
     }
   };
@@ -89,26 +121,50 @@ export default function GradienteAritmetico() {
     valueInit,
     gradiente,
   ) => {
-    let A = valueInit;
-    let G = gradiente;
-    let n = numberQuotas;
-    let i = interestNomalizad(typeTaseInterest, typeQuotas, taseInterest);
+    let A = parseFloat(valueInit);
+    let G = parseFloat(gradiente);
+    let n = parseFloat(numberQuotas);
+    let i = interestNomalizad(typeTaseInterest, typeQuotas, taseInterest / 100);
     i = parseFloat(i);
     if (option === "VP") {
+      if (!A && !G && !n && !i) {
+        alert("Faltan datos para calcular gradiente");
+        return;
+      }
       let vp =
         A * ((1 - Math.pow(1 + i, -n)) / i) -
         (G / i) * ((1 - Math.pow(1 + i, -n)) / i - n / Math.pow(1 + i, n));
+      alert("El valor presente es " + vp);
       return vp;
     } else if (option === "cuotaN") {
-      let cuota = A + (n - 1) * G;
+      if (!A || !G || !n) {
+        alert("Faltan datos para calcular el valor de la cuota");
+        return;
+      }
+      let cuota = A + (n - 1) * -G;
+      alert("El valor de la cuota: " + n + " Es " + cuota);
       return cuota;
     } else if (option === "VF") {
+      if (!A || !G || !n || !i) {
+        alert("Faltan datos para calcular gradiente");
+        return;
+      }
+      console.log(A, i, n, G);
+      console.log((Math.pow(1 + i, n) - 1) / i);
+      console.log(G / i);
+      console.log((Math.pow(1 + i, n) - 1) / i - n);
       let vf =
-        A * ((Math.pow(1 + i, n) - 1) / i) -
+        A * ((Math.pow(1 + i, n) - 1) / i).toFixed(5) -
         (G / i) * ((Math.pow(1 + i, n) - 1) / i - n);
+      alert("El valor futuro es " + vf);
       return vf;
     } else if (option === "VI") {
+      if (!A || !G || !i) {
+        alert("Faltan datos para calcular gradiente");
+        return;
+      }
       let vi = A / i - G * Math.pow(i, 2);
+      alert("El valor de la cuota inicial " + vi);
       return vi;
     }
   };
@@ -134,22 +190,31 @@ export default function GradienteAritmetico() {
   }
 
   const calcular = () => {
-    const cal = interestNomalizad(
-      unidadTiempoInteres,
-      unidadTiempoCuotas,
-      interes,
-    );
-    console.log(cal);
-    const result = GradientCrecient(
-      valorOptions,
-      interes,
-      unidadTiempoInteres,
-      unidadTiempoCuotas,
-      valorCuota,
-      CuotaInicial,
-      gradiente,
-    );
-    console.log(result);
+    let result = 0;
+    console.log(state);
+    if (state === true) {
+      result = GradientCrecient(
+        valorOptions,
+        interes,
+        unidadTiempoInteres,
+        unidadTiempoCuotas,
+        valorCuota,
+        CuotaInicial,
+        gradiente,
+      );
+      return resetFields();
+    } else {
+      result = gradientDecent(
+        valorOptions,
+        interes,
+        unidadTiempoInteres,
+        unidadTiempoCuotas,
+        valorCuota,
+        CuotaInicial,
+        gradiente,
+      );
+      return resetFields();
+    }
   };
   return (
     <View style={styles.page}>
@@ -161,45 +226,61 @@ export default function GradienteAritmetico() {
           value={tipoCalculo}
           onChangeSelected={busquedaArray} // asi agarra un dato
         />
-        <Input1
-          name="Primera cuota"
-          placeHolder="ingrese valor"
-          type="numeric"
-          value={CuotaInicial}
-          onChangeNumber={(value) => setCuotaIncial(value)}
-        />
-        <View style={styles.container}>
+        {tipoCalculo === "Primera cuota" && (
           <Input1
-            name="Cuota"
-            placeHolder="Enter value"
+            name="Monto Cuota"
+            placeHolder="ingrese valor"
             type="numeric"
-            value={valorCuota}
-            onChangeNumber={(value) => serValorCuota(value)}
+            value={CuotaInicial}
+            onChangeNumber={(value) => setCuotaIncial(value)}
           />
-          <Input2
-            name="Unidad tiempo"
-            placeHolder="Selecciona tipo"
-            value={unidadTiempoCuotas}
-            data={dataTiempo}
-            onChangeSelected={busquedaTiempoCuota}
-          />
-        </View>
-        <View style={styles.container}>
-          <Input1
-            name="Interes %"
-            placeHolder="Enter value"
-            type="numeric"
-            value={interes}
-            onChangeNumber={(value) => setInteres(value / 100)}
-          />
-          <Input2
-            name="Unidad tiempo"
-            placeHolder="Selecciona tipo"
-            value={unidadTiempoInteres}
-            data={dataTiempo}
-            onChangeSelected={busquedaTiempoInteres}
-          />
-        </View>
+        )}
+        {tipoCalculo !== "Primera cuota" && (
+          <>
+            <Input1
+              name="Primera cuota"
+              placeHolder="ingrese valor"
+              type="numeric"
+              value={CuotaInicial}
+              onChangeNumber={(value) => setCuotaIncial(value)}
+            />
+            <View style={styles.container}>
+              <Input1
+                name="Cuotas"
+                placeHolder="Enter value"
+                type="numeric"
+                value={valorCuota}
+                onChangeNumber={(value) => serValorCuota(value)}
+              />
+              <Input2
+                name="Unidad tiempo"
+                placeHolder="Selecciona tipo"
+                value={unidadTiempoCuotas}
+                data={dataTiempo}
+                onChangeSelected={busquedaTiempoCuota}
+              />
+            </View>
+          </>
+        )}
+        {tipoCalculo !== "Cuota N" && (
+          <View style={styles.container}>
+            <Input1
+              name="Interes %"
+              placeHolder="Enter value"
+              type="numeric"
+              value={interes}
+              onChangeNumber={(value) => setInteres(value)}
+            />
+            <Input2
+              name="Unidad tiempo"
+              placeHolder="Selecciona tipo"
+              value={unidadTiempoInteres}
+              data={dataTiempo}
+              onChangeSelected={busquedaTiempoInteres}
+            />
+          </View>
+        )}
+
         <View style={styles.container}>
           <Input1
             name="Gradiente"
@@ -209,6 +290,7 @@ export default function GradienteAritmetico() {
             onChangeNumber={(value) => setGradiente(value)}
           />
         </View>
+        <CustomSwitch setStateChild={setStateChild} value={state} />
       </ScrollView>
       <Button1 text="Calcular" pressed={calcular} />
     </View>

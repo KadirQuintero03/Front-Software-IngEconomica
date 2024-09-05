@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 import { View, Switch, Text } from "react-native";
-import { styles } from "./switchBottom";
+import { stylesSwitch } from "./switchBottom";
+import useColorPalette from "../../../stores/useColorPalette";
 
-export default function CustomSwitch() {
-  const [isEnabled, setIsEnabled] = useState(false);
+export function CustomSwitch({ setStateChild }) {
+  const [isEnabled, setIsEnabled] = useState(true);
 
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
+  const colorButtomSwich = useColorPalette(3, 1);
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+    console.log(isEnabled);
+    setStateChild(isEnabled);
+  };
   return (
-    <View style={styles.container}>
+    <View style={stylesSwitch.container}>
       <Switch
         trackColor={{ false: "#ccc", true: "#ccc" }} // Color de la pista del interruptor
-        thumbColor={isEnabled ? "#4CAF50" : "#0000FF"} // Color del círculo del interruptor
+        thumbColor={isEnabled ? colorButtomSwich : "#0000FF"} // Color del círculo del interruptor
         ios_backgroundColor="#ccc"
         onValueChange={toggleSwitch}
         value={isEnabled}
-        style={styles.switch}
       />
-      <Text style={styles.text}>{isEnabled ? "On" : "Off"}</Text>
+      <Text style={stylesSwitch.text}>
+        {isEnabled ? "Gradiente Decreciente" : "Gradiente Creciente"}
+      </Text>
     </View>
   );
 }

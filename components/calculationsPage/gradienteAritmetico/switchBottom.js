@@ -1,17 +1,18 @@
 import { StyleSheet } from "react-native";
+import { pixels } from "../../../stores/usePhoneProperties";
 
-export const styles = StyleSheet.create({
+export const stylesSwitch = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+    padding: pixels(15),
   },
   switch: {
-    transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }], // Escalado para hacer el interruptor más grande
+    transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }], // Escalado para hacer el interruptor más grande
   },
   text: {
-    marginLeft: 10,
-    fontSize: 18,
-    fontWeight: "bold",
+    marginLeft: pixels(10),
+    fontSize: pixels(17),
+    fontWeight: "500",
   },
 });
