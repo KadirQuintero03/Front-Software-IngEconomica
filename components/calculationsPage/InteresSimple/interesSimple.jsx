@@ -10,6 +10,9 @@ export default function InteresSimple() {
   let [MontoFuturo, setMontoFuturo] = useState(0);
   let [Interes, setInteres] = useState(0);
   let [Tiempo, setTiempo] = useState(0);
+  let [tiempoDia, settiempoDia] = useState(0);
+  let [tiempoMes, settiempoMes] = useState(0);
+  let [tiempoAño, settiempoAño] = useState(0);
   const [UnidadDeTiempo, setUnidadDeTiempo] = useState("anual");
 
   let UnidadesDeTiempo = {
@@ -32,33 +35,52 @@ export default function InteresSimple() {
     { key: "7", value: "dias", time: 365 },
   ];
 
-  function conversionTiempo(Tiempo, UnidadDeTiempo) {
-    if (UnidadDeTiempo === "dias") {
-      return Tiempo / 365;
+  function conversionTiempo(Tiempo, tiempoDia, tiempoMes, tiempoAño, UnidadDeTiempo) {
+    //Conversion para tiempo especifico.
+    if (tiempoDia !== 0 && tiempoMes !== 0 && tiempoAño !== 0 && Tiempo === 0) {
+
+      if (UnidadDeTiempo === "dias") {
+        return ((parseInt(tiempoAño) * 365) + (parseInt(tiempoMes) * 30) + parseInt(tiempoDia)).toFixed(2);
+      }
+
+      if (UnidadDeTiempo === "meses") {
+        return ((parseInt(tiempoAño) * 12) + parseInt(tiempoMes) + (parseInt(tiempoDia) / 30)).toFixed(2);
+      }
+
+      if (UnidadDeTiempo === "anual") {
+        return (parseInt(tiempoAño) + (parseInt(tiempoMes) / 12) + (parseInt(tiempoDia) / 365)).toFixed(2);
+      }
     }
 
-    if (UnidadDeTiempo === "mensual") {
-      return Tiempo / 12;
-    }
+    //Conversion para periodo de tiempo.
+    if (Tiempo !== 0 && tiempoDia === 0 && tiempoMes === 0 && tiempoAño === 0) {
+      if (UnidadDeTiempo === "dias") {
+        return Tiempo / 365;
+      }
 
-    if (UnidadDeTiempo === "semestral") {
-      return Tiempo / 2;
-    }
+      if (UnidadDeTiempo === "mensual") {
+        return Tiempo / 12;
+      }
 
-    if (UnidadDeTiempo === "trimestral") {
-      return Tiempo / 3;
-    }
+      if (UnidadDeTiempo === "semestral") {
+        return Tiempo / 2;
+      }
 
-    if (UnidadDeTiempo === "cuatrimestral") {
-      return Tiempo / 4;
-    }
+      if (UnidadDeTiempo === "trimestral") {
+        return Tiempo / 3;
+      }
 
-    if (UnidadDeTiempo === "bimestral") {
-      return Tiempo / 6;
-    }
+      if (UnidadDeTiempo === "cuatrimestral") {
+        return Tiempo / 4;
+      }
 
-    if (UnidadDeTiempo === "anual") {
-      return Tiempo / 1;
+      if (UnidadDeTiempo === "bimestral") {
+        return Tiempo / 6;
+      }
+
+      if (UnidadDeTiempo === "anual") {
+        return Tiempo / 1;
+      }
     }
   }
 
@@ -74,14 +96,16 @@ export default function InteresSimple() {
     setMontoFuturo(0);
     setInteres(0);
     setTiempo(0);
+    settiempoDia(0);
+    settiempoMes(0);
+    settiempoAño(0);
     setUnidadDeTiempo("anual");
   };
 
   const Calcular = () => {
-    // Contamos cuántos campos tienen un valor distinto de cero
     TasaDeInteres = TasaDeInteres / 100;
-    let fieldsFilled = 0;
 
+    let fieldsFilled = 0;
     if (CapitalInicial !== 0) fieldsFilled++;
     if (TasaDeInteres !== 0) fieldsFilled++;
     if (MontoFuturo !== 0) fieldsFilled++;
@@ -94,44 +118,26 @@ export default function InteresSimple() {
       return; // Salimos de la función si no hay suficientes campos llenos
     }
 
-    let TiempoMod = conversionTiempo(Tiempo, UnidadDeTiempo);
-
-    console.log(
-      CapitalInicial,
-      TasaDeInteres,
-      Interes,
-      TiempoMod,
-      UnidadDeTiempo,
-      MontoFuturo
+    let TiempoMod = conversionTiempo(
+      Tiempo,
+      tiempoDia,
+      tiempoMes,
+      tiempoAño,
+      UnidadDeTiempo
     );
 
     //Calcular Interes✅
-    if (
-      CapitalInicial !== 0 &&
-      MontoFuturo !== 0 &&
-      TiempoMod === 0 &&
-      TasaDeInteres === 0
-    ) {
+    if (CapitalInicial !== 0 && MontoFuturo !== 0 && TiempoMod === 0 && TasaDeInteres === 0) {
       Interes = MontoFuturo - CapitalInicial;
       alert("El interes simple es de: " + Interes.toFixed(2));
-      resetFields();
-      return;
+      return resetFields();
     }
 
-    if (
-      TasaDeInteres !== 0 &&
-      CapitalInicial !== 0 &&
-      TiempoMod !== 0 &&
-      Interes === 0
-    ) {
+    if (TasaDeInteres !== 0 && CapitalInicial !== 0 && TiempoMod !== 0 && Interes === 0) {
+      console.log("Capital Inicial: ", CapitalInicial, "Tasa de interes: ", TasaDeInteres, "TiempoMod: ", TiempoMod)
       Interes = CapitalInicial * TasaDeInteres * TiempoMod;
       MontoFuturo = parseInt(CapitalInicial) + parseInt(Interes);
-      alert(
-        "El interes simple es de: " +
-          Interes.toFixed(2) +
-          " Y el valor futuro es de: " +
-          MontoFuturo.toFixed(2)
-      );
+      alert("El interes simple es de: " + Interes.toFixed(2) + " Y el valor futuro es de: " + MontoFuturo.toFixed(2));
       return resetFields();
     }
 
@@ -234,7 +240,6 @@ export default function InteresSimple() {
   return (
     <View style={styles.page}>
       <ScrollView style={styles.scrollView}>
-        <Input2 name="Tipo de interes" placeHolder="Enter value" />
         <Input1
           name="Capital inicial"
           placeHolder="Ingrese el capital inicial"
@@ -265,6 +270,27 @@ export default function InteresSimple() {
             onChangeSelected={getTime}
           />
         </View>
+        <Input1
+            name="Días"
+            placeHolder="Ingrese un valor"
+            value={tiempoDia}
+            onChangeNumber={(val) => settiempoDia(val)}
+            type="numeric"
+          />
+                    <Input1
+            name="Meses"
+            placeHolder="Ingrese un valor"
+            value={tiempoMes}
+            onChangeNumber={(val) => settiempoMes(val)}
+            type="numeric"
+          />
+                    <Input1
+            name="Años"
+            placeHolder="Ingrese un valor"
+            value={tiempoAño}
+            onChangeNumber={(val) => settiempoAño(val)}
+            type="numeric"
+          />
         <Input1
           name="Interes"
           placeHolder="Ingrese el Iinteres"
