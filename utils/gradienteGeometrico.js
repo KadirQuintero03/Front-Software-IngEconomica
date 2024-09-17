@@ -1,3 +1,5 @@
+import { interesConversion } from "./interesConversion";
+
 export function validateInputs(
   type,
   valPresente,
@@ -44,7 +46,7 @@ export function calculateCreciente(
   timeCuota,
   interes,
   timeInteres,
-  gradiente
+  gradiente,
 ) {
   priCuota = parseFloat(priCuota);
   cuota = parseFloat(cuota);
@@ -79,20 +81,3 @@ export function calculateCreciente(
       return "La primera cuota es de: " + a.toFixed(2);
   }
 }
-
-const interesConversion = (type, mainType, interes) => {
-  const pDado = values.find((i) => i.value == type);
-  const pDeseado = values.find((i) => i.value == mainType);
-
-  return interes / (pDeseado.key / pDado.key);
-};
-
-const values = [
-  { key: 52, value: "Semana" },
-  { key: 24, value: "Quincena" },
-  { key: 12, value: "Mes" },
-  { key: 1, value: "Año" },
-  { key: 2, value: "Semestre" },
-  { key: 6, value: "Bimestre" },
-  { key: 4, value: "Trimestre" },
-];

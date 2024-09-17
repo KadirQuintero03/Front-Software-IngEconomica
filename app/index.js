@@ -5,7 +5,7 @@ import InteresSimple from "../components/calculationsPage/InteresSimple/interesS
 export default function Index() {
   return (
     <View>
-      <InteresSimple />
+      <HomePage />
     </View>
   );
 }
