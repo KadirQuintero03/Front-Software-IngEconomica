@@ -49,6 +49,46 @@ export const tiempoConversion = (
         parseInt(timeDay) / 365
       ).toFixed(2);
     }
+
+    if (typeTime === "Semana") {
+      return (
+        parseInt(timeYear) * 52 +
+        parseInt(timeMonth) * 4.34524 + // Un mes equivale a ~4.345 semanas
+        parseInt(timeDay) / 7
+      ).toFixed(2);
+    }
+
+    if (typeTime === "Quincena") {
+      return (
+        parseInt(timeYear) * 24 +
+        parseInt(timeMonth) * 2 +
+        parseInt(timeDay) / 15
+      ).toFixed(2);
+    }
+
+    if (typeTime === "Bimestre") {
+      return (
+        parseInt(timeYear) * 6 +
+        parseInt(timeMonth) / 2 +
+        parseInt(timeDay) / 60
+      ).toFixed(2);
+    }
+
+    if (typeTime === "Trimestre") {
+      return (
+        parseInt(timeYear) * 4 +
+        parseInt(timeMonth) / 3 +
+        parseInt(timeDay) / 90
+      ).toFixed(2);
+    }
+
+    if (typeTime === "Semestre") {
+      return (
+        parseInt(timeYear) * 2 +
+        parseInt(timeMonth) / 6 +
+        parseInt(timeDay) / 180
+      ).toFixed(2);
+    }
   }
 
   //Conversion para periodo de tiempo
