@@ -74,8 +74,8 @@ export default function GradienteGeometrico() {
         selectedTimeCuota,
         interes,
         selectedTimeInteres,
-        gradiente
-      )
+        gradiente,
+      ),
     );
   };
 
@@ -88,7 +88,7 @@ export default function GradienteGeometrico() {
       selectedTimeCuota,
       interes,
       selectedTimeInteres,
-      gradiente
+      gradiente,
     );
 
     Alert.alert("Resultado", result);
