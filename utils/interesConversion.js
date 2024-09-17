@@ -26,7 +26,7 @@ export const tiempoConversion = (
 ) => {
   //Conversion para tiempo especifico.
   if (periodOfTime === 0) {
-    if (typeTime === "Dia") {
+    if (typeInterest === "Dia") {
       return (
         parseInt(timeYear) * 365 +
         parseInt(timeMonth) * 30 +
@@ -34,7 +34,7 @@ export const tiempoConversion = (
       ).toFixed(2);
     }
 
-    if (typeTime === "Mes") {
+    if (typeInterest === "Mes") {
       return (
         parseInt(timeYear) * 12 +
         parseInt(timeMonth) +
@@ -42,7 +42,7 @@ export const tiempoConversion = (
       ).toFixed(2);
     }
 
-    if (typeTime === "Año") {
+    if (typeInterest === "Año") {
       return (
         parseInt(timeYear) +
         parseInt(timeMonth) / 12 +
@@ -50,7 +50,7 @@ export const tiempoConversion = (
       ).toFixed(2);
     }
 
-    if (typeTime === "Semana") {
+    if (typeInterest === "Semana") {
       return (
         parseInt(timeYear) * 52 +
         parseInt(timeMonth) * 4.34524 + // Un mes equivale a ~4.345 semanas
@@ -58,7 +58,7 @@ export const tiempoConversion = (
       ).toFixed(2);
     }
 
-    if (typeTime === "Quincena") {
+    if (typeInterest === "Quincena") {
       return (
         parseInt(timeYear) * 24 +
         parseInt(timeMonth) * 2 +
@@ -66,7 +66,7 @@ export const tiempoConversion = (
       ).toFixed(2);
     }
 
-    if (typeTime === "Bimestre") {
+    if (typeInterest === "Bimestre") {
       return (
         parseInt(timeYear) * 6 +
         parseInt(timeMonth) / 2 +
@@ -74,7 +74,7 @@ export const tiempoConversion = (
       ).toFixed(2);
     }
 
-    if (typeTime === "Trimestre") {
+    if (typeInterest === "Trimestre") {
       return (
         parseInt(timeYear) * 4 +
         parseInt(timeMonth) / 3 +
@@ -82,7 +82,7 @@ export const tiempoConversion = (
       ).toFixed(2);
     }
 
-    if (typeTime === "Semestre") {
+    if (typeInterest === "Semestre") {
       return (
         parseInt(timeYear) * 2 +
         parseInt(timeMonth) / 6 +

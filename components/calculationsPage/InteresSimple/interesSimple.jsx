@@ -16,6 +16,13 @@ export default function InteresSimple() {
   let [timeYear, setTimeYear] = useState(0);
   const [typeTime, setTypeTime] = useState("anual");
   const [typeInterest, setTypeInterest] = useState("anual");
+  const [selectedTimeOption, setSelectedTimeOption] = useState(""); // Nuevo estado
+
+  const timeOptions = ["Periodo de tiempo", "Tiempo específico"]; // Opciones para el nuevo Input2
+
+  const handleTimeOptionChange = (val) => {
+    setSelectedTimeOption(val);
+  };
 
   let UnidadesDeTiempo = {
     dias: 365,
@@ -40,13 +47,13 @@ export default function InteresSimple() {
 
   function getTime(data) {
     timeList.map((values) =>
-      values.key === data ? setTypeTime(values.value) : false,
+      values.key === data ? setTypeTime(values.value) : false
     );
   }
 
   function getInteres(data) {
     timeList.map((values) =>
-      values.key === data ? setTypeInterest(values.value) : false,
+      values.key === data ? setTypeInterest(values.value) : false
     );
   }
 
@@ -75,7 +82,7 @@ export default function InteresSimple() {
       typeInterest,
       VF,
       Interes,
-      UnidadesDeTiempo,
+      UnidadesDeTiempo
     );
 
     Alert.alert("Resultado", result);
@@ -85,6 +92,13 @@ export default function InteresSimple() {
   return (
     <View style={styles.page}>
       <ScrollView style={styles.scrollView}>
+        <Input2
+          name="Tiempo"
+          placeHolder="Escoja un valor"
+          value={selectedTimeOption}
+          data={timeOptions}
+          onChangeSelected={handleTimeOptionChange}
+        />
         <View style={styles.container}>
           <Input1
             name="Capital inicial"
@@ -101,13 +115,7 @@ export default function InteresSimple() {
             type="numeric"
           />
         </View>
-        <Input1
-          name="Interes"
-          placeHolder="Ingrese el valor"
-          value={Interes}
-          onChangeNumber={(val) => setInteres(val)}
-          type="numeric"
-        />
+
         <View style={styles.container}>
           <Input1
             name="Tasa de interes"
@@ -116,8 +124,9 @@ export default function InteresSimple() {
             onChangeNumber={(val) => setInterestRate(val)}
             type="numeric"
           />
+
           <Input2
-            name="Valor de interes"
+            name="Unidad de interes"
             placeHolder="Escoja un valor"
             value={typeInterest}
             data={timeList}
@@ -125,45 +134,59 @@ export default function InteresSimple() {
           />
         </View>
 
-        <View style={styles.container}>
-          <Input1
-            name="Tiempo"
-            placeHolder="Ingrese un valor"
-            value={periodOfTime}
-            onChangeNumber={(val) => setPeriodOfTime(val)}
-            type="numeric"
-          />
-          <Input2
-            name="Unidad de tiempo"
-            placeHolder="Escoja un valor"
-            value={typeTime}
-            data={timeList}
-            onChangeSelected={getTime}
-          />
-        </View>
-        <View style={styles.container}>
-          <Input1
-            name="Días"
-            placeHolder="Ingrese un valor"
-            value={timeDay}
-            onChangeNumber={(val) => setTimeDay(val)}
-            type="numeric"
-          />
-          <Input1
-            name="Meses"
-            placeHolder="Ingrese un valor"
-            value={timeMonth}
-            onChangeNumber={(val) => setTimeMonth(val)}
-            type="numeric"
-          />
-          <Input1
-            name="Años"
-            placeHolder="Ingrese un valor"
-            value={timeYear}
-            onChangeNumber={(val) => setTimeYear(val)}
-            type="numeric"
-          />
-        </View>
+        {selectedTimeOption === "Periodo de tiempo" && (
+          <View style={styles.container}>
+            <Input1
+              name="Tiempo"
+              placeHolder="Ingrese un valor"
+              value={periodOfTime}
+              onChangeNumber={(val) => setPeriodOfTime(val)}
+              type="numeric"
+            />
+
+            <Input2
+              name="Unidad de tiempo"
+              placeHolder="Escoja un valor"
+              value={typeTime}
+              data={timeList}
+              onChangeSelected={getTime}
+            />
+          </View>
+        )}
+
+        {selectedTimeOption === "Tiempo específico" && (
+          <View style={styles.container}>
+            <Input1
+              name="Días"
+              placeHolder="Ingrese un valor"
+              value={timeDay}
+              onChangeNumber={(val) => setTimeDay(val)}
+              type="numeric"
+            />
+            <Input1
+              name="Meses"
+              placeHolder="Ingrese un valor"
+              value={timeMonth}
+              onChangeNumber={(val) => setTimeMonth(val)}
+              type="numeric"
+            />
+            <Input1
+              name="Años"
+              placeHolder="Ingrese un valor"
+              value={timeYear}
+              onChangeNumber={(val) => setTimeYear(val)}
+              type="numeric"
+            />
+          </View>
+        )}
+
+        <Input1
+          name="Interes"
+          placeHolder="Ingrese el valor"
+          value={Interes}
+          onChangeNumber={(val) => setInteres(val)}
+          type="numeric"
+        />
       </ScrollView>
       <Button1 text="Calcular" pressed={() => onPressButton()} />
     </View>
