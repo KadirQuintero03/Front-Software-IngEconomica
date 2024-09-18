@@ -2,12 +2,13 @@ import Template from "../components/calculationsPage/template/Template";
 import InteresSimple from "../components/calculationsPage/InteresSimple/interesSimple";
 import GradienteAritmetico from "../components/calculationsPage/gradienteAritmetico/GradienteAritmetico";
 import GradienteGeometrico from "../components/calculationsPage/gradienteGeometrico/GradienteGeometrico";
+import CompoundInterest from "../components/calculationsPage/compoundInterest/compoundInterest";
 
 let useCalculatorOption;
 
 export const optionList = [
   { id: 0, name: "Interes Simple", component: <InteresSimple /> },
-  { id: 1, name: "Interes Compuesto", component: <InteresSimple /> },
+  { id: 1, name: "Interes Compuesto", component: <CompoundInterest /> },
   { id: 2, name: "Gradiente Aritmetico", component: <GradienteAritmetico /> },
   { id: 3, name: "Gradiente Geometrico", component: <GradienteGeometrico /> },
   { id: 4, name: "Amortización", component: <Template /> },
