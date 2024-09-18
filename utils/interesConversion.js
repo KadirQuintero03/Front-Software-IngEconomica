@@ -9,20 +9,13 @@ const values = [
   { key: 1, value: "Año" },
 ];
 
-export const interesConversion = (type, mainType, interes) => {
-  const pDado = values.find((i) => i.value == type);
-  const pDeseado = values.find((i) => i.value == mainType);
-
-  return interes / (pDeseado.key / pDado.key);
-};
-
 export const tiempoConversion = (
   typeTime,
   typeInterest,
   periodOfTime,
   timeDay,
   timeMonth,
-  timeYear,
+  timeYear
 ) => {
   //Conversion para tiempo especifico.
   if (periodOfTime === 0) {
@@ -92,12 +85,7 @@ export const tiempoConversion = (
   }
 
   //Conversion para periodo de tiempo
-  if (
-    periodOfTime !== 0 &&
-    timeDay === 0 &&
-    timeMonth === 0 &&
-    timeYear === 0
-  ) {
+  if (periodOfTime !== 0) {
     const pDado = values.find((i) => i.value === typeTime);
     const pDeseado = values.find((i) => i.value === typeInterest);
 
