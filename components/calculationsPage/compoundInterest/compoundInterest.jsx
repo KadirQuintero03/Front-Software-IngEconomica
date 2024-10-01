@@ -1,9 +1,10 @@
-import { ScrollView, View } from "react-native";
-import Checkbox from "expo-checkbox";
+import { ScrollView, View, Text } from "react-native";
 import { Button1 } from "../components/Buttons";
 import { styles } from "../template/templateStyles";
 import { Input1, Input2 } from "../components/Inputs";
 import { useState } from "react";
+import { tiempoConversion } from "../../../utils/interesConversion";
+import Checkbox from "expo-checkbox";
 
 export default function CompoundInterest() {
   let [CapitalInicial, setCapitalInicial] = useState(0);
@@ -12,93 +13,69 @@ export default function CompoundInterest() {
   let [Interes, setInteres] = useState(0);
   let [UnidadDeTiempoCapitalizable, setUnidadDeTiempoCapitalizable] =
     useState(0);
+  let [timeDay, setTimeDay] = useState(0);
+  let [timeMonth, setTimeMonth] = useState(0);
+  let [timeYear, setTimeYear] = useState(0);
   let [Tiempo, setTiempo] = useState(0);
+  let [Capitalizable, setCapitalizable] = useState(false);
+  const [selectedTimeOption, setSelectedTimeOption] = useState("");
+
+  const timeOptions = ["Periodo de tiempo", "Tiempo específico"];
+
   const [UnidadDeTiempo, setUnidadDeTiempo] = useState("");
 
-  const [isCapitalDisabled, setIsCapitalDisabled] = useState(false);
-  const [isTasaDisabled, setIsTasaDisabled] = useState(false);
-  const [isTiempoDisabled, setIsTiempoDisabled] = useState(false);
-  const [isInteresDisabled, setIsInteresDisabled] = useState(false);
-  const [isMontoFuturoDisabled, setIsMontoFuturoDisabled] = useState(false);
-
-  const dataTiempo = [
-    { key: "1", value: "Anual", time: 1 },
-    { key: "2", value: "Semestral", time: 2 },
-    { key: "3", value: "Bimestral", time: 6 },
-    { key: "4", value: "Trimestral", time: 4 },
-    { key: "5", value: "Mensual", time: 12 },
-    { key: "6", value: "Cuatrimestral", time: 3 },
-    { key: "7", value: "Dias", time: 365 },
+  const handleTimeOptionChange = (val) => {
+    setSelectedTimeOption(val);
+  };
+  const timeList = [
+    { key: 365, value: "Dia" },
+    { key: 52, value: "Semana" },
+    { key: 24, value: "Quincena" },
+    { key: 12, value: "Mes" },
+    { key: 6, value: "Bimestre" },
+    { key: 4, value: "Trimestre" },
+    { key: 2, value: "Semestre" },
+    { key: 1, value: "Año" },
   ];
 
-  function conversionTiempo(Tiempo, UnidadDeTiempo) {
-    if (UnidadDeTiempo === "Dias") {
-      return Tiempo / 365;
-    }
-
-    if (UnidadDeTiempo === "Mensual") {
-      return Tiempo / 12;
-    }
-
-    if (UnidadDeTiempo === "Semestral") {
-      return Tiempo / 2;
-    }
-
-    if (UnidadDeTiempo === "Trimestral") {
-      return Tiempo / 3;
-    }
-
-    if (UnidadDeTiempo === "Cuatrimestral") {
-      return Tiempo / 4;
-    }
-
-    if (UnidadDeTiempo === "Bimestral") {
-      return Tiempo / 6;
-    }
-
-    if (UnidadDeTiempo === "Anual") {
-      return Tiempo / 1;
-    }
-  }
-
   function conversionTasa(TasaDeInteres, UnidadDeTiempoCapitalizable) {
-    if (UnidadDeTiempoCapitalizable === "Dias") {
+    if (UnidadDeTiempoCapitalizable === "Dia") {
       return TasaDeInteres / 100 / 365;
     }
 
-    if (UnidadDeTiempoCapitalizable === "Mensual") {
+    if (UnidadDeTiempoCapitalizable === "Mes") {
       return TasaDeInteres / 100 / 12;
     }
 
-    if (UnidadDeTiempoCapitalizable === "Semestral") {
+    if (UnidadDeTiempoCapitalizable === "Semestre") {
       return TasaDeInteres / 100 / 2;
     }
 
-    if (UnidadDeTiempoCapitalizable === "Trimestral") {
+    if (UnidadDeTiempoCapitalizable === "Trimestre") {
       return TasaDeInteres / 100 / 4;
     }
 
-    if (UnidadDeTiempoCapitalizable === "Cuatrimestral") {
-      return TasaDeInteres / 100 / 3;
+    if (UnidadDeTiempoCapitalizable === "Quincena") {
+      return TasaDeInteres / 100 / 24;
     }
 
-    if (UnidadDeTiempoCapitalizable === "Bimestral") {
+    if (UnidadDeTiempoCapitalizable === "Bimestre") {
       return TasaDeInteres / 100 / 6;
     }
 
-    if (UnidadDeTiempoCapitalizable === "Anual") {
+    if (UnidadDeTiempoCapitalizable === "Año") {
       return TasaDeInteres / 100 / 1;
     }
   }
 
   function getTime(data) {
-    dataTiempo.map((values) =>
+    timeList.map((values) =>
       values.key === data ? setUnidadDeTiempo(values.value) : false,
     );
   }
 
   function getTasa(data) {
-    dataTiempo.map((values) =>
+    timeList.map((values) =>
       values.key === data
         ? setUnidadDeTiempoCapitalizable(values.value)
         : false,
@@ -111,12 +88,22 @@ export default function CompoundInterest() {
     setMontoFuturo(0);
     setInteres(0);
     setTiempo(0);
+    setTimeDay(0);
+    setTimeMonth(0);
+    setTimeYear(0);
     setUnidadDeTiempo("");
     setUnidadDeTiempoCapitalizable("");
   };
 
   const Calcular = () => {
-    let TiempoMod = conversionTiempo(Tiempo, UnidadDeTiempo);
+    let TiempoMod = tiempoConversion(
+      UnidadDeTiempo,
+      UnidadDeTiempoCapitalizable,
+      Tiempo,
+      timeDay,
+      timeMonth,
+      timeYear,
+    );
     let TasaCapitalizable = conversionTasa(
       TasaDeInteres,
       UnidadDeTiempoCapitalizable,
@@ -133,34 +120,46 @@ export default function CompoundInterest() {
       resetFields();
       return "";
     }
-
+    //Sin Capitalizar✅
     //Calcular el Monto Futuro✅
     if (
       MontoFuturo === 0 &&
       CapitalInicial !== 0 &&
       TasaCapitalizable !== 0 &&
       TiempoMod !== 0
+      //Capitalizable === false
     ) {
-      console.log(MontoFuturo);
-      console.log(CapitalInicial);
-      console.log(TasaCapitalizable);
-      console.log(TiempoMod);
-      MontoFuturo = CapitalInicial * Math.pow(1 + TasaCapitalizable, TiempoMod);
+      MontoFuturo =
+        CapitalInicial * Math.pow(1 + TasaDeInteres / 100, TiempoMod);
       alert("El monto Futuro es de: " + MontoFuturo);
       resetFields();
       return "";
     }
 
-    //Calcular Tasa De Interes ??
+    //Capitalizando
+    //Calcular el Monto Futuro✅
+    // if (
+    //   MontoFuturo === 0 &&
+    //   CapitalInicial !== 0 &&
+    //   TasaCapitalizable !== 0 &&
+    //   TiempoMod !== 0 &&
+    //   Capitalizable === true
+    // ) {
+    //   console.log("Capitalizando");
+    //   MontoFuturo =
+    //     CapitalInicial * Math.pow(1 + TasaDeInteres / 100, TiempoMod);
+    //   alert("El monto Futuro es de: " + MontoFuturo);
+    //   resetFields();
+    //   return "";
+    // }
+
+    //Calcular Tasa De Interes ✅
     if (
       MontoFuturo !== 0 &&
       CapitalInicial !== 0 &&
       TasaDeInteres === 0 &&
       TiempoMod !== 0
     ) {
-      console.log(MontoFuturo);
-      console.log(CapitalInicial);
-      console.log(TiempoMod);
       TasaDeInteres = Math.pow(MontoFuturo / CapitalInicial, 1 / TiempoMod) - 1;
       let result = conversionTasa(TasaDeInteres, UnidadDeTiempoCapitalizable);
       console.log(result);
@@ -176,9 +175,6 @@ export default function CompoundInterest() {
       TasaDeInteres !== 0 &&
       Tiempo === 0
     ) {
-      console.log(MontoFuturo);
-      console.log(CapitalInicial);
-      console.log(TasaDeInteres);
       Tiempo =
         Math.log(MontoFuturo / CapitalInicial) /
         Math.log(1 + TasaDeInteres / 100);
@@ -194,11 +190,6 @@ export default function CompoundInterest() {
       TasaDeInteres !== 0 &&
       TiempoMod !== 0
     ) {
-      console.log(MontoFuturo);
-      console.log(CapitalInicial);
-      console.log(TasaDeInteres);
-      console.log(TiempoMod);
-      console.log(UnidadDeTiempoCapitalizable);
       CapitalInicial =
         MontoFuturo / Math.pow(1 + TasaDeInteres / 100, TiempoMod);
       alert("El Capital inicial es de: " + CapitalInicial);
@@ -211,10 +202,15 @@ export default function CompoundInterest() {
     <View style={styles.page}>
       <ScrollView style={styles.scrollView}>
         <View>
-          <Checkbox
-            value={isCapitalDisabled}
-            onValueChange={() => setIsCapitalDisabled(!isCapitalDisabled)}
+          <Input2
+            name="Tiempo"
+            placeHolder="Escoja un valor"
+            value={selectedTimeOption}
+            data={timeOptions}
+            onChangeSelected={handleTimeOptionChange}
           />
+        </View>
+        <View>
           <Input1
             name="Capital inicial"
             placeHolder="Ingrese el capital inicial"
@@ -223,6 +219,13 @@ export default function CompoundInterest() {
             type="numeric"
           />
         </View>
+        {/* <View style={styles.container}>
+          <Checkbox
+            value={Capitalizable}
+            onValueChange={(val) => setCapitalizable(val)}
+          />
+          <Text>Capitalizable</Text>
+        </View> */}
 
         <View style={styles.container}>
           <Input1
@@ -236,28 +239,55 @@ export default function CompoundInterest() {
             name="Capitalizable"
             placeHolder="Escoja un Valor"
             value={UnidadDeTiempoCapitalizable}
-            data={dataTiempo}
+            data={timeList}
             onChangeSelected={getTasa}
           />
         </View>
+        {selectedTimeOption === "Periodo de tiempo" && (
+          <View style={styles.container}>
+            <Input1
+              name="Tiempo"
+              placeHolder="Ingrese un valor"
+              value={Tiempo}
+              onChangeNumber={(val) => setTiempo(val)}
+              type="numeric"
+            />
 
-        <View style={styles.container}>
-          <Input1
-            name="Tiempo"
-            placeHolder="Ingrese un valor"
-            value={Tiempo}
-            onChangeNumber={(val) => setTiempo(val)}
-            type="numeric"
-          />
-          <Input2
-            name="Periodo"
-            placeHolder="Escoja un valor"
-            value={UnidadDeTiempo}
-            data={dataTiempo}
-            onChangeSelected={getTime}
-          />
-        </View>
+            <Input2
+              name="Periodo"
+              placeHolder="Escoja un valor"
+              value={UnidadDeTiempo}
+              data={timeList}
+              onChangeSelected={getTime}
+            />
+          </View>
+        )}
 
+        {selectedTimeOption === "Tiempo específico" && (
+          <View style={styles.container}>
+            <Input1
+              name="Días"
+              placeHolder="Ingrese un valor"
+              value={timeDay}
+              onChangeNumber={(val) => setTimeDay(val)}
+              type="numeric"
+            />
+            <Input1
+              name="Meses"
+              placeHolder="Ingrese un valor"
+              value={timeMonth}
+              onChangeNumber={(val) => setTimeMonth(val)}
+              type="numeric"
+            />
+            <Input1
+              name="Años"
+              placeHolder="Ingrese un valor"
+              value={timeYear}
+              onChangeNumber={(val) => setTimeYear(val)}
+              type="numeric"
+            />
+          </View>
+        )}
         <View>
           <Input1
             name="Interes"
