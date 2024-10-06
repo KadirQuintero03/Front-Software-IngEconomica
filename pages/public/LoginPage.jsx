@@ -22,9 +22,7 @@ export default function LoginPage() {
   }, []);
 
   const biometricVerification = async () => {
-    //const compatible = await LocalAuthentication.hasHardwareAsync();
     const hasCredentials = await SecureStore.getItemAsync("phoneNumber");
-    console.log(hasCredentials);
     setIsBiometricSupported(hasCredentials != null);
   };
 

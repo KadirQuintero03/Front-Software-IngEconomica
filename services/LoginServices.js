@@ -15,8 +15,7 @@ export const login = async (user) => {
     }
 
     return response.value;
-  } catch (error) {
-    console.log("Error al iniciar sesion:", error);
+  } catch (_) {
     return { error: "Revise las credenciales e intente de nuevo." };
   }
 };
