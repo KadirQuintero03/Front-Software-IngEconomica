@@ -1,32 +1,64 @@
 import { View, Text, Image, TextInput, Pressable, Alert } from "react-native";
 import { styles } from "../public/loginPageStyle";
 import logocarter from "../../assets/logocarter.png";
-import { PhoneIcon, LockIcon } from "../../components/icons/Icons";
-import { useState } from "react";
+import { PhoneIcon, LockIcon, FingerIcon } from "../../components/icons/Icons";
+import { useEffect, useState } from "react";
 import { login } from "../../services/LoginServices";
+import { setCredentials } from "../../stores/useUser";
+import useColorPalette from "../../stores/useColorPalette";
+import * as LocalAuthentication from "expo-local-authentication";
+import * as SecureStore from "expo-secure-store";
 import { useRouter } from "expo-router";
 
 export default function LoginPage() {
+  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const fingerColor = useColorPalette(2, 1);
   const router = useRouter();
 
-  const handleLogin = async () => {
-    try {
-      const response = await login({
-        phoneNumber: phoneNumber,
-        password: password,
-      });
+  useEffect(() => {
+    biometricVerification();
+  }, []);
 
-      if (response.hasOwnProperty("error")) {
-        Alert.alert("Error", response.error);
-      }
+  const biometricVerification = async () => {
+    const hasCredentials = await SecureStore.getItemAsync("phoneNumber");
+    setIsBiometricSupported(hasCredentials != null);
+  };
+
+  const handleLogin = async (pn = phoneNumber, ps = password) => {
+    try {
+      // const response = await login({
+      //   phoneNumber: pn,
+      //   password: ps,
+      // });
+
+      // if ("error" in response) {
+      //   Alert.alert("Alerta", response.error);
+      //   return;
+      // }
+
+      setCredentials(pn, ps);
 
       router.navigate("./_mainPage");
     } catch (error) {
-      console.log(error);
+      console.log("handleLogin: " + error);
     }
   };
+
+  function onAuthenticate() {
+    const auth = LocalAuthentication.authenticateAsync({
+      promptMessage: "Inicia sesion con tu huella",
+      fallbackLabel: "Ingrese Contraseña",
+    });
+
+    auth.then(async (result) => {
+      const phoneNumberLocal = await SecureStore.getItemAsync("phoneNumber");
+      const passwordLocal = await SecureStore.getItemAsync("password");
+
+      if (result.success) handleLogin(phoneNumberLocal, passwordLocal);
+    });
+  }
 
   return (
     <View style={styles.container}>
@@ -55,7 +87,7 @@ export default function LoginPage() {
       </View>
 
       <Pressable
-        onPress={handleLogin}
+        onPress={() => handleLogin()}
         style={
           (({ pressed }) => [
             { backgroundColor: pressed ? "#00000026" : undefined },
@@ -70,6 +102,7 @@ export default function LoginPage() {
       <Text style={styles.txtMsg}>
         Presiona{" "}
         <Text
+          onPress={() => console.log("*forgot password*")}
           style={{
             color: "#022a9b",
             fontWeight: "bold",
@@ -79,6 +112,18 @@ export default function LoginPage() {
           aquí
         </Text>
       </Text>
+
+      {isBiometricSupported && (
+        <Pressable
+          onPress={onAuthenticate}
+          style={{
+            ...styles.fingerContainer,
+            backgroundColor: fingerColor,
+          }}
+        >
+          <FingerIcon />
+        </Pressable>
+      )}
     </View>
   );
 }

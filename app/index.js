@@ -5,7 +5,7 @@ import MainPage from "../pages/private/MainPage";
 export default function Index() {
   return (
     <View>
-      <MainPage />
+      <HomePage />
     </View>
   );
 }
