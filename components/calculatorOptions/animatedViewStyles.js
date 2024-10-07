@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   menu: {
     paddingBottom: pixels(25),
     position: "absolute",
-    height: windowHeight,
+    height: "100%",
     bottom: 0,
     left: 0,
   },

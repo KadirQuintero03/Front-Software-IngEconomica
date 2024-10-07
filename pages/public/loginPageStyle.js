@@ -3,10 +3,11 @@ import { pixels } from "../../stores/usePhoneProperties";
 
 export const styles = StyleSheet.create({
   container: {
+    position: "relative",
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    margin: pixels(15),
+    padding: pixels(15),
   },
 
   logo: {
@@ -58,5 +59,13 @@ export const styles = StyleSheet.create({
 
   icon: {
     color: "#000000CF",
+  },
+
+  fingerContainer: {
+    position: "absolute",
+    bottom: pixels(25),
+    right: pixels(20),
+    padding: pixels(17),
+    borderRadius: pixels(7),
   },
 });

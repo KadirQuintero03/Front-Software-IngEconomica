@@ -1,10 +1,9 @@
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Button1 } from "../components/Buttons";
 import { styles } from "../template/templateStyles";
 import { Input1, Input2 } from "../components/Inputs";
 import { useState } from "react";
 import { tiempoConversion } from "../../../utils/interesConversion";
-import Checkbox from "expo-checkbox";
 
 export default function CompoundInterest() {
   let [CapitalInicial, setCapitalInicial] = useState(0);
@@ -17,7 +16,6 @@ export default function CompoundInterest() {
   let [timeMonth, setTimeMonth] = useState(0);
   let [timeYear, setTimeYear] = useState(0);
   let [Tiempo, setTiempo] = useState(0);
-  let [Capitalizable, setCapitalizable] = useState(false);
   const [selectedTimeOption, setSelectedTimeOption] = useState("");
 
   const timeOptions = ["Periodo de tiempo", "Tiempo específico"];
