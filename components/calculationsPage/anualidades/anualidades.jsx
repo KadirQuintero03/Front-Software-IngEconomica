@@ -2,7 +2,8 @@ import { ScrollView, View, Alert } from "react-native";
 import { Button1 } from "../components/Buttons";
 import { styles } from "../template/templateStyles";
 import { Input1, Input2 } from "../components/Inputs";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { calculateAnnuity } from "../../../utils/Anualidades";
 
 export default function Anualidades() {
   let [VP, setVP] = useState(0); //Capital o valor presente de una anualidad.
@@ -61,23 +62,28 @@ export default function Anualidades() {
   };
 
   const onPressButton = () => {
-    // const result = calculateSimpleInterest(
-    //   VP,
-    //   interestRate,
-    //   periodOfTime,
-    //   timeDay,
-    //   timeMonth,
-    //   timeYear,
-    //   typeTime,
-    //   typeInterest,
-    //   VF,
-    //   Interes,
-    //   UnidadesDeTiempo
-    // );
+    const result = calculateAnnuity(
+      VP,
+      VF,
+      R,
+      N,
+      Y,
+      I,
+      typeTime,
+      typeInterest,
+      selectedAnnuity
+    );
 
-    // Alert.alert("Resultado", result);
+    Alert.alert("Resultado", result);
     resetFields();
   };
+
+  const shouldShowInput = useMemo(() => {
+    return (
+      selectedAnnuity === "Diferida vencida" ||
+      selectedAnnuity === "Diferida anticipada"
+    );
+  }, [selectedAnnuity]);
 
   return (
     <View style={styles.page}>
@@ -144,13 +150,15 @@ export default function Anualidades() {
             onChangeNumber={(val) => setN(val)}
             type="numeric"
           />
-          <Input1
-            name="Periodos muertos"
-            placeHolder="Enter value"
-            value={Y}
-            onChangeNumber={(val) => setY(val)}
-            type="numeric"
-          />
+          {shouldShowInput && (
+            <Input1
+              name="Periodos muertos"
+              placeHolder="Enter value"
+              value={Y}
+              onChangeNumber={(val) => setY(val)}
+              type="numeric"
+            />
+          )}
         </View>
       </ScrollView>
       <Button1 text="Calcular" pressed={() => onPressButton()} />
