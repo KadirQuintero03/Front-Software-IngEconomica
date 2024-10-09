@@ -4,6 +4,7 @@ import GradienteAritmetico from "../components/calculationsPage/gradienteAritmet
 import GradienteGeometrico from "../components/calculationsPage/gradienteGeometrico/GradienteGeometrico";
 import CompoundInterest from "../components/calculationsPage/compoundInterest/compoundInterest";
 import Anualidades from "../components/calculationsPage/anualidades/anualidades";
+import Amortization from "../components/calculationsPage/amortization/amortization";
 import Tir from "../components/calculationsPage/internalRateOfReturn/Tir";
 
 let useCalculatorOption;
