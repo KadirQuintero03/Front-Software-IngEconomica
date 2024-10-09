@@ -89,6 +89,6 @@ export const tiempoConversion = (
     const pDado = values.find((i) => i.value === typeTime);
     const pDeseado = values.find((i) => i.value === typeInterest);
 
-    return periodOfTime / (pDeseado.key / pDado.key);
+    return periodOfTime / (pDado.key / pDeseado.key);
   }
 };

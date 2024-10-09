@@ -1,51 +1,74 @@
-/*El banco comercial concede un préstamo para la compra de un inmueble cuyo valor es de
-5.000um, bajo las siguientes condiciones: Pagos trimestrales con sistema de 
-amortización alemán, a una TEA(Tasa efectiva anual) del 20% y un plazo de 2 años. Elabore el cronograma
+import { tiempoConversion } from "../../utils/interesConversion";
 
-Datos:
-Préstamo: 5000
-n (trimestral): 2 * 4 = 8 
-TEA: 0.20
-TET: 0.0466351
+export function calculateGerman(
+  capital,
+  period,
+  interestRate,
+  typeTime,
+  typeInterest
+) {
+  console.log(
+    "Datos que llegaron: ",
+    capital,
+    period,
+    interestRate,
+    typeTime,
+    typeInterest
+  );
 
-i_solicitada = (1 + i_dato)^periodo_deseo/periodo_dato - 1
-TET = (1 + 0.20)^90/360 - 1
+  period = tiempoConversion(typeTime, typeInterest, period);
+  console.log(period);
 
-periodo deseo: El periodo que deseo calcular en numero de días.
-periodo dato: El periodo de la tasa dato(tasa efectiva anual) en numero de días.
-*/
-
-let capital = 5000;
-let period = 8;
-let interestRate = 0.0466351;
-
-function generarTablaAmortizacion(capital, period, interestRate) {
   // Inicializar variables
   let saldoInicial = capital;
   let saldo = saldoInicial;
   let amortizacion = capital / period;
+  let totalPagos = 0,
+    totalInteres = 0,
+    totalAmortizacion = 0;
   let tabla = [];
+
+  let fieldsFilled = 0;
+  if (capital !== 0) fieldsFilled++;
+  if (period !== 0) fieldsFilled++;
+  if (interestRate !== 0) fieldsFilled++;
+
+  if (fieldsFilled < 3) {
+    return "Por favor, rellene todos los campos";
+  }
+
+  interestRate = interestRate / 100;
 
   // Iterar sobre cada periodo
   for (let periodo = 1; periodo <= period; periodo++) {
     // Calcular interés
-    let interes = saldo * interestRate;
+    let interes = parseInt(saldo) * parseFloat(interestRate);
 
     // Calcular cuota
-    let cuota = amortizacion + interes;
+    let cuota = parseInt(amortizacion) + parseInt(interes);
 
     // Actualizar saldo
-    saldo = saldo - amortizacion;
+    saldo = parseInt(saldo) - parseInt(amortizacion);
+
+    // Acumular totales
+    totalPagos += parseInt(cuota);
+    totalInteres += parseInt(interes);
+    totalAmortizacion += parseInt(amortizacion);
 
     // Agregar fila a la tabla: [Periodo, Amortización, Interés, Cuota, Saldo]
     tabla.push([periodo, amortizacion, interes, cuota, saldo]);
   }
 
-  return tabla;
+  // Agregar fila de totales
+  tabla.push(["T", totalAmortizacion, totalInteres, totalPagos, ""]);
+
+  console.log(tabla);
+
+  // Formatear la tabla como string
+  let tablaString = "Periodo | Amortizacion | Interés | Cuota | Saldo\n";
+  tabla.forEach((row) => {
+    tablaString += `${row[0]}         | ${row[1]}      | ${row[2]}        | ${row[3]}           | ${row[4]}\n`;
+  });
+
+  return tablaString; // Devolver la tabla formateada
 }
-
-// Llamada a la función
-let tablaAmortizacion = generarTablaAmortizacion(capital, period, interestRate);
-
-// Mostrar la tabla
-console.table(tablaAmortizacion);

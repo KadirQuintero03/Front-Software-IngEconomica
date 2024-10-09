@@ -4,6 +4,7 @@ import { styles } from "../template/templateStyles";
 import { Input1, Input2 } from "../components/Inputs";
 import React, { useState } from "react";
 import { calculateAmerican } from "../../../hooks/amortization/americanAmortization";
+import { calculateGerman } from "../../../hooks/amortization/germanAmortization";
 
 export default function Amortization() {
   let [capital, setCapital] = useState(0); //Capital que se aportara.
@@ -50,20 +51,21 @@ export default function Amortization() {
     );
   }
 
+  let result;
+  const values = [capital, period, interestRate, typeTime, typeInterest];
+
   const onPressButton = () => {
     console.log("La amortizacion seleccionada fue: ", selectedAmortization);
     if (selectedAmortization === "Americana") {
-      const result = calculateAmerican(
-        capital,
-        period,
-        interestRate,
-        typeTime,
-        typeInterest
-      );
-
-      Alert.alert("Resultado del calculo americano: ", result);
-      return resetFields();
+      result = calculateAmerican(...values);
     }
+
+    if (selectedAmortization === "Alemán") {
+      result = calculateGerman(...values);
+    }
+
+    Alert.alert("Resultado del calculo Alemán: ", result);
+    // return resetFields();
   };
 
   return (

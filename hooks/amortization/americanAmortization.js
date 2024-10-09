@@ -1,10 +1,3 @@
-/*
-Datos:
-Importe (prestamo): 50000
-Duracion (n): 6 meses 
-Tasa de interes (TEA): 2% mensual
-*/
-
 import { tiempoConversion } from "../../utils/interesConversion";
 
 export function calculateAmerican(
