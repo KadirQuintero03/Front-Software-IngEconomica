@@ -10,11 +10,13 @@ export const login = async (user) => {
       body: JSON.stringify(user),
     });
 
-    if (!response.ok) {
-      return { error: response.value };
-    }
+    const res = JSON.parse(await response.text());
 
-    return response.value;
+    console.log(res);
+    if ("success" in res) {
+      return { error: res.message };
+    }
+    return res.message;
   } catch (_) {
     return { error: "Revise las credenciales e intente de nuevo." };
   }

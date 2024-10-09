@@ -4,7 +4,7 @@ import { pixels } from "../../../stores/usePhoneProperties";
 export const styles = StyleSheet.create({
   container: {
     width: "100%",
-    marginVertical: 25,
+    paddingVertical: 25,
     paddingLeft: 20,
     zIndex: -1,
   },
@@ -27,12 +27,9 @@ export const styles = StyleSheet.create({
     paddingTop: pixels(20),
     gap: 5,
   },
-  icon: {
-    color: "#333",
-  },
   text: {
     textAlign: "center",
-    marginHorizontal: 5,
+    marginHorizontal: pixels(7),
     flexWrap: "wrap",
     fontSize: pixels(13.5),
   },

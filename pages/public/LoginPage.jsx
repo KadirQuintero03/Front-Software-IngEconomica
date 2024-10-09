@@ -28,15 +28,15 @@ export default function LoginPage() {
 
   const handleLogin = async (pn = phoneNumber, ps = password) => {
     try {
-      // const response = await login({
-      //   phoneNumber: pn,
-      //   password: ps,
-      // });
+      const response = await login({
+        phoneNumber: pn,
+        password: ps,
+      });
 
-      // if ("error" in response) {
-      //   Alert.alert("Alerta", response.error);
-      //   return;
-      // }
+      if (response.hasOwnProperty("error")) {
+        Alert.alert("Alerta", response.error);
+        return;
+      }
 
       setCredentials(pn, ps);
 

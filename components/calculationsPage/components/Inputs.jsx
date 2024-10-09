@@ -5,14 +5,18 @@ import { SelectList } from "react-native-dropdown-select-list";
 
 export function Input1({
   name = "",
+  fontSize,
   placeHolder = "",
   type = "",
   value = "",
   onChangeNumber,
+  styles,
 }) {
   return (
-    <View style={styles1.container}>
-      <Text style={styles1.text}>{name}</Text>
+    <View style={{ ...styles1.container, ...styles }}>
+      {name !== "" && (
+        <Text style={{ ...styles1.text, fontSize: fontSize }}>{name}</Text>
+      )}
       <TextInput
         style={{ ...styles1.input, borderColor: useColorPalette(3, 1) }}
         onChangeText={onChangeNumber}
@@ -35,7 +39,7 @@ export function Input2({
 
   return (
     <View style={styles2.container}>
-      <Text style={styles2.text}>{name}</Text>
+      {name !== "" && <Text style={styles2.text}>{name}</Text>}
       <SelectList
         data={data}
         setSelected={onChangeSelected}

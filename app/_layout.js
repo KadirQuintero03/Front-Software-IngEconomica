@@ -6,6 +6,7 @@ import {
   optionList,
 } from "../stores/useCalculatorOptions";
 import { pixels } from "../stores/usePhoneProperties";
+import { getSelectedOption, options } from "../stores/useTransactionOptions";
 
 export default function Layout() {
   const headerColor = useColorPalette(3, 1);
@@ -35,6 +36,22 @@ export default function Layout() {
             const option = optionList[getCalculatorOption()];
             return {
               headerTitle: option.name,
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                color: "white",
+                fontSize: pixels(22),
+              },
+              headerTintColor: "white",
+              headerStyle: { backgroundColor: headerColor },
+            };
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="_transactionPage"
+          options={({ route }) => {
+            const option = options[getSelectedOption()];
+            return {
+              headerTitle: option.title,
               headerTitleAlign: "center",
               headerTitleStyle: {
                 color: "white",
