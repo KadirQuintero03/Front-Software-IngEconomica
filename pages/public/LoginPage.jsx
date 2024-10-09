@@ -48,7 +48,7 @@ export default function LoginPage() {
 
   function onAuthenticate() {
     const auth = LocalAuthentication.authenticateAsync({
-      promptMessage: "Inicia sesion con tu huella",
+      // promptMessage: "Inicia sesion con tu huella",
       fallbackLabel: "Ingrese Contraseña",
     });
 
@@ -102,7 +102,7 @@ export default function LoginPage() {
       <Text style={styles.txtMsg}>
         Presiona{" "}
         <Text
-          onPress={() => console.log("*forgot password*")}
+          onPress={() => router.navigate("./_forgotPassword")}
           style={{
             color: "#022a9b",
             fontWeight: "bold",
