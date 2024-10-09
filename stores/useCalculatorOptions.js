@@ -4,6 +4,7 @@ import GradienteAritmetico from "../components/calculationsPage/gradienteAritmet
 import GradienteGeometrico from "../components/calculationsPage/gradienteGeometrico/GradienteGeometrico";
 import CompoundInterest from "../components/calculationsPage/compoundInterest/compoundInterest";
 import Anualidades from "../components/calculationsPage/anualidades/anualidades";
+import Amortization from "../components/calculationsPage/amortization/amortization";
 
 let useCalculatorOption;
 
@@ -13,7 +14,7 @@ export const optionList = [
   { id: 2, name: "Gradiente Aritmetico", component: <GradienteAritmetico /> },
   { id: 3, name: "Gradiente Geometrico", component: <GradienteGeometrico /> },
   { id: 4, name: "Anualidades", component: <Anualidades /> },
-  { id: 5, name: "Amortización", component: <Template /> },
+  { id: 5, name: "Amortización", component: <Amortization /> },
   { id: 6, name: "TIR", component: <Template /> },
 ];
 

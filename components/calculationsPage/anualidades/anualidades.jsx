@@ -113,7 +113,7 @@ export default function Anualidades() {
         </View>
 
         <Input1
-          name="Numero de cuotas"
+          name="Valor de la renta periódica"
           placeHolder="Enter value"
           value={R}
           onChangeNumber={(val) => setR(val)}
