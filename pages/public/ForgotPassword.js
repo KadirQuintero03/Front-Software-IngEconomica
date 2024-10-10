@@ -5,20 +5,24 @@ export const styles = StyleSheet.create({
   container: {
     position: "relative",
     height: "100%",
-    justifyContent: "center",
     alignItems: "center",
     padding: pixels(15),
   },
-
+  title: {
+    marginTop: pixels(60),
+    fontSize: pixels(16),
+    fontWeight: "bold",
+  },
   logo: {
-    width: pixels(200),
-    height: pixels(200),
-    marginBottom: pixels(60),
+    width: pixels(250),
+    height: pixels(250),
+    marginBottom: pixels(20),
   },
 
   txtMsg: {
-    fontSize: pixels(17),
-    textAlign: "center",
+    fontSize: pixels(14),
+    textAlign: "left",
+    paddingHorizontal: pixels(10),
   },
 
   input: {
@@ -28,16 +32,16 @@ export const styles = StyleSheet.create({
     paddingHorizontal: pixels(8),
     paddingVertical: pixels(7),
     color: "#000",
-    fontSize: pixels(18),
+    fontSize: pixels(12),
   },
 
-  txtLogin: {
+  txtForgot: {
     fontSize: pixels(16),
     color: "#fff",
     fontWeight: "bold",
   },
 
-  btnLogin: {
+  btnForgot: {
     marginTop: pixels(58),
     marginBottom: pixels(60),
     backgroundColor: "blue",

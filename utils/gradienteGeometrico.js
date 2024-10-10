@@ -1,19 +1,21 @@
+import { tiempoConversion } from "./interesConversion";
+
 export function validateInputs(
   type,
   valPresente,
   priCuota,
-  cuota,
+  n,
   timeCuota,
-  i,
+  interes,
   timeInteres,
   gradiente
 ) {
   if (type == "Valor Presente" || type == "Valor Futuro") {
     if (
       priCuota != 0 &&
-      i != 0 &&
+      interes != 0 &&
       timeInteres != undefined &&
-      cuota != 0 &&
+      n != 0 &&
       timeCuota != undefined &&
       gradiente != 0
     ) {
@@ -24,9 +26,9 @@ export function validateInputs(
   if (
     type == "Primera Cuota" &&
     valPresente != 0 &&
-    i != 0 &&
+    interes != 0 &&
     timeInteres != undefined &&
-    cuota != 0 &&
+    n != 0 &&
     timeCuota != undefined &&
     gradiente != 0
   ) {
@@ -46,53 +48,39 @@ export function calculateCreciente(
   timeInteres,
   gradiente
 ) {
-  priCuota = parseFloat(priCuota);
-  cuota = parseFloat(cuota);
-  interes = parseFloat(interes);
-  gradiente = parseFloat(gradiente);
-
-  const i = interesConversion(timeCuota, timeInteres, interes);
+  const n = tiempoConversion(timeCuota, timeInteres, cuota);
 
   switch (type) {
     case "Valor Presente":
       let vp = 0;
-      if (i != gradiente) {
+      if (interes != gradiente) {
         vp =
-          (priCuota *
-            ((Math.pow(1 + gradiente, cuota) - Math.pow(1 + i, cuota)) /
-              (gradiente - i))) /
-          Math.pow(1 + i, cuota);
+          (priCuota / (interes - gradiente)) *
+          (1 - Math.pow((1 + gradiente) / (1 + interes), n));
       } else {
-        vp = (cuota * priCuota) / (1 + i);
+        vp = (n * priCuota) / (1 + interes);
       }
 
-      return "El valor presente es: " + vp.toFixed(2);
+      return (
+        "El valor presente es: " +
+        parseFloat(vp.toFixed(2)).toLocaleString("de-DE")
+      );
 
     case "Valor Futuro":
-      const factor = Math.pow((1 + i) / (1 + gradiente), cuota) - 1;
-      const vf = (priCuota / (i - gradiente)) * factor;
-      return "El valor futuro es: " + vf.toFixed(2);
+      const factor = Math.pow((1 + interes) / (1 + gradiente), n) - 1;
+      const vf = (priCuota / (interes - gradiente)) * factor;
+      return (
+        "El valor futuro es: " +
+        parseFloat(vf.toFixed(2)).toLocaleString("de-DE")
+      );
 
     case "Primera Cuota":
-      const facto = 1 - Math.pow((1 + gradiente) / (1 + i), cuota);
-      const a = (valPresente * (i - gradiente)) / facto;
-      return "La primera cuota es de: " + a.toFixed(2);
+      const a =
+        (valPresente * (interes - gradiente)) /
+        (1 - Math.pow((1 + gradiente) / (1 + interes), n));
+      return (
+        "La primera cuota es de: " +
+        parseFloat(a.toFixed(2)).toLocaleString("de-DE")
+      );
   }
 }
-
-const interesConversion = (type, mainType, interes) => {
-  const pDado = values.find((i) => i.value == type);
-  const pDeseado = values.find((i) => i.value == mainType);
-
-  return interes / (pDeseado.key / pDado.key);
-};
-
-const values = [
-  { key: 52, value: "Semana" },
-  { key: 24, value: "Quincena" },
-  { key: 12, value: "Mes" },
-  { key: 1, value: "Año" },
-  { key: 2, value: "Semestre" },
-  { key: 6, value: "Bimestre" },
-  { key: 4, value: "Trimestre" },
-];

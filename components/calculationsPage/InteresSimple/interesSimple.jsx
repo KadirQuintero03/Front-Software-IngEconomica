@@ -1,16 +1,28 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Alert } from "react-native";
 import { Button1 } from "../components/Buttons";
 import { styles } from "../template/templateStyles";
 import { Input1, Input2 } from "../components/Inputs";
 import React, { useState } from "react";
+import { calculateSimpleInterest } from "../../../utils/interesSimple";
 
 export default function InteresSimple() {
-  let [CapitalInicial, setCapitalInicial] = useState(0);
-  let [TasaDeInteres, setTasaDeInteres] = useState(0);
-  let [MontoFuturo, setMontoFuturo] = useState(0);
+  let [VP, setVP] = useState(0);
+  let [interestRate, setInterestRate] = useState(0);
+  let [VF, setVF] = useState(0);
   let [Interes, setInteres] = useState(0);
-  let [Tiempo, setTiempo] = useState(0);
-  const [UnidadDeTiempo, setUnidadDeTiempo] = useState("anual");
+  let [periodOfTime, setPeriodOfTime] = useState(0);
+  let [timeDay, setTimeDay] = useState(0);
+  let [timeMonth, setTimeMonth] = useState(0);
+  let [timeYear, setTimeYear] = useState(0);
+  const [typeTime, setTypeTime] = useState("anual");
+  const [typeInterest, setTypeInterest] = useState("anual");
+  const [selectedTimeOption, setSelectedTimeOption] = useState(""); // Nuevo estado
+
+  const timeOptions = ["Periodo de tiempo", "Tiempo específico"]; // Opciones para el nuevo Input2
+
+  const handleTimeOptionChange = (val) => {
+    setSelectedTimeOption(val);
+  };
 
   let UnidadesDeTiempo = {
     dias: 365,
@@ -22,265 +34,161 @@ export default function InteresSimple() {
     anual: 1,
   };
 
-  const dataTiempo = [
-    { key: "1", value: "anual", time: 1 },
-    { key: "2", value: "semestral", time: 2 },
-    { key: "3", value: "bimestral", time: 6 },
-    { key: "4", value: "trimestral", time: 4 },
-    { key: "5", value: "mensual", time: 12 },
-    { key: "6", value: "cuatrimestral", time: 3 },
-    { key: "7", value: "dias", time: 365 },
+  const timeList = [
+    { key: 365, value: "Dia" },
+    { key: 52, value: "Semana" },
+    { key: 24, value: "Quincena" },
+    { key: 12, value: "Mes" },
+    { key: 6, value: "Bimestre" },
+    { key: 4, value: "Trimestre" },
+    { key: 2, value: "Semestre" },
+    { key: 1, value: "Año" },
   ];
 
-  function conversionTiempo(Tiempo, UnidadDeTiempo) {
-    if (UnidadDeTiempo === "dias") {
-      return Tiempo / 365;
-    }
-
-    if (UnidadDeTiempo === "mensual") {
-      return Tiempo / 12;
-    }
-
-    if (UnidadDeTiempo === "semestral") {
-      return Tiempo / 2;
-    }
-
-    if (UnidadDeTiempo === "trimestral") {
-      return Tiempo / 3;
-    }
-
-    if (UnidadDeTiempo === "cuatrimestral") {
-      return Tiempo / 4;
-    }
-
-    if (UnidadDeTiempo === "bimestral") {
-      return Tiempo / 6;
-    }
-
-    if (UnidadDeTiempo === "anual") {
-      return Tiempo / 1;
-    }
+  function getTime(data) {
+    timeList.map((values) =>
+      values.key === data ? setTypeTime(values.value) : false
+    );
   }
 
-  function getTime(data) {
-    dataTiempo.map((values) =>
-      values.key === data ? setUnidadDeTiempo(values.value) : false
+  function getInteres(data) {
+    timeList.map((values) =>
+      values.key === data ? setTypeInterest(values.value) : false
     );
   }
 
   const resetFields = () => {
-    setCapitalInicial(0);
-    setTasaDeInteres(0);
-    setMontoFuturo(0);
+    setVP(0);
+    setInterestRate(0);
+    setVF(0);
     setInteres(0);
-    setTiempo(0);
-    setUnidadDeTiempo("anual");
+    setPeriodOfTime(0);
+    setTimeDay(0);
+    setTimeMonth(0);
+    setTimeYear(0);
+    setTypeTime("anual");
+    setTypeInterest("anual");
   };
 
-  const Calcular = () => {
-    // Contamos cuántos campos tienen un valor distinto de cero
-    TasaDeInteres = TasaDeInteres / 100;
-    let fieldsFilled = 0;
-
-    if (CapitalInicial !== 0) fieldsFilled++;
-    if (TasaDeInteres !== 0) fieldsFilled++;
-    if (MontoFuturo !== 0) fieldsFilled++;
-    if (Interes !== 0) fieldsFilled++;
-    if (Tiempo !== 0) fieldsFilled++;
-
-    // Si hay menos de 2 campos llenos, mostramos la alerta
-    if (fieldsFilled < 2) {
-      alert("Debe rellenar mínimo 2 campos");
-      return; // Salimos de la función si no hay suficientes campos llenos
-    }
-
-    let TiempoMod = conversionTiempo(Tiempo, UnidadDeTiempo);
-
-    console.log(
-      CapitalInicial,
-      TasaDeInteres,
+  const onPressButton = () => {
+    const result = calculateSimpleInterest(
+      VP,
+      interestRate,
+      periodOfTime,
+      timeDay,
+      timeMonth,
+      timeYear,
+      typeTime,
+      typeInterest,
+      VF,
       Interes,
-      TiempoMod,
-      UnidadDeTiempo,
-      MontoFuturo
+      UnidadesDeTiempo
     );
 
-    //Calcular Interes✅
-    if (
-      CapitalInicial !== 0 &&
-      MontoFuturo !== 0 &&
-      TiempoMod === 0 &&
-      TasaDeInteres === 0
-    ) {
-      Interes = MontoFuturo - CapitalInicial;
-      alert("El interes simple es de: " + Interes.toFixed(2));
-      resetFields();
-      return;
-    }
-
-    if (
-      TasaDeInteres !== 0 &&
-      CapitalInicial !== 0 &&
-      TiempoMod !== 0 &&
-      Interes === 0
-    ) {
-      Interes = CapitalInicial * TasaDeInteres * TiempoMod;
-      MontoFuturo = parseInt(CapitalInicial) + parseInt(Interes);
-      alert(
-        "El interes simple es de: " +
-          Interes.toFixed(2) +
-          " Y el valor futuro es de: " +
-          MontoFuturo.toFixed(2)
-      );
-      return resetFields();
-    }
-
-    //Calcular tiempo✅
-    if (MontoFuturo !== 0 && CapitalInicial !== 0 && TasaDeInteres !== 0) {
-      Interes = MontoFuturo - CapitalInicial;
-      Tiempo = Interes / (CapitalInicial * TasaDeInteres);
-      alert("El total del tiempo es: " + Tiempo.toFixed(2));
-      return resetFields();
-    }
-
-    if (
-      CapitalInicial !== 0 &&
-      TasaDeInteres !== 0 &&
-      Interes !== 0 &&
-      UnidadDeTiempo !== "" &&
-      MontoFuturo === 0
-    ) {
-      Tiempo =
-        (UnidadesDeTiempo[UnidadDeTiempo] * Interes) /
-        (CapitalInicial * TasaDeInteres);
-      alert("El total del tiempo es: " + Tiempo.toFixed(2));
-      return resetFields();
-    }
-
-    if (
-      CapitalInicial !== 0 &&
-      Interes !== 0 &&
-      TasaDeInteres !== 0 &&
-      UnidadDeTiempo === "" &&
-      MontoFuturo === 0
-    ) {
-      MontoFuturo = parseInt(CapitalInicial) + parseInt(Interes);
-      Tiempo = (MontoFuturo / CapitalInicial - 1) / TasaDeInteres;
-      alert("El total del tiempo es: " + Tiempo.toFixed(2));
-      return resetFields();
-    }
-
-    //Calcular capital inicial✅
-    if (
-      Interes !== 0 &&
-      TiempoMod !== 0 &&
-      TasaDeInteres !== 0 &&
-      MontoFuturo === 0
-    ) {
-      CapitalInicial = Interes / (TasaDeInteres * TiempoMod);
-      alert("El capital inicial es de: " + CapitalInicial.toFixed(2));
-      return resetFields();
-    }
-
-    if (
-      MontoFuturo !== 0 &&
-      TiempoMod !== 0 &&
-      TasaDeInteres !== 0 &&
-      Interes === 0
-    ) {
-      CapitalInicial = MontoFuturo / (1 + TiempoMod * TasaDeInteres);
-      alert("El capital inicial es de: " + CapitalInicial.toFixed(2));
-      return resetFields();
-    }
-
-    if (
-      Interes !== 0 &&
-      MontoFuturo !== 0 &&
-      TasaDeInteres === 0 &&
-      CapitalInicial === 0
-    ) {
-      CapitalInicial = MontoFuturo - Interes;
-      alert("El capital inicial es de: " + CapitalInicial.toFixed(2));
-      return resetFields();
-    }
-
-    //Calcular tasa de interes✅
-    if (
-      CapitalInicial !== 0 &&
-      MontoFuturo !== 0 &&
-      TiempoMod !== 0 &&
-      Interes === 0
-    ) {
-      Interes = MontoFuturo - CapitalInicial;
-      TasaDeInteres = (Interes / (CapitalInicial * TiempoMod)) * 100;
-      alert("La tasa de interes es de: " + TasaDeInteres + "%");
-      return resetFields();
-    }
-
-    if (
-      Interes !== 0 &&
-      TiempoMod !== 0 &&
-      CapitalInicial !== 0 &&
-      MontoFuturo === 0
-    ) {
-      MontoFuturo = parseInt(CapitalInicial) + parseInt(Interes);
-      TasaDeInteres = ((MontoFuturo / CapitalInicial - 1) / TiempoMod) * 100;
-      alert("La tasa de interes es de: " + TasaDeInteres + "%");
-      return resetFields();
-    }
+    Alert.alert("Resultado", result);
     resetFields();
   };
 
   return (
     <View style={styles.page}>
       <ScrollView style={styles.scrollView}>
-        <Input2 name="Tipo de interes" placeHolder="Enter value" />
-        <Input1
-          name="Capital inicial"
-          placeHolder="Ingrese el capital inicial"
-          value={CapitalInicial}
-          onChangeNumber={(val) => setCapitalInicial(val)}
-          type="numeric"
-        />
-        <Input1
-          name="Tasa de interes"
-          placeHolder="Ingrese la tasa de interes"
-          value={TasaDeInteres}
-          onChangeNumber={(val) => setTasaDeInteres(val)}
-          type="numeric"
+        <Input2
+          name="Tiempo"
+          placeHolder="Escoja un valor"
+          value={selectedTimeOption}
+          data={timeOptions}
+          onChangeSelected={handleTimeOptionChange}
         />
         <View style={styles.container}>
           <Input1
-            name="Tiempo"
-            placeHolder="Ingrese un valor"
-            value={Tiempo}
-            onChangeNumber={(val) => setTiempo(val)}
+            name="Capital inicial"
+            placeHolder="Ingrese el valor"
+            value={VP}
+            onChangeNumber={(val) => setVP(val)}
             type="numeric"
           />
-          <Input2
-            name="Cada cuanto"
-            placeHolder="Escoja un valor"
-            value={UnidadDeTiempo}
-            data={dataTiempo}
-            onChangeSelected={getTime}
+          <Input1
+            name="Monto futuro"
+            placeHolder="Ingrese el valor"
+            value={VF}
+            onChangeNumber={(val) => setVF(val)}
+            type="numeric"
           />
         </View>
+
+        <View style={styles.container}>
+          <Input1
+            name="Tasa de interes"
+            placeHolder="Ingrese el valor"
+            value={interestRate}
+            onChangeNumber={(val) => setInterestRate(val)}
+            type="numeric"
+          />
+
+          <Input2
+            name="Unidad de interes"
+            placeHolder="Escoja un valor"
+            value={typeInterest}
+            data={timeList}
+            onChangeSelected={getInteres}
+          />
+        </View>
+
+        {selectedTimeOption === "Periodo de tiempo" && (
+          <View style={styles.container}>
+            <Input1
+              name="Tiempo"
+              placeHolder="Ingrese un valor"
+              value={periodOfTime}
+              onChangeNumber={(val) => setPeriodOfTime(val)}
+              type="numeric"
+            />
+
+            <Input2
+              name="Unidad de tiempo"
+              placeHolder="Escoja un valor"
+              value={typeTime}
+              data={timeList}
+              onChangeSelected={getTime}
+            />
+          </View>
+        )}
+
+        {selectedTimeOption === "Tiempo específico" && (
+          <View style={styles.container}>
+            <Input1
+              name="Días"
+              placeHolder="Ingrese un valor"
+              value={timeDay}
+              onChangeNumber={(val) => setTimeDay(val)}
+              type="numeric"
+            />
+            <Input1
+              name="Meses"
+              placeHolder="Ingrese un valor"
+              value={timeMonth}
+              onChangeNumber={(val) => setTimeMonth(val)}
+              type="numeric"
+            />
+            <Input1
+              name="Años"
+              placeHolder="Ingrese un valor"
+              value={timeYear}
+              onChangeNumber={(val) => setTimeYear(val)}
+              type="numeric"
+            />
+          </View>
+        )}
+
         <Input1
           name="Interes"
-          placeHolder="Ingrese el Iinteres"
+          placeHolder="Ingrese el valor"
           value={Interes}
           onChangeNumber={(val) => setInteres(val)}
           type="numeric"
         />
-        <Input1
-          name="Monto futuro"
-          placeHolder="Ingrese el monto futuro"
-          value={MontoFuturo}
-          onChangeNumber={(val) => setMontoFuturo(val)}
-          type="numeric"
-        />
       </ScrollView>
-      <Button1 text="Calcular" pressed={Calcular} />
+      <Button1 text="Calcular" pressed={() => onPressButton()} />
     </View>
   );
 }

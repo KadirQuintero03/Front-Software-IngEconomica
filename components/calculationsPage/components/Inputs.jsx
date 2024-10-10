@@ -2,17 +2,22 @@ import { Text, TextInput, View } from "react-native";
 import useColorPalette from "../../../stores/useColorPalette";
 import { styles1, styles2 } from "./inputsStyles";
 import { SelectList } from "react-native-dropdown-select-list";
+import { pixels } from "../../../stores/usePhoneProperties";
 
 export function Input1({
   name = "",
+  fontSize = pixels(17),
   placeHolder = "",
   type = "",
   value = "",
   onChangeNumber,
+  styles,
 }) {
   return (
-    <View style={styles1.container}>
-      <Text style={styles1.text}>{name}</Text>
+    <View style={{ ...styles1.container, ...styles }}>
+      {name !== "" && (
+        <Text style={{ ...styles1.text, fontSize: fontSize }}>{name}</Text>
+      )}
       <TextInput
         style={{ ...styles1.input, borderColor: useColorPalette(3, 1) }}
         onChangeText={onChangeNumber}
@@ -34,8 +39,10 @@ export function Input2({
   // data = [{key: '1', value: 'item1'}]
 
   return (
-    <View style={styles2.container}>
-      <Text style={styles2.text}>{name}</Text>
+    <View
+      style={{ ...styles2.container, height: name ? pixels(80) : pixels(60) }}
+    >
+      {name !== "" && <Text style={styles2.text}>{name}</Text>}
       <SelectList
         data={data}
         setSelected={onChangeSelected}

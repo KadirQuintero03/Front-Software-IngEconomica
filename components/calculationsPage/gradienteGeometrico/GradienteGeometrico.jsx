@@ -86,9 +86,9 @@ export default function GradienteGeometrico() {
       primeraCuota,
       cuota,
       selectedTimeCuota,
-      interes,
+      interes / 100,
       selectedTimeInteres,
-      gradiente
+      gradiente / 100
     );
 
     Alert.alert("Resultado", result);
@@ -105,23 +105,25 @@ export default function GradienteGeometrico() {
           data={calculateList}
         />
 
-        <Input1
-          name="Monto"
-          placeHolder="0"
-          type="numeric"
-          value={valorPresente}
-          onChangeNumber={(value) => setValorPresente(value)}
-          onEnd={onChangeInputs}
-        />
-
-        <Input1
-          name="Primera Cuota"
-          placeHolder="0"
-          type="numeric"
-          value={primeraCuota}
-          onChangeNumber={(value) => setPrimeraCuota(value)}
-          onEnd={onChangeInputs}
-        />
+        {selectedCalculate == "Primera Cuota" ? (
+          <Input1
+            name="Monto"
+            placeHolder="0"
+            type="numeric"
+            value={valorPresente}
+            onChangeNumber={(value) => setValorPresente(parseFloat(value))}
+            onEnd={onChangeInputs}
+          />
+        ) : (
+          <Input1
+            name="Primera Cuota"
+            placeHolder="0"
+            type="numeric"
+            value={primeraCuota}
+            onChangeNumber={(value) => setPrimeraCuota(parseFloat(value))}
+            onEnd={onChangeInputs}
+          />
+        )}
 
         <View style={styles.container}>
           <Input1
@@ -129,7 +131,7 @@ export default function GradienteGeometrico() {
             placeHolder="0"
             type="numeric"
             value={cuota}
-            onChangeNumber={(value) => setCuota(value)}
+            onChangeNumber={(value) => setCuota(parseFloat(value))}
             onEnd={onChangeInputs}
           />
           <Input2
@@ -147,7 +149,7 @@ export default function GradienteGeometrico() {
             placeHolder="0"
             type="numeric"
             value={interes}
-            onChangeNumber={(value) => setInteres(value)}
+            onChangeNumber={(value) => setInteres(parseFloat(value))}
             onEnd={onChangeInputs}
           />
           <Input2
@@ -164,7 +166,7 @@ export default function GradienteGeometrico() {
           placeHolder="0"
           type="numeric"
           value={gradiente}
-          onChangeNumber={(value) => setGradiente(value)}
+          onChangeNumber={(value) => setGradiente(parseFloat(value))}
         />
       </ScrollView>
       <Button1

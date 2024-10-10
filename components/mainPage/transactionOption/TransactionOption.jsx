@@ -1,22 +1,29 @@
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, Pressable } from "react-native";
 import { styles } from "./transactionOptionStyles";
-import { CashIcon } from "../../icons/Icons";
-import { pixels } from "../../../stores/usePhoneProperties";
+import { router } from "expo-router";
+import {
+  options,
+  setSelectedOption,
+} from "../../../stores/useTransactionOptions";
 
 export default function TransactionOption() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Transacciones</Text>
       <ScrollView horizontal={true}>
-        {Array.from(
-          ["Prestamos", "Ver movimientos", "Verificar transacciones"],
-          (v, i) => ({ id: i, name: v })
-        ).map((v) => {
+        {options.map((op) => {
           return (
-            <View style={styles.option} key={v.id}>
-              <CashIcon style={styles.icon} size={pixels(30)} />
-              <Text style={styles.text}>{v.name}</Text>
-            </View>
+            <Pressable
+              style={styles.option}
+              key={op.id}
+              onPress={() => {
+                setSelectedOption(op.id);
+                router.navigate("./_transactionPage");
+              }}
+            >
+              {op.icon}
+              <Text style={styles.text}>{op.title}</Text>
+            </Pressable>
           );
         })}
       </ScrollView>
