@@ -15,7 +15,7 @@ export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleCreateAccount = async () => {
+  const CreateAccount = async () => {
     const newUser = {
       id,
       name,
@@ -106,7 +106,7 @@ export default function LoginPage() {
 
         <Pressable
           style={styles.btnCreateAccount}
-          onPress={handleCreateAccount}
+          onPress={CreateAccount}
         >
           <Text style={styles.txtCreateAccount}>Crear Cuenta</Text>
         </Pressable>
