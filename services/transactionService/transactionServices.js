@@ -1,14 +1,14 @@
 import { apiUrl } from "../stores/useApi";
 
-export const createUser = async (user) => {
+export const userTransaction = async (transaction) => {
   try {
-    console.log(user);
-    const response = await fetch(`${apiUrl}/auth/register`, {
+    console.log(transaction);
+    const response = await fetch(`${apiUrl}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(transaction),
     });
 
     const res = JSON.parse(await response.text());
@@ -18,6 +18,6 @@ export const createUser = async (user) => {
     }
     return res.message;
   } catch (_) {
-    return { error: "Error realizando la transaccion." };
+    return { error: "Verifique sus datos e intente de nuevo." };
   }
 };
