@@ -3,6 +3,9 @@ import InteresSimple from "../components/calculationsPage/InteresSimple/interesS
 import GradienteAritmetico from "../components/calculationsPage/gradienteAritmetico/GradienteAritmetico";
 import GradienteGeometrico from "../components/calculationsPage/gradienteGeometrico/GradienteGeometrico";
 import CompoundInterest from "../components/calculationsPage/compoundInterest/compoundInterest";
+import Anualidades from "../components/calculationsPage/anualidades/anualidades";
+import Amortization from "../components/calculationsPage/amortization/amortization";
+import Tir from "../components/calculationsPage/internalRateOfReturn/Tir";
 
 let useCalculatorOption;
 
@@ -11,16 +14,9 @@ export const optionList = [
   { id: 1, name: "Interes Compuesto", component: <CompoundInterest /> },
   { id: 2, name: "Gradiente Aritmetico", component: <GradienteAritmetico /> },
   { id: 3, name: "Gradiente Geometrico", component: <GradienteGeometrico /> },
-  { id: 4, name: "Amortización", component: <Template /> },
-  { id: 5, name: "Taza de interés de retorno", component: <Template /> },
-  { id: 6, name: "Unidad de valor real", component: <Template /> },
-  {
-    id: 7,
-    name: "Evaluación de alternativas de Inversión",
-    component: <Template />,
-  },
-  { id: 8, name: "Inflación", component: <Template /> },
-  { id: 9, name: "Bonos", component: <Template /> },
+  { id: 4, name: "Anualidades", component: <Anualidades /> },
+  { id: 5, name: "Amortización", component: <Template /> },
+  { id: 6, name: "Tasa interna de retorno", component: <Tir /> },
 ];
 
 export const getCalculatorOption = () => useCalculatorOption;
