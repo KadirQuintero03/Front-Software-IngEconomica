@@ -2,10 +2,11 @@ import { Text, TextInput, View } from "react-native";
 import useColorPalette from "../../../stores/useColorPalette";
 import { styles1, styles2 } from "./inputsStyles";
 import { SelectList } from "react-native-dropdown-select-list";
+import { pixels } from "../../../stores/usePhoneProperties";
 
 export function Input1({
   name = "",
-  fontSize,
+  fontSize = pixels(17),
   placeHolder = "",
   type = "",
   value = "",
@@ -38,7 +39,9 @@ export function Input2({
   // data = [{key: '1', value: 'item1'}]
 
   return (
-    <View style={styles2.container}>
+    <View
+      style={{ ...styles2.container, height: name ? pixels(80) : pixels(60) }}
+    >
       {name !== "" && <Text style={styles2.text}>{name}</Text>}
       <SelectList
         data={data}

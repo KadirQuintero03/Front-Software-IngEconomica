@@ -14,11 +14,14 @@ export default function LoginPage() {
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [phoneNumberLocal, setPhoneNumberLocal] = useState("");
+  const [passwordLocal, setPasswordLocal] = useState("");
   const fingerColor = useColorPalette(2, 1);
   const router = useRouter();
 
   useEffect(() => {
     biometricVerification();
+    getLocalCredential();
   }, []);
 
   const biometricVerification = async () => {
@@ -26,19 +29,28 @@ export default function LoginPage() {
     setIsBiometricSupported(hasCredentials != null);
   };
 
+  const getLocalCredential = async () => {
+    setPhoneNumberLocal(await SecureStore.getItemAsync("phoneNumber"));
+    setPasswordLocal(await SecureStore.getItemAsync("password"));
+  };
+
   const handleLogin = async (pn = phoneNumber, ps = password) => {
     try {
-      const response = await login({
-        phoneNumber: pn,
-        password: ps,
-      });
+      // const response = await login({
+      //   phoneNumber: pn,
+      //   password: ps,
+      // });
 
-      if (response.hasOwnProperty("error")) {
-        Alert.alert("Alerta", response.error);
-        return;
-      }
+      // if (response.hasOwnProperty("error")) {
+      //   Alert.alert("Alerta", response.error);
+      //   return;
+      // }
 
-      setCredentials(pn, ps);
+      // if (pn !== phoneNumberLocal || ps !== passwordLocal) {
+      //   await SecureStore.deleteItemAsync("phoneNumber");
+      //   await SecureStore.deleteItemAsync("password");
+      //   setCredentials(pn, ps);
+      // }
 
       router.navigate("./_mainPage");
     } catch (error) {
@@ -53,9 +65,6 @@ export default function LoginPage() {
     });
 
     auth.then(async (result) => {
-      const phoneNumberLocal = await SecureStore.getItemAsync("phoneNumber");
-      const passwordLocal = await SecureStore.getItemAsync("password");
-
       if (result.success) handleLogin(phoneNumberLocal, passwordLocal);
     });
   }

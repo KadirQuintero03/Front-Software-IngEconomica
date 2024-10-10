@@ -12,9 +12,8 @@ export const login = async (user) => {
 
     const res = JSON.parse(await response.text());
 
-    console.log(res);
-    if ("success" in res) {
-      return { error: res.message };
+    if ("errors" in res) {
+      return { error: res.errors.join(".\n") };
     }
     return res.message;
   } catch (_) {
