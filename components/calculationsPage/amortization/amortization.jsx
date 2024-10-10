@@ -5,6 +5,7 @@ import { Input1, Input2 } from "../components/Inputs";
 import React, { useState } from "react";
 import { calculateAmerican } from "../../../hooks/amortization/americanAmortization";
 import { calculateGerman } from "../../../hooks/amortization/germanAmortization";
+import { calculateFrench } from "../../../hooks/amortization/frenchAmortization  ";
 
 export default function Amortization() {
   let [capital, setCapital] = useState(0); //Capital que se aportara.
@@ -64,7 +65,14 @@ export default function Amortization() {
       result = calculateGerman(...values);
     }
 
-    Alert.alert("Resultado del calculo Alemán: ", result);
+    if (selectedAmortization === "Francesa") {
+      result = calculateFrench(...values);
+    }
+
+    Alert.alert(
+      "El resultado de la amortización " + selectedAmortization + " es:",
+      result
+    );
     // return resetFields();
   };
 

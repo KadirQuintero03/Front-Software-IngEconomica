@@ -15,7 +15,7 @@ export const optionList = [
   { id: 2, name: "Gradiente Aritmetico", component: <GradienteAritmetico /> },
   { id: 3, name: "Gradiente Geometrico", component: <GradienteGeometrico /> },
   { id: 4, name: "Anualidades", component: <Anualidades /> },
-  { id: 5, name: "Amortización", component: <Template /> },
+  { id: 5, name: "Amortización", component: <Amortization /> },
   { id: 6, name: "Tasa interna de retorno", component: <Tir /> },
 ];
 

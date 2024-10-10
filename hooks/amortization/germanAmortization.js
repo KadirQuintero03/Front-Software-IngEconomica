@@ -62,8 +62,6 @@ export function calculateGerman(
   // Agregar fila de totales
   tabla.push(["T", totalAmortizacion, totalInteres, totalPagos, ""]);
 
-  console.log(tabla);
-
   // Formatear la tabla como string
   let tablaString = "Periodo | Amortizacion | Interés | Cuota | Saldo\n";
   tabla.forEach((row) => {

@@ -1,97 +1,81 @@
-const typeTaseInterest = "mensual";
-const typeQuotas = "mensual";
-const capitalPrestamo = 70000;
-const tasaInteres = 1.5 / 100;
-const cantidadCuotas = 35;
+import { tiempoConversion } from "../../utils/interesConversion";
 
-class SistemaFrances {
-  saldoCapital;
-  interesCuota;
-  amortizacion;
-}
-
-let matrizTodo = [];
-
-const amortizacionFrancesa = (
+export function calculateFrench(
   capital,
-  tsa,
-  cuotas,
-  typeQuotas,
+  period,
+  interestRate,
+  typeTime,
   typeInterest
-) => {
-  cuotas = parseInt(cuotas);
-  tsa = parseFloat(tsa);
-  capital = parseInt(capital);
-  console.log(tsa);
-  // convertir el tipo de tiempo
-  tsa = interestNomalizad(typeInterest, typeQuotas, tsa);
-  tsa = parseFloat(tsa);
-  console.log(tsa);
+) {
+  period = tiempoConversion(typeTime, typeInterest, period);
+
+  interestRate = interestRate / 100;
+
+  console.log(
+    "Datos que llegaron: ",
+    capital,
+    period,
+    interestRate,
+    typeTime,
+    typeInterest
+  );
+
+  // Inicializar variables
+  let saldoCapital = parseInt(capital);
   let cuotaTotal =
-    (capital * tsa * Math.pow(1 + tsa, cuotas)) /
-    (Math.pow(1 + tsa, cuotas) - 1);
+    (parseInt(capital) *
+      parseFloat(interestRate) *
+      Math.pow(1 + parseFloat(interestRate), parseInt(period))) /
+    (Math.pow(1 + parseFloat(interestRate), parseInt(period)) - 1);
 
-  let objectInsert = new SistemaFrances();
+  let totalPagos = 0,
+    totalInteres = 0,
+    totalAmortizacion = 0;
+  let tabla = [];
 
-  saldoCapital = capital;
-  interesCuota = saldoCapital * tsa;
-  amortizacion = parseFloat(cuotaTotal - interesCuota);
+  let fieldsFilled = 0;
+  if (capital !== 0) fieldsFilled++;
+  if (period !== 0) fieldsFilled++;
+  if (interestRate !== 0) fieldsFilled++;
 
-  // matrizTodo.push([saldoCapital,interesCuota,amortizacion])
-
-  // console.log(matrizTodo)
-
-  for (let index = 1; index <= cuotas; index++) {
-    interesCuota = saldoCapital * tsa;
-
-    let amortizacion = cuotaTotal - interesCuota;
-
-    saldoCapital = saldoCapital - amortizacion;
-
-    matrizTodo.push([saldoCapital, interesCuota, amortizacion]);
+  if (fieldsFilled < 3) {
+    return "Por favor, rellene todos los campos";
   }
 
-  return matrizTodo;
-};
+  // Iterar sobre cada periodo
+  for (let periodo = 1; periodo <= period; periodo++) {
+    // Calcular interés de la cuota
+    let interesCuota = parseInt(saldoCapital) * parseFloat(interestRate);
 
-let diccionarioCuotas = {
-  anual: 1,
-  semestral: 2,
-  bimestral: 6,
-  trimestral: 4,
-  mensual: 12,
-};
+    // Calcular amortización de la cuota
+    let amortizacion = parseInt(cuotaTotal) - parseInt(interesCuota);
 
-const interestNomalizad = (typeTaseInteres, typeQuotas, taseInterest) => {
-  if (typeTaseInteres === "anual") {
-    const searchDiccionary = encontrarParecido(typeQuotas);
-    return (Math.pow(1 + taseInterest, 1 / searchDiccionary) - 1).toFixed(3);
-  } else if (typeTaseInteres === "semestral") {
-    const searchDiccionary = encontrarParecido(typeQuotas);
-    return (Math.pow(1 + taseInterest, searchDiccionary / 2) - 1).toFixed(3);
-  } else if (typeTaseInteres === "trimestral") {
-    const searchDiccionary = encontrarParecido(typeQuotas);
-    return (Math.pow(1 + taseInterest, searchDiccionary / 4) - 1).toFixed(3);
-  } else if (typeTaseInteres === "bimestral") {
-    const searchDiccionary = encontrarParecido(typeQuotas);
-    return (Math.pow(1 + taseInterest, searchDiccionary / 6) - 1).toFixed(3);
-  } else if (typeTaseInteres === "mensual") {
-    const searchDiccionary = encontrarParecido(typeQuotas);
-    return (Math.pow(1 + taseInterest, searchDiccionary / 12) - 1).toFixed(3);
+    // Acumular totales
+    totalPagos += parseInt(cuotaTotal);
+    totalInteres += parseInt(interesCuota);
+    totalAmortizacion += parseInt(amortizacion);
+
+    // Agregar fila a la tabla: [Periodo, Amortización, Interés, Cuota, Saldo]
+    tabla.push([
+      periodo,
+      saldoCapital,
+      interesCuota,
+      amortizacion,
+      cuotaTotal.toFixed(0),
+    ]);
+
+    // Actualizar saldo del capital
+    saldoCapital = parseInt(saldoCapital) - parseInt(amortizacion);
   }
-};
-function encontrarParecido(typeQuotas) {
-  if (diccionarioCuotas.hasOwnProperty(typeQuotas)) {
-    return diccionarioCuotas[typeQuotas];
-  }
+
+  // Agregar fila de totales
+  tabla.push(["T", "        ", totalInteres, totalAmortizacion, totalPagos]);
+
+  // Formatear la tabla como string
+  let tablaString = "Periodo | Saldo | Interés | Amortización | Cuota\n";
+  tabla.forEach((row) => {
+    tablaString += `${row[0]}         | ${row[1]}      | ${row[2]}        | ${row[3]}           | ${row[4]}\n`;
+  });
+
+  return tablaString; // Devolver la tabla formateada
 }
-
-const tabla = amortizacionFrancesa(
-  capitalPrestamo,
-  tasaInteres,
-  cantidadCuotas,
-  typeQuotas,
-  typeTaseInterest
-);
-
-//console.table(tabla)
