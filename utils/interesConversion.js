@@ -1,4 +1,4 @@
-const values = [
+export const values = [
   { key: 365, value: "Dia" },
   { key: 52, value: "Semana" },
   { key: 24, value: "Quincena" },

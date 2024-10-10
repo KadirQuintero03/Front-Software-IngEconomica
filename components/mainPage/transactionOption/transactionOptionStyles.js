@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     borderRadius: 7,
     alignItems: "center",
     paddingTop: pixels(20),
+    elevation: 1,
     gap: 5,
   },
   text: {

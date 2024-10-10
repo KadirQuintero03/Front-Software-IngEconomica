@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     height: "100%",
     padding: pixels(15),
     alignItems: "center",
+    gap: pixels(15),
   },
   header: {
     width: "100%",
@@ -17,14 +18,36 @@ export const styles = StyleSheet.create({
     elevation: pixels(3),
     borderRadius: pixels(6),
   },
+  scrollView: {
+    width: "100%",
+  },
   headerSeparate: {
-    borderRightWidth: 1,
     height: "80%",
     borderColor: "grey",
+    borderWidth: 0.4,
   },
   img: {
     height: pixels(90),
     width: pixels(120),
     marginRight: pixels(5),
+  },
+  interesBox: {
+    width: "100%",
+    marginTop: pixels(20),
+  },
+  interesTitle: {
+    fontSize: pixels(19),
+    fontWeight: "500",
+  },
+  interesType: {
+    height: pixels(70),
+  },
+  interesBoxDouble1: {
+    flexDirection: "row",
+    gap: pixels(10),
+    alignItems: "center",
+  },
+  interesQuote: {
+    height: pixels(80),
   },
 });
