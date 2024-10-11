@@ -1,11 +1,13 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { Input1, Input2 } from "../../calculationsPage/components/Inputs";
 import { styles } from "./prestamoStyles";
 import { pixels } from "../../../stores/usePhoneProperties";
 import illustration from "./../../../assets/prestamoIlustracion1.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { values } from "../../../utils/interesConversion";
 import { Button1 } from "../../calculationsPage/components/Buttons";
+import { request } from "../../../services/PrestamoServices";
+import { getCredentials } from "../../../stores/useUser";
 
 export default function Prestamo() {
   const [credit, setCredit] = useState({
@@ -17,6 +19,11 @@ export default function Prestamo() {
     period: undefined,
   });
 
+  useEffect(() => {
+    const credentials = getCredentials();
+    setCredit({ ...credit, userID: credentials.phoneNumber });
+  }, []);
+
   function handleInput(name, value) {
     setCredit({ ...credit, [name]: value });
   }
@@ -24,6 +31,22 @@ export default function Prestamo() {
   function onChangeSelected(key) {
     const selected = values.find((v) => v.key == key);
     handleInput("period", selected.value);
+  }
+
+  async function onRequest() {
+    try {
+      console.log(credit);
+      const response = await request(credit);
+
+      if (response.hasOwnProperty("error")) {
+        Alert.alert("Alerta", response.error);
+        return;
+      }
+
+      Alert.alert("Prestamo", response.message);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -54,7 +77,7 @@ export default function Prestamo() {
             <Input2
               placeHolder="Tipo Interes"
               selected={credit.interestType}
-              onChangeSelected={(value) => handleInput("interesType", value)}
+              onChangeSelected={(value) => handleInput("interestType", value)}
               data={["Simple", "Compuesto"]}
             />
           </View>
@@ -87,7 +110,7 @@ export default function Prestamo() {
           </View>
         </View>
       </ScrollView>
-      <Button1 text="Solicitar" />
+      <Button1 text="Solicitar" pressed={onRequest} />
     </View>
   );
 }

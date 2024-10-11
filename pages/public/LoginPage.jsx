@@ -36,21 +36,21 @@ export default function LoginPage() {
 
   const handleLogin = async (pn = phoneNumber, ps = password) => {
     try {
-      // const response = await login({
-      //   phoneNumber: pn,
-      //   password: ps,
-      // });
+      const response = await login({
+        phoneNumber: pn,
+        password: ps,
+      });
 
-      // if (response.hasOwnProperty("error")) {
-      //   Alert.alert("Alerta", response.error);
-      //   return;
-      // }
+      if (response.hasOwnProperty("error")) {
+        Alert.alert("Alerta", response.error);
+        return;
+      }
 
-      // if (pn !== phoneNumberLocal || ps !== passwordLocal) {
-      //   await SecureStore.deleteItemAsync("phoneNumber");
-      //   await SecureStore.deleteItemAsync("password");
-      //   setCredentials(pn, ps);
-      // }
+      if (pn !== phoneNumberLocal || ps !== passwordLocal) {
+        await SecureStore.deleteItemAsync("phoneNumber");
+        await SecureStore.deleteItemAsync("password");
+      }
+      setCredentials(pn, ps);
 
       router.navigate("./_mainPage");
     } catch (error) {
@@ -60,7 +60,7 @@ export default function LoginPage() {
 
   function onAuthenticate() {
     const auth = LocalAuthentication.authenticateAsync({
-      // promptMessage: "Inicia sesion con tu huella",
+      promptMessage: "Inicia sesion con tu huella",
       fallbackLabel: "Ingrese Contraseña",
     });
 
