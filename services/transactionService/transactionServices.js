@@ -1,9 +1,9 @@
-import { apiUrl } from "../stores/useApi";
+import { apiUrl } from "../../stores/useApi";
 
 export const userTransaction = async (transaction) => {
   try {
     console.log(transaction);
-    const response = await fetch(`${apiUrl}`, {
+    const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
