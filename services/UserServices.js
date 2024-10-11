@@ -18,6 +18,6 @@ export const createUser = async (user) => {
     }
     return res.message;
   } catch (_) {
-    return { error: "Verifique sus datos e intente de nuevo." };
+    return { error: "Error realizando la transaccion." };
   }
 };

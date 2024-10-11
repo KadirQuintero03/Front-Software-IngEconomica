@@ -1,25 +1,23 @@
-import { apiUrl } from "../stores/useApi";
+import { apiUrl } from "../../stores/useApi";
 
-export const login = async (user) => {
+export const userTransaction = async (transaction) => {
   try {
-    console.log(user)
+    console.log(transaction);
     const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(transaction),
     });
 
     const res = JSON.parse(await response.text());
-
-    console.log(res);
 
     if ("errors" in res) {
       return { error: res.errors.join(".\n") };
     }
     return res.message;
   } catch (_) {
-    return { error: "Revise las credenciales e intente de nuevo." };
+    return { error: "Verifique sus datos e intente de nuevo." };
   }
 };
