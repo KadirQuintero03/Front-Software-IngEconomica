@@ -1,33 +1,34 @@
 import { Image, ScrollView, Text, View } from "react-native";
 import { Input1 } from "../../calculationsPage/components/Inputs";
-import { userTransaction } from "../../../services/transactionService/transactionServices";
 import illustration from "./../../../assets/prestamoIlustracion1.png";
 import { useState } from "react";
 import { styles } from "./transactionStyles";
 import { Button1 } from "../../calculationsPage/components/Buttons";
 import { userTransaction } from "../../../services/transactionService/transactionServices";
+import { useRouter } from "expo-router";
 
 export default function Transaction() {
-    const [numberPhone, setNumberPhone] = useState("");
-    const [amount, setAmount] = useState("");
-    const [reason, setReason] = useState("");
+  const [numberPhone, setNumberPhone] = useState("");
+  const [amount, setAmount] = useState("");
+  const [reason, setReason] = useState("");
 
-    const makeTransaction = async () => {
-        const newTransancion = {
-          numberPhone,
-          amount,
-          reason,
-        };
-    
-        try {
-          const transaction = await userTransaction(newTransancion);
-          Alert.alert(
-            "Transaccion realizada con exito",
-          );
-        } catch (error) {
-          Alert.alert(error);
-        }
-      };
+  const router = useRouter();
+
+  const makeTransaction = async () => {
+    const newTransancion = {
+      numberPhone,
+      amount,
+      reason,
+    };
+
+    try {
+      const transaction = await userTransaction(newTransancion);
+      Alert.alert("Transaccion realizada con exito");
+      router.navigate("./_receiptTransaction");
+    } catch (error) {
+      Alert.alert(error);
+    }
+  };
 
   return (
     <View style={styles.page}>
@@ -67,7 +68,7 @@ export default function Transaction() {
           />
         </View>
       </ScrollView>
-      <Button1 text="Transferir" onPress={makeTransaction}/>
+      <Button1 text="Transferir" pressed={makeTransaction} />
     </View>
   );
 }

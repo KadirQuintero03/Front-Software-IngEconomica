@@ -11,29 +11,26 @@ export const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     backgroundColor: "white",
     paddingVertical: pixels(5),
     elevation: pixels(3),
     borderRadius: pixels(6),
+    paddingHorizontal: pixels(20)
   },
   scrollView: {
     width: "100%",
   },
-  headerSeparate: {
-    height: "80%",
-    borderColor: "grey",
-    borderWidth: 0.4,
-  },
   img: {
-    height: pixels(90),
-    width: pixels(120),
+    height: pixels(180),
+    width: pixels(210),
     marginRight: pixels(5),
   },
   interesBox: {
     width: "100%",
     marginTop: pixels(20),
+    marginBottom: pixels(7)
   },
   label: {
     fontSize: pixels(18),
@@ -48,9 +45,6 @@ export const styles = StyleSheet.create({
     borderBottomWidth: pixels(2),
     borderBottomColor: "#5f79a6",
     marginTop: pixels(5),
-    width: pixels(130),
-  },
-  container: {
-    paddingLeft: pixels(40),
+    width: pixels(280),
   },
 });

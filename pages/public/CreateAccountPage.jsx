@@ -4,7 +4,7 @@ import logocarter from "../../assets/logocarter.png";
 import { styles } from "../public/createAccountStyle";
 import React, { useState } from "react";
 import { createUser } from "../../services/UserServices";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function LoginPage() {
@@ -14,6 +14,8 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+
+  const router = useRouter();
 
   const CreateAccount = async () => {
     const newUser = {
@@ -31,6 +33,7 @@ export default function LoginPage() {
         "Cuenta creada",
         `Usuario ${newUser.name} creado exitosamente.`,
       );
+      router.navigate("./_loginpage");
     } catch (error) {
       Alert.alert(error);
     }

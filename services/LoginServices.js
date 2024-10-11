@@ -2,6 +2,7 @@ import { apiUrl } from "../stores/useApi";
 
 export const login = async (user) => {
   try {
+    console.log(user)
     const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
       headers: {
