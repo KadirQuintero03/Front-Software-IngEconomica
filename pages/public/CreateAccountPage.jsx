@@ -29,13 +29,15 @@ export default function LoginPage() {
 
     try {
       const createdUser = await createUser(newUser);
-      Alert.alert(
-        "Cuenta creada",
-        `Usuario ${newUser.name} creado exitosamente.`,
-      );
+
+      if (response.hasOwnProperty("error")) {
+        Alert.alert("Alerta", createdUser.error);
+        return;
+      }
+
       router.navigate("./_loginpage");
     } catch (error) {
-      Alert.alert(error);
+      console.log("create user" + error);
     }
   };
 
@@ -107,10 +109,7 @@ export default function LoginPage() {
           ></TextInput>
         </View>
 
-        <Pressable
-          style={styles.btnCreateAccount}
-          onPress={CreateAccount}
-        >
+        <Pressable style={styles.btnCreateAccount} onPress={CreateAccount}>
           <Text style={styles.txtCreateAccount}>Crear Cuenta</Text>
         </Pressable>
 

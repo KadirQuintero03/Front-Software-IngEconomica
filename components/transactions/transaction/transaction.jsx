@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View, Alert } from "react-native";
 import { Input1 } from "../../calculationsPage/components/Inputs";
 import illustration from "./../../../assets/prestamoIlustracion1.png";
 import { useState } from "react";
@@ -6,27 +6,44 @@ import { styles } from "./transactionStyles";
 import { Button1 } from "../../calculationsPage/components/Buttons";
 import { userTransaction } from "../../../services/transactionService/transactionServices";
 import { useRouter } from "expo-router";
+import { getBalance, getPhoneNumber, setUser, getUser } from "../../../stores/useUser";
 
 export default function Transaction() {
-  const [numberPhone, setNumberPhone] = useState("");
-  const [amount, setAmount] = useState("");
-  const [reason, setReason] = useState("");
+  const [destination, setdestination] = useState("");
+  const [omuntMovement, setomuntMovement] = useState("");
+  const [description, setdescription] = useState("");
 
   const router = useRouter();
+  const phoneNumber = getPhoneNumber();
 
   const makeTransaction = async () => {
     const newTransancion = {
-      numberPhone,
-      amount,
-      reason,
+      phoneNumber,
+      omuntMovement,
+      description,
+      destination,
     };
 
     try {
       const transaction = await userTransaction(newTransancion);
+
+      if (transaction.hasOwnProperty("error")) {
+        Alert.alert("Alerta", transaction.error);
+        return;
+      }
+
+      const currentBalance = parseInt(getBalance());
+      const updatedBalance = currentBalance - parseInt(omuntMovement);
+
+      setUser({
+        ...getUser(),
+        balance: updatedBalance.toString(),
+      });
+
       Alert.alert("Transaccion realizada con exito");
       router.navigate("./_receiptTransaction");
     } catch (error) {
-      Alert.alert(error);
+      console.log("Transaction" + error);
     }
   };
 
@@ -38,7 +55,9 @@ export default function Transaction() {
           <View style={styles.headerSeparate}></View>
           <View style={styles.container}>
             <Text style={styles.label}>Disponible:</Text>
-            <Text style={styles.text}>$ 200.000</Text>
+            <Text style={styles.text}>
+              $ {parseFloat(getBalance()).toLocaleString("de-DE")}
+            </Text>
             <View style={styles.underline} />
           </View>
         </View>
@@ -47,24 +66,24 @@ export default function Transaction() {
             name="Numero telefono"
             placeHolder="Digite el numero"
             type="number"
-            value={numberPhone}
-            onChangeText={setNumberPhone}
+            value={destination}
+            onChangeNumber={(val) => setdestination(val)}
           />
 
           <Input1
             name="Cantidad"
             placeHolder="Digite la cantidad"
             type="number"
-            value={amount}
-            onChangeText={setAmount}
+            value={parseInt(omuntMovement)}
+            onChangeNumber={(val) => setomuntMovement(parseInt(val))}
           />
 
           <Input1
             name="Motivo"
             placeHolder="Digite un motivo (opcional)"
             type="text"
-            value={reason}
-            onChangeText={setReason}
+            value={description}
+            onChangeNumber={(val) => setdescription(val)}
           />
         </View>
       </ScrollView>
