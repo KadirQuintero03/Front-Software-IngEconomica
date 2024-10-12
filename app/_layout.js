@@ -31,6 +31,14 @@ export default function Layout() {
           options={{ headerShown: false }}
         ></Stack.Screen>
         <Stack.Screen
+          name="_forgotPassword"
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="_receiptTransaction"
+          options={{ headerShown: false }}
+        ></Stack.Screen>
+        <Stack.Screen
           name="_calculatorPage"
           options={({ route }) => {
             const option = optionList[getCalculatorOption()];

@@ -49,8 +49,8 @@ export default function LoginPage() {
       if (pn !== phoneNumberLocal || ps !== passwordLocal) {
         await SecureStore.deleteItemAsync("phoneNumber");
         await SecureStore.deleteItemAsync("password");
-        setCredentials(pn, ps);
       }
+      setCredentials(pn, ps);
 
       router.navigate("./_mainPage");
     } catch (error) {
@@ -111,7 +111,7 @@ export default function LoginPage() {
       <Text style={styles.txtMsg}>
         Presiona{" "}
         <Text
-          onPress={() => console.log("*forgot password*")}
+          onPress={() => router.navigate("./_forgotPassword")}
           style={{
             color: "#022a9b",
             fontWeight: "bold",

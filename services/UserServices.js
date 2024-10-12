@@ -1,9 +1,9 @@
 import { apiUrl } from "../stores/useApi";
 
-export const login = async (user) => {
+export const createUser = async (user) => {
   try {
-    console.log(user)
-    const response = await fetch(`${apiUrl}/auth/login`, {
+    console.log(user);
+    const response = await fetch(`${apiUrl}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -13,13 +13,11 @@ export const login = async (user) => {
 
     const res = JSON.parse(await response.text());
 
-    console.log(res);
-
     if ("errors" in res) {
       return { error: res.errors.join(".\n") };
     }
     return res.message;
   } catch (_) {
-    return { error: "Revise las credenciales e intente de nuevo." };
+    return { error: "Error realizando la transaccion." };
   }
 };
