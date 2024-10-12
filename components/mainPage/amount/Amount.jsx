@@ -3,6 +3,7 @@ import { styles } from "./amountStyles";
 import { ArrowRight } from "../../icons/Icons";
 import Svg, { Polygon } from "react-native-svg";
 import { pixels } from "../../../stores/usePhoneProperties";
+import { getBalance } from "../../../stores/useUser";
 
 export default function Amount({ size = 420 }) {
   const points = [
@@ -21,7 +22,9 @@ export default function Amount({ size = 420 }) {
       </Svg>
 
       <Text style={styles.title}>Cuenta de Ahorros</Text>
-      <Text style={styles.amount}>$ 0,00</Text>
+      <Text style={styles.amount}>
+        $ {parseFloat(getBalance()).toLocaleString("de-DE")}
+      </Text>
       <View style={styles.accountBox}>
         <Text style={styles.accountTitle}>Ver cuenta</Text>
         <ArrowRight style={styles.accountIcon} size={pixels(11)} />

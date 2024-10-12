@@ -4,7 +4,7 @@ import logocarter from "../../assets/logocarter.png";
 import { PhoneIcon, LockIcon, FingerIcon } from "../../components/icons/Icons";
 import { useEffect, useState } from "react";
 import { login } from "../../services/LoginServices";
-import { setCredentials } from "../../stores/useUser";
+import { getUser, setCredentials } from "../../stores/useUser";
 import useColorPalette from "../../stores/useColorPalette";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
@@ -41,6 +41,8 @@ export default function LoginPage() {
         password: ps,
       });
 
+      console.log(getUser());
+
       if (response.hasOwnProperty("error")) {
         Alert.alert("Alerta", response.error);
         return;
@@ -50,6 +52,7 @@ export default function LoginPage() {
         await SecureStore.deleteItemAsync("phoneNumber");
         await SecureStore.deleteItemAsync("password");
       }
+
       setCredentials(pn, ps);
 
       router.navigate("./_mainPage");
