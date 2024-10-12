@@ -4,7 +4,7 @@ import logocarter from "../../assets/logocarter.png";
 import { PhoneIcon, LockIcon, FingerIcon } from "../../components/icons/Icons";
 import { useEffect, useState } from "react";
 import { login } from "../../services/LoginServices";
-import { setCredentials } from "../../stores/useUser";
+import { getUser, setCredentials } from "../../stores/useUser";
 import useColorPalette from "../../stores/useColorPalette";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
@@ -36,21 +36,24 @@ export default function LoginPage() {
 
   const handleLogin = async (pn = phoneNumber, ps = password) => {
     try {
-      // const response = await login({
-      //   phoneNumber: pn,
-      //   password: ps,
-      // });
+      const response = await login({
+        phoneNumber: pn,
+        password: ps,
+      });
 
-      // if (response.hasOwnProperty("error")) {
-      //   Alert.alert("Alerta", response.error);
-      //   return;
-      // }
+      console.log(getUser());
 
-      // if (pn !== phoneNumberLocal || ps !== passwordLocal) {
-      //   await SecureStore.deleteItemAsync("phoneNumber");
-      //   await SecureStore.deleteItemAsync("password");
-      //   setCredentials(pn, ps);
-      // }
+      if (response.hasOwnProperty("error")) {
+        Alert.alert("Alerta", response.error);
+        return;
+      }
+
+      if (pn !== phoneNumberLocal || ps !== passwordLocal) {
+        await SecureStore.deleteItemAsync("phoneNumber");
+        await SecureStore.deleteItemAsync("password");
+      }
+
+      setCredentials(pn, ps);
 
       router.navigate("./_mainPage");
     } catch (error) {
@@ -60,7 +63,7 @@ export default function LoginPage() {
 
   function onAuthenticate() {
     const auth = LocalAuthentication.authenticateAsync({
-      // promptMessage: "Inicia sesion con tu huella",
+      promptMessage: "Inicia sesion con tu huella",
       fallbackLabel: "Ingrese Contraseña",
     });
 

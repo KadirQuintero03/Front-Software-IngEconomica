@@ -4,7 +4,7 @@ import logocarter from "../../assets/logocarter.png";
 import { styles } from "../public/createAccountStyle";
 import React, { useState } from "react";
 import { createUser } from "../../services/UserServices";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function LoginPage() {
@@ -15,7 +15,9 @@ export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleCreateAccount = async () => {
+  const router = useRouter();
+
+  const CreateAccount = async () => {
     const newUser = {
       id,
       name,
@@ -27,12 +29,15 @@ export default function LoginPage() {
 
     try {
       const createdUser = await createUser(newUser);
-      Alert.alert(
-        "Cuenta creada",
-        `Usuario ${newUser.name} creado exitosamente.`,
-      );
+
+      if (response.hasOwnProperty("error")) {
+        Alert.alert("Alerta", createdUser.error);
+        return;
+      }
+
+      router.navigate("./_loginpage");
     } catch (error) {
-      Alert.alert(error);
+      console.log("create user" + error);
     }
   };
 
@@ -104,10 +109,7 @@ export default function LoginPage() {
           ></TextInput>
         </View>
 
-        <Pressable
-          style={styles.btnCreateAccount}
-          onPress={handleCreateAccount}
-        >
+        <Pressable style={styles.btnCreateAccount} onPress={CreateAccount}>
           <Text style={styles.txtCreateAccount}>Crear Cuenta</Text>
         </Pressable>
 

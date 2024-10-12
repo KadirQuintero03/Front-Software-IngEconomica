@@ -1,27 +1,25 @@
 import { apiUrl } from "../stores/useApi";
-import { setUser } from "../stores/useUser";
 
-export const login = async (user) => {
+export const request = async (credit) => {
   try {
-    const response = await fetch(`${apiUrl}/auth/login`, {
+    const response = await fetch(`${apiUrl}/credit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(credit),
     });
 
     const res = JSON.parse(await response.text());
 
+    console.log(credit, res);
+
     if ("errors" in res) {
       return { error: res.errors.join(".\n") };
     }
-
-    setUser(res.message);
-
-    return res.message;
+    return response;
   } catch (e) {
     console.log(e);
-    return { error: "Revise las credenciales e intente de nuevo." };
+    return { error: "Revise los campos e intente de nuevo." };
   }
 };
