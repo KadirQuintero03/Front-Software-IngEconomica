@@ -11,7 +11,7 @@ import { getCredentials } from "../../../stores/useUser";
 
 export default function Prestamo() {
   const [credit, setCredit] = useState({
-    userID: "",
+    userId: "",
     amountApproved: undefined,
     interestType: undefined,
     interestRate: undefined,
@@ -21,7 +21,7 @@ export default function Prestamo() {
 
   useEffect(() => {
     const credentials = getCredentials();
-    setCredit({ ...credit, userID: credentials.phoneNumber });
+    setCredit({ ...credit, userId: credentials.phoneNumber });
   }, []);
 
   function handleInput(name, value) {
@@ -61,9 +61,7 @@ export default function Prestamo() {
             placeHolder="$ 200.000"
             type="number"
             value={credit.amountApproved}
-            onChangeNumber={(value) =>
-              handleInput("amountApproved", parseFloat(value))
-            }
+            onChangeNumber={(value) => handleInput("amountApproved", value)}
             styles={{
               paddingLeft: pixels(20),
               paddingTop: pixels(5),
@@ -86,9 +84,7 @@ export default function Prestamo() {
               placeHolder="Tasa interes"
               type="number"
               value={credit.interestRate}
-              onChangeNumber={(value) =>
-                handleInput("interestRate", parseFloat(value))
-              }
+              onChangeNumber={(value) => handleInput("interestRate", value)}
             />
             <Input2
               placeHolder="Periodo"

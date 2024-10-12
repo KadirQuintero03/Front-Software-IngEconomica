@@ -12,12 +12,10 @@ export const request = async (credit) => {
 
     const res = JSON.parse(await response.text());
 
-    console.log(credit, res);
-
     if ("errors" in res) {
       return { error: res.errors.join(".\n") };
     }
-    return response;
+    return res;
   } catch (e) {
     console.log(e);
     return { error: "Revise los campos e intente de nuevo." };
