@@ -14,6 +14,7 @@ import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import BiometricPopUp from "../../components/mainPage/biometric/BiometricPopUp";
 import { getCredentials } from "../../stores/useUser";
+import Transactions from "../../components/transactions/transactionsView/Transactions";
 
 export default function MainPage() {
   const [showPopUp, setShowPopUp] = useState(false);
@@ -63,6 +64,7 @@ export default function MainPage() {
       />
       <Amount size={windowWidth + 30} />
       <TransactionOption />
+      <Transactions />
       <QuickActions />
 
       {showPopUp && (
