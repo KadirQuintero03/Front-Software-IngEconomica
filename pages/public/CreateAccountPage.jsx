@@ -3,7 +3,7 @@ import { PhoneIcon, LockIcon, UserIcon } from "../../components/icons/Icons";
 import logocarter from "../../assets/logocarter.png";
 import { styles } from "../public/createAccountStyle";
 import React, { useState } from "react";
-import { createUser } from "../../services/UserServices";
+import { createUser } from "../../services/RegisterServices";
 import { Link, useRouter } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 

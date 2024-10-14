@@ -1,13 +1,13 @@
 import { apiUrl } from "../stores/useApi";
 
-export const request = async (credit) => {
+export const createUser = async (user) => {
   try {
-    const response = await fetch(`${apiUrl}/credit`, {
+    const response = await fetch(`${apiUrl}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(credit),
+      body: JSON.stringify(user),
     });
 
     const res = JSON.parse(await response.text());
@@ -15,8 +15,10 @@ export const request = async (credit) => {
     if ("errors" in res) {
       return { error: res.errors.join(".\n") };
     }
-    return res;
+
+    return res.message;
   } catch (e) {
-    return { error: e };
+    console.log(e);
+    return { error: "Error, verifique los datos ingresados." };
   }
 };

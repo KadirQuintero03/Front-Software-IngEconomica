@@ -65,7 +65,6 @@ export default function MainPage() {
       <Amount size={windowWidth + 30} />
       <TransactionOption />
       <Transactions />
-      <QuickActions />
 
       {showPopUp && (
         <BiometricPopUp

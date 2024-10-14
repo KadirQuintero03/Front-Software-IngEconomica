@@ -7,15 +7,6 @@ export function calculateAmerican(
   typeTime,
   typeInterest
 ) {
-  console.log(
-    "Datos que llegaron: ",
-    capital,
-    period,
-    interestRate,
-    typeTime,
-    typeInterest
-  );
-
   // Inicializar variables
   let saldoInicial = capital;
   let saldo = saldoInicial;

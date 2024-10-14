@@ -4,7 +4,7 @@ import { pixels } from "../../../stores/usePhoneProperties";
 export const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingVertical: 25,
+    marginVertical: pixels(12),
     paddingLeft: 20,
     zIndex: -1,
   },

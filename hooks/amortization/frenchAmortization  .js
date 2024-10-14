@@ -11,15 +11,6 @@ export function calculateFrench(
 
   interestRate = interestRate / 100;
 
-  console.log(
-    "Datos que llegaron: ",
-    capital,
-    period,
-    interestRate,
-    typeTime,
-    typeInterest
-  );
-
   // Inicializar variables
   let saldoCapital = parseInt(capital);
   let cuotaTotal =
@@ -58,9 +49,9 @@ export function calculateFrench(
     // Agregar fila a la tabla: [Periodo, Amortización, Interés, Cuota, Saldo]
     tabla.push([
       periodo,
-      saldoCapital,
-      interesCuota,
-      amortizacion,
+      saldoCapital.toFixed(0),
+      interesCuota.toFixed(0),
+      amortizacion.toFixed(0),
       cuotaTotal.toFixed(0),
     ]);
 
@@ -74,7 +65,7 @@ export function calculateFrench(
   // Formatear la tabla como string
   let tablaString = "Periodo | Saldo | Interés | Amortización | Cuota\n";
   tabla.forEach((row) => {
-    tablaString += `${row[0]}         | ${row[1]}      | ${row[2]}        | ${row[3]}           | ${row[4]}\n`;
+    tablaString += `${row[0]}        | ${row[1]}    | ${row[2]}      | ${row[3]}       | ${row[4]}\n`;
   });
 
   return tablaString; // Devolver la tabla formateada
