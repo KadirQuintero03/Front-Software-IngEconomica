@@ -29,7 +29,9 @@ export default function Transaction() {
       return Alert.alert("Error, saldo insuficiente.")
     }
 
-    
+    if(destination == phoneNumber){
+      return Alert.alert("Error, no puedes enviarte dinero a ti mismo")
+    }
 
     try {
       const transaction = await userTransaction(newTransancion);
