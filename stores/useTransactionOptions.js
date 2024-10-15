@@ -1,5 +1,6 @@
-import { CashIcon } from "../components/icons/Icons";
+import { CashIcon, LoanIcon } from "../components/icons/Icons";
 import Prestamo from "../components/transactions/prestamo/Prestamo";
+import LoanView from "../components/transactions/transaction/LoanView";
 import Transaction from "../components/transactions/transaction/transaction";
 import { pixels } from "./usePhoneProperties";
 
@@ -16,7 +17,13 @@ export const options = [
     id: 1,
     title: "Transferir Dinero",
     icon: <CashIcon style={{ color: "#333" }} size={pixels(30)} />,
-    component: <Transaction/>,
+    component: <Transaction />,
+  },
+  {
+    id: 2,
+    title: "Ver Prestamo",
+    icon: <LoanIcon style={{ color: "#333" }} size={pixels(30)} />,
+    component: <LoanView />,
   },
 ];
 
