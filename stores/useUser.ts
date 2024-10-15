@@ -16,6 +16,8 @@ let user: User = {
   balance: "",
 };
 
+export let refresh: boolean;
+
 export const getBalance = () => user.balance;
 export const getPhoneNumber = () => user.phoneNumber;
 
@@ -33,6 +35,7 @@ export const getUser = () => {
 };
 
 export const setUser = ({ name, lastName, phoneNumber, idUser, balance }) => {
+  refresh = !refresh;
   user = {
     ...user,
     name: name,

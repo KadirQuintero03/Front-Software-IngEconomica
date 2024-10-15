@@ -2,6 +2,7 @@ import { Pressable, Text, View } from "react-native";
 import { styles } from "./navbarMainPageStyles";
 import { BarsIcon, LockIcon } from "../icons/Icons";
 import { pixels } from "../../stores/usePhoneProperties";
+import { router } from "expo-router";
 
 export default function NavbarMainPage({ pressed, onPressed }) {
   return (
@@ -17,7 +18,9 @@ export default function NavbarMainPage({ pressed, onPressed }) {
           size={pixels(24)}
         />
       </Pressable>
-      <LockIcon style={{ color: "#333" }} size={pixels(24)} />
+      <Pressable onPress={() => router.navigate("_loginpage")}>
+        <LockIcon style={{ color: "#333" }} size={pixels(24)} />
+      </Pressable>
     </View>
   );
 }

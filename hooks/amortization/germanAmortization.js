@@ -7,17 +7,7 @@ export function calculateGerman(
   typeTime,
   typeInterest
 ) {
-  console.log(
-    "Datos que llegaron: ",
-    capital,
-    period,
-    interestRate,
-    typeTime,
-    typeInterest
-  );
-
   period = tiempoConversion(typeTime, typeInterest, period);
-  console.log(period);
 
   // Inicializar variables
   let saldoInicial = capital;

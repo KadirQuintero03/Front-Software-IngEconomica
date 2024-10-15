@@ -56,7 +56,6 @@ export default function Amortization() {
   const values = [capital, period, interestRate, typeTime, typeInterest];
 
   const onPressButton = () => {
-    console.log("La amortizacion seleccionada fue: ", selectedAmortization);
     if (selectedAmortization === "Americana") {
       result = calculateAmerican(...values);
     }
@@ -73,6 +72,7 @@ export default function Amortization() {
       "El resultado de la amortización " + selectedAmortization + " es:",
       result
     );
+    resetFields();
     // return resetFields();
   };
 

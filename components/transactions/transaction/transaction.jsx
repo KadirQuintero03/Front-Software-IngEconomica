@@ -15,6 +15,7 @@ export default function Transaction() {
 
   const router = useRouter();
   const phoneNumber = getPhoneNumber();
+  const balance = getBalance();
 
   const makeTransaction = async () => {
     const newTransancion = {
@@ -23,6 +24,14 @@ export default function Transaction() {
       description,
       destination,
     };
+
+    if(omuntMovement > balance){
+      return Alert.alert("Error, saldo insuficiente.")
+    }
+
+    if(destination == phoneNumber){
+      return Alert.alert("Error, no puedes enviarte dinero a ti mismo")
+    }
 
     try {
       const transaction = await userTransaction(newTransancion);

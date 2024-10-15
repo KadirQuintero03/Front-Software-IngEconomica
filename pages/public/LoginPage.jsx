@@ -41,8 +41,6 @@ export default function LoginPage() {
         password: ps,
       });
 
-      console.log(getUser());
-
       if (response.hasOwnProperty("error")) {
         Alert.alert("Alerta", response.error);
         return;

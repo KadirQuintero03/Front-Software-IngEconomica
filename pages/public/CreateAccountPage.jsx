@@ -3,7 +3,7 @@ import { PhoneIcon, LockIcon, UserIcon } from "../../components/icons/Icons";
 import logocarter from "../../assets/logocarter.png";
 import { styles } from "../public/createAccountStyle";
 import React, { useState } from "react";
-import { createUser } from "../../services/UserServices";
+import { createUser } from "../../services/RegisterServices";
 import { Link, useRouter } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -16,25 +16,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+  const user = [id, name, lastName, email, phoneNumber, password];
+  const validate = user.some((user) => user === "");
 
   const CreateAccount = async () => {
-    const newUser = {
-      id,
-      name,
-      lastName,
-      email,
-      phoneNumber,
-      password,
-    };
+    if (validate) {
+      return Alert.alert("Por favor, rellene todos los campos");
+    }
 
     try {
-      const createdUser = await createUser(newUser);
+      const createdUser = await createUser(user);
 
-      if (response.hasOwnProperty("error")) {
+      if (createdUser.hasOwnProperty("error")) {
         Alert.alert("Alerta", createdUser.error);
         return;
       }
 
+      Alert.alert("Usuario creado con exito.");
       router.navigate("./_loginpage");
     } catch (error) {
       console.log("create user" + error);

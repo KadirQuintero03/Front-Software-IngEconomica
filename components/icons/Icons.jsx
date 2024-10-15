@@ -7,6 +7,8 @@ import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import { faMoneyBills } from "@fortawesome/free-solid-svg-icons/faMoneyBills";
 import { faGripVertical } from "@fortawesome/free-solid-svg-icons/faGripVertical";
 import { faFingerprint } from "@fortawesome/free-solid-svg-icons/faFingerprint";
+import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons/faSquareArrowUpRight";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner";
 
 import { pixels } from "../../stores/usePhoneProperties";
 
@@ -44,4 +46,12 @@ export const GridIcon = ({ size = pixels(24), style = {} }) => (
 
 export const FingerIcon = ({ size = pixels(24), style = {} }) => (
   <FontAwesomeIcon icon={faFingerprint} size={size} style={style} />
+);
+
+export const TransactionIcon = ({ size = pixels(24), style = {} }) => (
+  <FontAwesomeIcon icon={faSquareArrowUpRight} size={size} style={style} />
+);
+
+export const LoadingIcon = ({ size = pixels(24), style = {} }) => (
+  <FontAwesomeIcon icon={faSpinner} size={size} style={style} />
 );
