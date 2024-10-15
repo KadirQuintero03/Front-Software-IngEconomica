@@ -4,7 +4,6 @@ import { styles } from "./mainPageStyles";
 import Amount from "../../components/mainPage/amount/Amount";
 import { windowWidth } from "../../stores/usePhoneProperties";
 import TransactionOption from "../../components/mainPage/transactionOption/TransactionOption";
-import QuickActions from "../../components/mainPage/quickActions/QuickActions";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { Animated } from "react-native";

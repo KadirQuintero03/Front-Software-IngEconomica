@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from "react-native";
+import { RefreshControl, ScrollView, Text, View } from "react-native";
 import { styles } from "./transactionStyles";
 import { useEffect, useState } from "react";
 import movements from "../../../services/MovementServices";
@@ -7,6 +7,7 @@ import { LoadingIcon, TransactionIcon } from "../../icons/Icons";
 import { pixels } from "../../../stores/usePhoneProperties";
 
 export default function Transactions() {
+  const [refreshing, setRefreshing] = useState(false);
   const [movement, setMovement] = useState([]);
 
   useEffect(() => {
@@ -27,10 +28,21 @@ export default function Transactions() {
     );
   }
 
+  function onRefresh() {
+    setRefreshing(true);
+    getMovements();
+    setRefreshing(false);
+  }
+
   return (
     <>
       <Text style={styles.title}>Movimientos</Text>
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {movement.length != 0 ? (
           movement.map((m) => (
             <View key={m.idMovement} style={styles.movBox}>
@@ -43,13 +55,25 @@ export default function Transactions() {
                 ]}
               />
               <View style={styles.movPrincipal}>
-                <Text style={styles.principalTitle}>
+                <Text
+                  style={styles.principalTitle}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
                   {m.origin != null ? `De ${m.origin}` : `A ${m.destination}`}
                 </Text>
-                <Text style={styles.principalSub}>{m.description}</Text>
+                <Text
+                  style={styles.principalSub}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
+                  {m.description}
+                </Text>
               </View>
               <View style={styles.movSecundario}>
                 <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
                   style={[
                     styles.secundarioTitle,
                     {
