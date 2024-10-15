@@ -72,6 +72,7 @@ export default function Amortization() {
       "El resultado de la amortización " + selectedAmortization + " es:",
       result
     );
+    resetFields();
     // return resetFields();
   };
 

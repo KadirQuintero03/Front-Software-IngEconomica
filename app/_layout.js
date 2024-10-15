@@ -32,7 +32,7 @@ export default function Layout() {
         ></Stack.Screen>
         <Stack.Screen
           name="_forgotPassword"
-          options={{ headerShown: false }}
+          options={{ headerShown: true, headerTitle: "Cambiar contraseña" }}
         ></Stack.Screen>
         <Stack.Screen
           name="_receiptTransaction"
