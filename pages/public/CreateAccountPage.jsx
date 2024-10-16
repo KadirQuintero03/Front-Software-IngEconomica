@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { createUser } from "../../services/RegisterServices";
 import { Link, useRouter } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { validateInputs } from "../../utils/validateInput";
 
 export default function LoginPage() {
   const [id, setId] = useState("");
@@ -17,9 +18,10 @@ export default function LoginPage() {
 
   const router = useRouter();
   const user = [id, name, lastName, email, phoneNumber, password];
-  const validate = user.some((user) => user === "");
 
   const CreateAccount = async () => {
+    const validate = validateInputs(user)
+  
     if (validate) {
       return Alert.alert("Por favor, rellene todos los campos");
     }

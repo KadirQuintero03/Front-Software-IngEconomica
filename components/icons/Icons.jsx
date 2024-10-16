@@ -9,25 +9,23 @@ import { faGripVertical } from "@fortawesome/free-solid-svg-icons/faGripVertical
 import { faFingerprint } from "@fortawesome/free-solid-svg-icons/faFingerprint";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons/faSquareArrowUpRight";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner";
+import { faLandmark } from "@fortawesome/free-solid-svg-icons/faLandmark";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons/faRotateRight";
 
 import { pixels } from "../../stores/usePhoneProperties";
 
-//Icono de telefono
 export const PhoneIcon = ({ size = pixels(18), style = {} }) => (
   <FontAwesomeIcon icon={faPhone} size={size} style={style} />
 );
 
-//Icono de usuario
 export const UserIcon = ({ size = pixels(18), style = {} }) => (
   <FontAwesomeIcon icon={faUser} size={size} style={style} />
 );
 
-//Icono de candado
 export const LockIcon = ({ size = pixels(18), style = {} }) => (
   <FontAwesomeIcon icon={faLock} size={size} style={style} />
 );
 
-//Icono de barras
 export const BarsIcon = ({ size = pixels(24), style = {} }) => (
   <FontAwesomeIcon icon={faBars} size={size} style={style} />
 );
@@ -54,4 +52,12 @@ export const TransactionIcon = ({ size = pixels(24), style = {} }) => (
 
 export const LoadingIcon = ({ size = pixels(24), style = {} }) => (
   <FontAwesomeIcon icon={faSpinner} size={size} style={style} />
+);
+
+export const LoanIcon = ({ size = pixels(24), style = {} }) => (
+  <FontAwesomeIcon icon={faLandmark} size={size} style={style} />
+);
+
+export const RefreshIcon = ({ size = pixels(24), style = {} }) => (
+  <FontAwesomeIcon icon={faRotateRight} size={size} style={style} />
 );

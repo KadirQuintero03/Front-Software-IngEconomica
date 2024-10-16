@@ -18,6 +18,11 @@ let user: User = {
 
 export let refresh: boolean;
 
+export const onRefresh = () => {
+  console.log("ua");
+  refresh = !refresh;
+};
+
 export const getBalance = () => user.balance;
 export const getPhoneNumber = () => user.phoneNumber;
 

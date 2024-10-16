@@ -16,6 +16,7 @@ export default function Transaction() {
   const router = useRouter();
   const phoneNumber = getPhoneNumber();
   const balance = getBalance();
+  let maxTransfer;
 
   const makeTransaction = async () => {
     const newTransancion = {
@@ -30,7 +31,11 @@ export default function Transaction() {
     }
 
     if(destination == phoneNumber){
-      return Alert.alert("Error, no puedes enviarte dinero a ti mismo")
+      return Alert.alert("Error, no puedes enviarte dinero a ti mismo.")
+    }
+
+    if(parseInt(maxTransfer) > 3000000){
+      return Alert.alert("Error, acaba de superar el tope de transferencia permitido.")
     }
 
     try {
@@ -43,6 +48,7 @@ export default function Transaction() {
 
       const currentBalance = parseInt(getBalance());
       const updatedBalance = currentBalance - parseInt(omuntMovement);
+      maxTransfer += parseInt(omuntMovement)
 
       setUser({
         ...getUser(),

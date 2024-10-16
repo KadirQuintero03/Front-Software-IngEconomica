@@ -32,7 +32,8 @@ export const styles = StyleSheet.create({
     color: "#DC143C",
   },
   movPrincipal: {
-    paddingLeft: pixels(4),
+    width: "52%",
+    paddingLeft: pixels(6),
   },
   principalTitle: {
     fontSize: pixels(14),
