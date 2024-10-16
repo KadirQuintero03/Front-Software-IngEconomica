@@ -1,6 +1,0 @@
-La carpeta Interfaces almacena los modelos de datos utilizados para las llamadas a
-APIs o servicios externos y, opcionalmente, para los componentes.
-
-**Modelos de Datos**
-Ejemplo:
-Un modelo de cliente utilizado en la API de gestión de clientes.
