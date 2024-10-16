@@ -3,7 +3,7 @@ import { Button1 } from "../components/Buttons";
 import { styles } from "../template/templateStyles";
 import { Input1, Input2 } from "../components/Inputs";
 import React, { useState, useMemo } from "react";
-import { calculateAnnuity } from "../../../utils/Anualidades";
+import { calculateAnnuity } from "../../../hooks/annuity/annuity";
 
 export default function Anualidades() {
   let [VP, setVP] = useState(0); //Capital o valor presente de una anualidad.
