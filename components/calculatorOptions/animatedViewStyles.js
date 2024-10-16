@@ -8,5 +8,6 @@ export const styles = StyleSheet.create({
     height: "100%",
     bottom: 0,
     left: 0,
+    zIndex: 10,
   },
 });

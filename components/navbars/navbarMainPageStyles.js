@@ -7,5 +7,6 @@ export const styles = StyleSheet.create({
     padding: pixels(18),
     flexDirection: "row",
     justifyContent: "space-between",
+    zIndex: 10,
   },
 });

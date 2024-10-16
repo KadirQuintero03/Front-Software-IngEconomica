@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   },
   movPrincipal: {
     width: "52%",
-    paddingLeft: pixels(4),
+    paddingLeft: pixels(6),
   },
   principalTitle: {
     fontSize: pixels(14),
