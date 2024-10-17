@@ -8,3 +8,5 @@ export default function Index() {
     </View>
   );
 }
+
+//Hecho por: Camilo Tapias, Juan Peralta, Kadir Quintero, Jesus Bermudez, Manuel Legro
