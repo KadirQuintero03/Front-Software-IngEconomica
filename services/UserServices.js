@@ -8,6 +8,7 @@ export const getUser = async (userId) => {
     });
 
     const res = JSON.parse(await response.text());
+    console.log(res)
 
     if ("errors" in res) {
       return;

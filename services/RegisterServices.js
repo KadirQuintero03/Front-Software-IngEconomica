@@ -12,6 +12,10 @@ export const createUser = async (user) => {
 
     const res = JSON.parse(await response.text());
 
+    if ("success" in res) {
+      return { error: res.message };
+    }
+
     if ("errors" in res) {
       return { error: res.errors.join(".\n") };
     }

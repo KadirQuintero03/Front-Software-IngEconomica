@@ -32,19 +32,21 @@ export function calculateAnnuity(
   N = tiempoConversion(typeTime, typeInterest, N);
   Y = tiempoConversion(typeTime, typeInterest, Y);
 
+  console.log(VP, VF, R, N, Y, I, typeTime, typeInterest, selectedAnnuity);
+
   if (selectedAnnuity === "Vencida") {
-    return expired(VP, VF, R, N, I)
+    return expired(VP, VF, R, N, I);
   }
 
   if (selectedAnnuity === "Anticipada") {
-    return anticipated(VP, VF, R, N, I)
+    return anticipated(VP, VF, R, N, I);
   }
 
   if (selectedAnnuity === "Diferida vencida") {
-    return deferredExpired(VP, VF, R, N, Y, I)
+    return deferredExpired(VP, VF, R, N, Y, I);
   }
 
   if (selectedAnnuity === "Diferida anticipada") {
-    return deferredAnticipated(VP, VF, R, N, Y, I)
+    return deferredAnticipated(VP, VF, R, N, Y, I);
   }
 }

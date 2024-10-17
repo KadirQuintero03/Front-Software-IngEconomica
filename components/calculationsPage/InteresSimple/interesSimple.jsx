@@ -14,14 +14,25 @@ export default function InteresSimple() {
   let [timeDay, setTimeDay] = useState(0);
   let [timeMonth, setTimeMonth] = useState(0);
   let [timeYear, setTimeYear] = useState(0);
-  const [typeTime, setTypeTime] = useState("anual");
-  const [typeInterest, setTypeInterest] = useState("anual");
+  const [typeTime, setTypeTime] = useState("");
+  const [typeInterest, setTypeInterest] = useState("");
   const [selectedTimeOption, setSelectedTimeOption] = useState(""); // Nuevo estado
+  const [selectedCalculate, setSelectedCalculate] = useState(""); // Nuevo estado
 
+  const calculateOptions = [
+    "Capital Inicial",
+    "Tasa de interes",
+    "Interes",
+    "Tiempo",
+  ];
   const timeOptions = ["Periodo de tiempo", "Tiempo específico"]; // Opciones para el nuevo Input2
 
   const handleTimeOptionChange = (val) => {
     setSelectedTimeOption(val);
+  };
+
+  const handleCalculateOptionChange = (val) => {
+    setSelectedCalculate(val);
   };
 
   let UnidadesDeTiempo = {
@@ -66,8 +77,10 @@ export default function InteresSimple() {
     setTimeDay(0);
     setTimeMonth(0);
     setTimeYear(0);
-    setTypeTime("anual");
-    setTypeInterest("anual");
+    setTypeTime("");
+    setTypeInterest("");
+    setSelectedTimeOption("");
+    setSelectedCalculate("")
   };
 
   const onPressButton = () => {
@@ -82,7 +95,8 @@ export default function InteresSimple() {
       typeInterest,
       VF,
       Interes,
-      UnidadesDeTiempo
+      UnidadesDeTiempo,
+      selectedCalculate
     );
 
     Alert.alert("Resultado", result);
@@ -93,12 +107,23 @@ export default function InteresSimple() {
     <View style={styles.page}>
       <ScrollView style={styles.scrollView}>
         <Input2
-          name="Tiempo"
+          name="Tipo de calculo"
           placeHolder="Escoja un valor"
-          value={selectedTimeOption}
-          data={timeOptions}
-          onChangeSelected={handleTimeOptionChange}
+          value={selectedCalculate}
+          data={calculateOptions}
+          onChangeSelected={handleCalculateOptionChange}
         />
+
+        {selectedCalculate !== "Tiempo" && (
+          <Input2
+            name="Tiempo"
+            placeHolder="Escoja un valor"
+            value={selectedTimeOption}
+            data={timeOptions}
+            onChangeSelected={handleTimeOptionChange}
+          />
+        )}
+
         <View style={styles.container}>
           <Input1
             name="Capital inicial"

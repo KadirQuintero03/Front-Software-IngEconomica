@@ -18,7 +18,7 @@ export const tiempoConversion = (
   timeYear
 ) => {
   //Conversion para tiempo especifico.
-  if (periodOfTime === 0) {
+  if (periodOfTime === 0 && typeTime === "") {
     if (typeInterest === "Dia") {
       return (
         parseInt(timeYear) * 365 +
@@ -89,6 +89,9 @@ export const tiempoConversion = (
     const pDado = values.find((i) => i.value === typeTime);
     const pDeseado = values.find((i) => i.value === typeInterest);
 
-    return periodOfTime / (pDado.key / pDeseado.key);
+    return periodOfTime / (pDeseado.key / pDado.key);
+  } else {
+    periodOfTime = 0;
+    return periodOfTime;
   }
 };

@@ -15,6 +15,10 @@ export default function Amount({ size = 420 }) {
     `0,${size * 0.25}`,
   ].join(" ");
 
+  function amountUser() {
+    return getBalance()
+  }
+
   function seeAccount() {
     const user = getUser();
     Alert.alert(

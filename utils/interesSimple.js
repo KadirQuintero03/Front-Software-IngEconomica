@@ -1,4 +1,8 @@
 import { tiempoConversion } from "./interesConversion";
+import { calculateInterest } from "./simpleInterest/calculateInterest";
+import { calculateInterestRate } from "./simpleInterest/calculateInterestRate";
+import { calculateTime } from "./simpleInterest/calculateTime";
+import { calculateVP } from "./simpleInterest/calculateVP";
 
 export function calculateSimpleInterest(
   VP,
@@ -12,6 +16,7 @@ export function calculateSimpleInterest(
   VF,
   Interes,
   UnidadesDeTiempo,
+  selectedCalculate
 ) {
   let fieldsFilled = 0;
   if (VP !== 0) fieldsFilled++;
@@ -32,82 +37,37 @@ export function calculateSimpleInterest(
     periodOfTime,
     timeDay,
     timeMonth,
-    timeYear,
+    timeYear
   );
 
-  //Calcular Interes✅
-  if (VP !== 0 && VF !== 0 && TiempoMod === 0 && interestRate === 0) {
-    Interes = VF - VP;
-    return "El interes simple es de: " + Interes.toFixed(2);
+  console.log(
+    VP,
+    interestRate,
+    typeTime,
+    typeInterest,
+    VF,
+    Interes,
+    TiempoMod,
+    UnidadesDeTiempo,
+    selectedCalculate
+  );
+
+  if (selectedCalculate === "Tiempo") {
+    return calculateTime(VF, VP, interestRate, Interes)
   }
 
-  if (interestRate !== 0 && VP !== 0 && TiempoMod !== 0 && Interes === 0) {
-    Interes = VP * interestRate * TiempoMod;
-    VF = parseInt(VP) + parseInt(Interes);
-    return (
-      "El interes simple es de: " +
-      Interes.toFixed(2) +
-      " Y el valor futuro es de: " +
-      VF.toFixed(2)
-    );
+  if (selectedCalculate === "Capital Inicial") {
+    return calculateVP(Interes, TiempoMod, interestRate, VF)
   }
 
-  //Calcular tiempo✅
-  if (VF !== 0 && VP !== 0 && interestRate !== 0) {
-    Interes = VF - VP;
-    periodOfTime = Interes / (VP * interestRate);
-    return "El total del tiempo es: " + periodOfTime.toFixed(2);
+  if (selectedCalculate === "Tasa de interes") {
+    return calculateInterestRate(VP, VF, TiempoMod, Interes)
   }
 
-  if (
-    VP !== 0 &&
-    interestRate !== 0 &&
-    Interes !== 0 &&
-    typeTime !== "" &&
-    VF === 0
-  ) {
-    periodOfTime = (UnidadesDeTiempo[typeTime] * Interes) / (VP * interestRate);
-    return "El total del tiempo es: " + periodOfTime.toFixed(2);
+  if (selectedCalculate === "Interes") {
+    return calculateInterest(VP, VF, TiempoMod, interestRate)
   }
 
-  if (
-    VP !== 0 &&
-    Interes !== 0 &&
-    interestRate !== 0 &&
-    typeTime === "" &&
-    VF === 0
-  ) {
-    VF = parseInt(VP) + parseInt(Interes);
-    periodOfTime = (VF / VP - 1) / interestRate;
-    return "El total del tiempo es: " + periodOfTime.toFixed(2);
-  }
 
-  //Calcular capital inicial✅
-  if (Interes !== 0 && TiempoMod !== 0 && interestRate !== 0 && VF === 0) {
-    VP = Interes / (interestRate * TiempoMod);
-    return "El capital inicial es de: " + VP.toFixed(2);
-  }
 
-  if (VF !== 0 && TiempoMod !== 0 && interestRate !== 0 && Interes === 0) {
-    VP = VF / (1 + TiempoMod * interestRate);
-    return "El capital inicial es de: " + VP.toFixed(2);
-  }
-
-  if (Interes !== 0 && VF !== 0 && interestRate === 0 && VP === 0) {
-    VP = VF - Interes;
-    return "El capital inicial es de: " + VP.toFixed(2);
-  }
-
-  //Calcular tasa de interes✅
-  if (VP !== 0 && VF !== 0 && TiempoMod !== 0 && Interes === 0) {
-    Interes = VF - VP;
-    interestRate = (Interes / (VP * TiempoMod)) * 100;
-    return "La tasa de interes es de: " + interestRate + "%";
-  }
-
-  if (Interes !== 0 && TiempoMod !== 0 && VP !== 0 && VF === 0) {
-    VF = parseInt(VP) + parseInt(Interes);
-    interestRate = ((VF / VP - 1) / TiempoMod) * 100;
-    return "La tasa de interes es de: " + interestRate + "%";
-  }
 }

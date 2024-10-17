@@ -27,7 +27,7 @@ export default function Transaction() {
   const newTransancion = [phoneNumber, omuntMovement, description, destination];
 
   const makeTransaction = async () => {
-    const validate = validateInputs(newTransancion)
+    const validate = validateInputs(newTransancion);
 
     if (validate) {
       return Alert.alert("Por favor, rellene todos los campos");
@@ -48,7 +48,13 @@ export default function Transaction() {
     }
 
     try {
-      const transaction = await userTransaction(newTransancion);
+      const transferJson = {
+        phoneNumber,
+        omuntMovement,
+        description,
+        destination,
+      };
+      const transaction = await userTransaction(transferJson);
 
       if (transaction.hasOwnProperty("error")) {
         Alert.alert("Alerta", transaction.error);
@@ -57,7 +63,6 @@ export default function Transaction() {
 
       const currentBalance = parseInt(getBalance());
       const updatedBalance = currentBalance - parseInt(omuntMovement);
-      maxTransfer += parseInt(omuntMovement);
 
       setUser({
         ...getUser(),

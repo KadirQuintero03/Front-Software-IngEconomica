@@ -2,9 +2,10 @@ import { RefreshControl, ScrollView, Text, View } from "react-native";
 import { styles } from "./transactionStyles";
 import { useEffect, useState } from "react";
 import movements from "../../../services/MovementServices";
-import { getPhoneNumber, refresh } from "../../../stores/useUser";
+import { getPhoneNumber, refresh, setUser } from "../../../stores/useUser";
 import { LoadingIcon, TransactionIcon } from "../../icons/Icons";
 import { pixels } from "../../../stores/usePhoneProperties";
+import { getUser } from "../../../services/UserServices";
 
 export default function Transactions() {
   const [refreshing, setRefreshing] = useState(false);
@@ -28,8 +29,17 @@ export default function Transactions() {
     );
   }
 
+  async function gettingUser() {
+    try {
+      await getUser(getPhoneNumber());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function onRefresh() {
     setRefreshing(true);
+    gettingUser();
     getMovements();
     setRefreshing(false);
   }

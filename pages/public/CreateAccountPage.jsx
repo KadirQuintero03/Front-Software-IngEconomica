@@ -20,14 +20,22 @@ export default function LoginPage() {
   const user = [id, name, lastName, email, phoneNumber, password];
 
   const CreateAccount = async () => {
-    const validate = validateInputs(user)
-  
+    const validate = validateInputs(user);
+
     if (validate) {
       return Alert.alert("Por favor, rellene todos los campos");
     }
 
     try {
-      const createdUser = await createUser(user);
+      const jsonUser = {
+        id,
+        name,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+      };
+      const createdUser = await createUser(jsonUser);
 
       if (createdUser.hasOwnProperty("error")) {
         Alert.alert("Alerta", createdUser.error);
