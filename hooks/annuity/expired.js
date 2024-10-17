@@ -4,7 +4,9 @@ export function expired(VP, VF, R, N, I) {
     R =
       parseInt(VF) /
       ((Math.pow(1 + parseFloat(I), parseInt(N)) - 1) / parseFloat(I));
-    return ("El valor de la renta teniendo el mondo final es de: " + R.toFixed(2));
+    return (
+      "El valor de la renta teniendo el mondo final es de: " + R.toFixed(2)
+    );
   }
 
   //Calcular periodos teniendo el monto final.
@@ -49,8 +51,8 @@ export function expired(VP, VF, R, N, I) {
       parseFloat(I);
     return (
       "El valor presente de la anualidad es de: " +
-      VP.toFixed(2),
-      "mientras que el valor futuro es de: " +
+      VP.toFixed(2) +
+      " mientras que el valor futuro es de: " +
       VF.toFixed(2)
     );
   }

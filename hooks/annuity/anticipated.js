@@ -53,7 +53,7 @@ export function anticipated(VP, VF, R, N, I) {
         parseFloat(I)) *
       (1 + parseFloat(I));
     return (
-      "El valor presente es de: " + VP.toFixed(2),
+      "El valor presente es de: " + VP.toFixed(2) +
       "mientras que el valor futuro es de: " + VF.toFixed(2)
     );
   }
