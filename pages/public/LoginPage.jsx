@@ -46,6 +46,11 @@ export default function LoginPage() {
         return;
       }
 
+      if (response.hasOwnProperty("success")) {
+        Alert.alert("Alerta", response.message);
+        return;
+      }
+
       if (pn !== phoneNumberLocal || ps !== passwordLocal) {
         await SecureStore.deleteItemAsync("phoneNumber");
         await SecureStore.deleteItemAsync("password");
