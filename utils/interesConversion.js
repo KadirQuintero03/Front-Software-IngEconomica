@@ -84,6 +84,12 @@ export const tiempoConversion = (
     }
   }
 
+  if(periodOfTime !== 0 && typeInterest === ""){
+    const pDado = values.find((i) => i.value === typeTime);
+
+    return periodOfTime / pDado.key; 
+  }
+
   //Conversion para periodo de tiempo
   if (periodOfTime !== 0) {
     const pDado = values.find((i) => i.value === typeTime);

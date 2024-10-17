@@ -10,7 +10,7 @@ export function calculateVP(Interes, TiempoMod, interestRate, VF) {
     return "El capital inicial es de: " + VP.toFixed(2);
   }
 
-  if (Interes !== 0 && VF !== 0 && interestRate === 0) {
+  if (Interes !== 0 && VF !== 0) {
     VP = VF - Interes;
     return "El capital inicial es de: " + VP.toFixed(2);
   }

@@ -6,7 +6,7 @@ export function calculateTime(VF, VP, interestRate, Interes) {
     return "El total del tiempo es: " + periodOfTime.toFixed(2);
   }
 
-  if (VP !== 0 && Interes !== 0 && interestRate !== 0 && VF === 0) {
+  if (VP !== 0 && Interes !== 0 && interestRate !== 0) {
     VF = parseInt(VP) + parseInt(Interes);
     periodOfTime = (VF / VP - 1) / interestRate;
     return "El total del tiempo es: " + periodOfTime.toFixed(2);

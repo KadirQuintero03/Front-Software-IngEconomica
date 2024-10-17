@@ -41,33 +41,36 @@ export function calculateSimpleInterest(
   );
 
   console.log(
+    "VP",
     VP,
+    "interestRate",
     interestRate,
+    "TypeTime",
     typeTime,
+    "TypeInterest",
     typeInterest,
+    "VF",
     VF,
+    "Interes",
     Interes,
+    "Tiempo Mod",
     TiempoMod,
-    UnidadesDeTiempo,
     selectedCalculate
   );
 
   if (selectedCalculate === "Tiempo") {
-    return calculateTime(VF, VP, interestRate, Interes)
+    return calculateTime(VF, VP, interestRate, Interes);
   }
 
   if (selectedCalculate === "Capital Inicial") {
-    return calculateVP(Interes, TiempoMod, interestRate, VF)
+    return calculateVP(Interes, TiempoMod, interestRate, VF);
   }
 
   if (selectedCalculate === "Tasa de interes") {
-    return calculateInterestRate(VP, VF, TiempoMod, Interes)
+    return calculateInterestRate(VP, VF, TiempoMod, Interes);
   }
 
   if (selectedCalculate === "Interes") {
-    return calculateInterest(VP, VF, TiempoMod, interestRate)
+    return calculateInterest(VP, VF, TiempoMod, interestRate);
   }
-
-
-
 }
