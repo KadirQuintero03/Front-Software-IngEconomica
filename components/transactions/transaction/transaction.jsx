@@ -6,7 +6,13 @@ import { styles } from "./transactionStyles";
 import { Button1 } from "../../calculationsPage/components/Buttons";
 import { userTransaction } from "../../../services/transactionService/transactionServices";
 import { useRouter } from "expo-router";
-import { getBalance, getPhoneNumber, setUser, getUser } from "../../../stores/useUser";
+import {
+  getBalance,
+  getPhoneNumber,
+  setUser,
+  getUser,
+} from "../../../stores/useUser";
+import { validateInputs } from "../../../utils/validateInput";
 
 export default function Transaction() {
   const [destination, setdestination] = useState("");
@@ -18,24 +24,27 @@ export default function Transaction() {
   const balance = getBalance();
   let maxTransfer;
 
+  const newTransancion = [phoneNumber, omuntMovement, description, destination];
+
   const makeTransaction = async () => {
-    const newTransancion = {
-      phoneNumber,
-      omuntMovement,
-      description,
-      destination,
-    };
+    const validate = validateInputs(newTransancion)
 
-    if(omuntMovement > balance){
-      return Alert.alert("Error, saldo insuficiente.")
+    if (validate) {
+      return Alert.alert("Por favor, rellene todos los campos");
     }
 
-    if(destination == phoneNumber){
-      return Alert.alert("Error, no puedes enviarte dinero a ti mismo.")
+    if (omuntMovement > balance) {
+      return Alert.alert("Error, saldo insuficiente.");
     }
 
-    if(parseInt(maxTransfer) > 3000000){
-      return Alert.alert("Error, acaba de superar el tope de transferencia permitido.")
+    if (destination == phoneNumber) {
+      return Alert.alert("Error, no puedes enviarte dinero a ti mismo.");
+    }
+
+    if (parseInt(maxTransfer) > 3000000) {
+      return Alert.alert(
+        "Error, acaba de superar el tope de transferencia permitido."
+      );
     }
 
     try {
@@ -48,7 +57,7 @@ export default function Transaction() {
 
       const currentBalance = parseInt(getBalance());
       const updatedBalance = currentBalance - parseInt(omuntMovement);
-      maxTransfer += parseInt(omuntMovement)
+      maxTransfer += parseInt(omuntMovement);
 
       setUser({
         ...getUser(),
